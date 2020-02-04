@@ -28,6 +28,5 @@ namespace ClassLibrary
         public string Email { get; set; }
         public string Address { get; set; }
         public string Seat { get; set; }
-        public Flight YourFlight { get; set; }
     }
 }

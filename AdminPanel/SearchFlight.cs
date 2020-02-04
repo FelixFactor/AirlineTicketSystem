@@ -87,7 +87,7 @@ namespace AdminPanel
                 MessageBox.Show("Please choose a flight from the list!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
-        //<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>
+        //<<<<<<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
         /// <summary>
         /// copies the result to the SearchedFlights List
         /// </summary>

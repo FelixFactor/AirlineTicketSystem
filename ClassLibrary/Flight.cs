@@ -13,5 +13,6 @@ namespace ClassLibrary
         public string Hour { get { return Date.ToShortTimeString(); } }
         public string AData { get { return Date.ToShortDateString(); } }
         public List<string> TakenSeats { get; set; }
+        public List<Passenger> Passengers { get; set; }
     }
 }
