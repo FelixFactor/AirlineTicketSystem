@@ -8,15 +8,15 @@ namespace AdminPanel
 {
     public partial class FlightPanel : UserControl
     {
-        List<Airport> FlyHiLocations;
-        List<Flight> FlyHiFlights;
-        List<Aircraft> FlyHiFleet;
+        List<Airport> Locations;
+        List<Flight> Flights;
+        List<Aircraft> Fleet;
 
         public FlightPanel(List<Flight> flights, List<Aircraft> fleet, List<Airport> ports)
         {
-            FlyHiFlights = flights;
-            FlyHiLocations = ports;
-            FlyHiFleet = fleet;
+            Flights = flights;
+            Locations = ports;
+            Fleet = fleet;
             
             InitializeComponent();
 
@@ -24,6 +24,7 @@ namespace AdminPanel
             
             RefreshLists();
             RefreshFlights();
+           
         }
         private void btnCreateFlight_Click_1(object sender, EventArgs e)
         {
@@ -47,7 +48,7 @@ namespace AdminPanel
                             double setMinutes = double.Parse(hourMinute[2]);
                             DateTime setdate = calendar.SelectionRange.Start.AddHours(setHours).AddMinutes(setMinutes);
                             //day starts at 00.00, the upper line adds the hours so it can display proper departure time
-                            FlyHiFlights.Add(new Flight { FlightNumber = NextNumber(), Origin = origin, Destination = destination, Date = setdate, Plane = plane});
+                            Flights.Add(new Flight { FlightNumber = NextNumber(), Origin = origin, Destination = destination, Date = setdate, Plane = plane});
                             RefreshFlights();
                             RefreshLists();
                         }
@@ -78,7 +79,7 @@ namespace AdminPanel
                     answer = MessageBox.Show($"Are you sure you want to delete the flight n.{toDelete.FlightNumber} from {toDelete.Origin} to {toDelete.Destination}?", "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                     if (answer == DialogResult.Yes)
                     {
-                        FlyHiFlights.Remove(toDelete);
+                        Flights.Remove(toDelete);
                         RefreshFlights();
                         RefreshLists();
                     }
@@ -95,20 +96,20 @@ namespace AdminPanel
         /// </summary>
         public void RefreshLists()
         {
-            if (FlyHiLocations.Count != 0)
+            if (Locations.Count != 0)
             {
                 //Drop Down Destination
                 cboxDestination.BindingContext = new BindingContext();
                 cboxDestination.DataSource = null;
-                cboxDestination.DataSource = FlyHiLocations;                
+                cboxDestination.DataSource = Locations;
                 //Drop down ORIGIN
                 cboxOrigin.DataSource = null;
-                cboxOrigin.DataSource = FlyHiLocations;
+                cboxOrigin.DataSource = Locations;
             }
-            if (FlyHiFleet.Count != 0)
+            if (Fleet.Count != 0)
             {
                 cbAircrafts.DataSource = null;
-                cbAircrafts.DataSource = FlyHiFleet;
+                cbAircrafts.DataSource = Fleet;
             }
             cboxDestination.Text = "--- Select a Destination ---";
             cboxOrigin.Text = "--- Select an Origin ---";
@@ -118,9 +119,9 @@ namespace AdminPanel
         private void RefreshFlights()
         {
             DGVFlights.DataSource = null;
-            if (FlyHiFlights.Count != 0)
+            if (Flights.Count != 0)
             {
-                DGVFlights.DataSource = FlyHiFlights;
+                DGVFlights.DataSource = Flights;
             }
         }
         /// <summary>
@@ -133,7 +134,7 @@ namespace AdminPanel
             Flight listed = new Flight();
             if (toCheck != null)
             {
-                foreach (Flight item  in FlyHiFlights)
+                foreach (Flight item  in Flights)
                 {
                     if (item == toCheck)
                     {
@@ -154,9 +155,9 @@ namespace AdminPanel
         /// <returns>an int based on the ID from the last entry</returns>
         private int NextNumber()
         {
-            if (FlyHiFlights.Count != 0)
+            if (Flights.Count != 0)
             {
-                var last = FlyHiFlights[FlyHiFlights.Count - 1];
+                var last = Flights[Flights.Count - 1];
                 return last.FlightNumber + 1;
             }
             else

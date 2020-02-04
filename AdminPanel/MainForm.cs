@@ -10,27 +10,31 @@ namespace AdminPanel
     public partial class MainForm : Form
     {
         //lists are instanced because of 1st use <<<let it be>>>
-        List<Airport> FlyHiPorts = new List<Airport>();
-        List<Aircraft> FlyHiFleet = new List<Aircraft>();
-        List<Flight> FlyHiFlights = new List<Flight>();
+        List<Airport> Locations = new List<Airport>();
+        List<Aircraft> Fleet = new List<Aircraft>();
+        List<Flight> Flights = new List<Flight>();
 
         FrontForm Front = new FrontForm();
         public MainForm(FrontForm front)
         {
             Front = front;
             //check if lists are empty so that a loading error is prevented in the 1st launch
+            //adcionar check files
             if (!(Directory.Exists(SaveLoad.PathToData)))
             {
-                SaveLoad.SaveFleet(FlyHiFleet);
-                SaveLoad.SaveFlights(FlyHiFlights);
-                SaveLoad.SaveAirports(FlyHiPorts);
+                if (!File.Exists(SaveLoad.PathToData))
+                {
+                    SaveLoad.SaveFleet(Fleet);
+                    SaveLoad.SaveFlights(Flights);
+                    SaveLoad.SaveAirports(Locations);
+                }
             }
             
             InitializeComponent();
-            FlyHiFlights = SaveLoad.LoadFlights();
-            FlyHiFleet = SaveLoad.LoadFleet();
-            FlyHiPorts = SaveLoad.LoadAirports();
-            FlightPanel flightPanel = new FlightPanel(FlyHiFlights, FlyHiFleet, FlyHiPorts);
+            Flights = SaveLoad.LoadFlights();
+            Fleet = SaveLoad.LoadFleet();
+            Locations = SaveLoad.LoadAirports();
+            FlightPanel flightPanel = new FlightPanel(Flights, Fleet, Locations);
             
             AddControls(flightPanel);
             btnFlight.BackColor = SystemColors.Control;
@@ -46,11 +50,14 @@ namespace AdminPanel
         //<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>
         private void btnExit_Click(object sender, EventArgs e)
         {
+            SaveLoad.SaveAirports(Locations);
+            SaveLoad.SaveFleet(Fleet);
+            SaveLoad.SaveFlights(Flights);
             this.Close();
         }
         private void btnFlight_Click_1(object sender, EventArgs e)
         {
-            FlightPanel flightPanel = new FlightPanel(FlyHiFlights, FlyHiFleet, FlyHiPorts);
+            FlightPanel flightPanel = new FlightPanel(Flights, Fleet, Locations);
             AddControls(flightPanel);
             btnFlight.BackColor = SystemColors.Control;
             btnAirport.BackColor = Color.SteelBlue;
@@ -61,7 +68,7 @@ namespace AdminPanel
         }
         private void btnFleet_Click(object sender, EventArgs e)
         {
-            FleetPanel fleetPanel = new FleetPanel(FlyHiFleet);
+            FleetPanel fleetPanel = new FleetPanel(Fleet);
             AddControls(fleetPanel);
             btnFlight.BackColor = Color.SteelBlue;
             btnAirport.BackColor = Color.SteelBlue;
@@ -72,7 +79,7 @@ namespace AdminPanel
         }
         private void btnAirport_Click(object sender, EventArgs e)
         {
-            AirportPanel portPanel = new AirportPanel(FlyHiPorts);
+            AirportPanel portPanel = new AirportPanel(Locations);
             AddControls(portPanel);
             btnFlight.BackColor = Color.SteelBlue;
             btnFleet.BackColor = Color.SteelBlue;
@@ -83,15 +90,15 @@ namespace AdminPanel
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SaveLoad.SaveAirports(FlyHiPorts);
-            SaveLoad.SaveFleet(FlyHiFleet);
-            SaveLoad.SaveFlights(FlyHiFlights);
+            SaveLoad.SaveAirports(Locations);
+            SaveLoad.SaveFleet(Fleet);
+            SaveLoad.SaveFlights(Flights);
         }
         //<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>
         private void btnExit_MouseHover(object sender, EventArgs e)
         {
             ToolTip exit = new ToolTip();
-            exit.SetToolTip(btnExit,"Returns to Main");
+            exit.SetToolTip(btnExit,"Saves & Returns to Main");
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

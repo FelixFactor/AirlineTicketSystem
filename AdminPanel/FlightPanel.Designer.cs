@@ -42,7 +42,6 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cbAircrafts = new System.Windows.Forms.ComboBox();
             this.DGVFlights = new System.Windows.Forms.DataGridView();
-            this.tbHour = new System.Windows.Forms.MaskedTextBox();
             this.flightNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.originDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.destinationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -50,6 +49,7 @@
             this.hourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.planeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flightBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tbHour = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVFlights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flightBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -71,7 +71,7 @@
             this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(449, 22);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(40, 18);
+            this.label3.Size = new System.Drawing.Size(40, 15);
             this.label3.TabIndex = 24;
             this.label3.Text = "Time:";
             // 
@@ -91,7 +91,7 @@
             this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(17, 22);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(46, 18);
+            this.label1.Size = new System.Drawing.Size(45, 15);
             this.label1.TabIndex = 20;
             this.label1.Text = "Origin:";
             // 
@@ -101,7 +101,7 @@
             this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(17, 97);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(79, 18);
+            this.label2.Size = new System.Drawing.Size(75, 15);
             this.label2.TabIndex = 21;
             this.label2.Text = "Destination:";
             // 
@@ -139,7 +139,7 @@
             this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label4.Location = new System.Drawing.Point(209, 22);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 18);
+            this.label4.Size = new System.Drawing.Size(37, 15);
             this.label4.TabIndex = 28;
             this.label4.Text = "Date:";
             // 
@@ -160,7 +160,7 @@
             this.label5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(451, 85);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(57, 18);
+            this.label5.Size = new System.Drawing.Size(56, 15);
             this.label5.TabIndex = 30;
             this.label5.Text = "Aircraft:";
             // 
@@ -194,22 +194,6 @@
             this.DGVFlights.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVFlights.Size = new System.Drawing.Size(645, 170);
             this.DGVFlights.TabIndex = 32;
-            // 
-            // tbHour
-            // 
-            this.tbHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbHour.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
-            this.tbHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbHour.Location = new System.Drawing.Point(452, 41);
-            this.tbHour.Mask = "00:00";
-            this.tbHour.Name = "tbHour";
-            this.tbHour.PromptChar = ' ';
-            this.tbHour.Size = new System.Drawing.Size(37, 20);
-            this.tbHour.SkipLiterals = false;
-            this.tbHour.TabIndex = 2;
-            this.tbHour.ValidatingType = typeof(System.DateTime);
-            this.tbHour.Click += new System.EventHandler(this.tbHour_Click);
-            this.tbHour.Enter += new System.EventHandler(this.tbHour_Enter);
             // 
             // flightNumberDataGridViewTextBoxColumn
             // 
@@ -256,6 +240,22 @@
             // flightBindingSource
             // 
             this.flightBindingSource.DataSource = typeof(ClassLibrary.Flight);
+            // 
+            // tbHour
+            // 
+            this.tbHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbHour.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.tbHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbHour.Location = new System.Drawing.Point(452, 41);
+            this.tbHour.Mask = "00:00";
+            this.tbHour.Name = "tbHour";
+            this.tbHour.PromptChar = ' ';
+            this.tbHour.Size = new System.Drawing.Size(37, 20);
+            this.tbHour.SkipLiterals = false;
+            this.tbHour.TabIndex = 2;
+            this.tbHour.ValidatingType = typeof(System.DateTime);
+            this.tbHour.Click += new System.EventHandler(this.tbHour_Click);
+            this.tbHour.Enter += new System.EventHandler(this.tbHour_Enter);
             // 
             // FlightPanel
             // 

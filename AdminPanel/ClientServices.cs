@@ -6,7 +6,7 @@ namespace AdminPanel
 {
     public partial class ClientServices : Form
     {
-        List<Flight> FlyHiFlights = new List<Flight>();
+        List<Flight> FlightsToBook = new List<Flight>();
         
         FrontForm Form;
         public ClientServices(FrontForm form)
@@ -14,9 +14,9 @@ namespace AdminPanel
             Form = form;
             InitializeComponent();
             
-            FlyHiFlights = SaveLoad.LoadFlights();
+            FlightsToBook = SaveLoad.LoadFlights();
             btnBooking.Visible = false;
-            SearchFlight searchFlight = new SearchFlight(FlyHiFlights, this);
+            SearchFlight searchFlight = new SearchFlight(FlightsToBook, this);
             AddControls(searchFlight);
             btnSearchFlight.BackColor = SystemColors.Control;
             btnSearchFlight.Enabled = false;
@@ -38,6 +38,7 @@ namespace AdminPanel
         //<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void btnExit_Click(object sender, System.EventArgs e)
         {
+            SaveLoad.SaveFlights(FlightsToBook);
             this.Close();
         }
         private void btnSearchFlight_Click(object sender, System.EventArgs e)
@@ -46,7 +47,7 @@ namespace AdminPanel
             answer = MessageBox.Show("If you leave this tab you will lose this search and all inputed data in this form!\nDo you want to continue?", "Alert - Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (answer == DialogResult.Yes)
             {
-                SearchFlight search = new SearchFlight(FlyHiFlights, this);
+                SearchFlight search = new SearchFlight(FlightsToBook, this);
                 AddControls(search);
                 btnBooking.Visible = false;
                 btnSearchFlight.BackColor = SystemColors.Control;
@@ -56,6 +57,12 @@ namespace AdminPanel
         private void ClientServices_FormClosed(object sender, FormClosedEventArgs e)
         {
             Form.Visible = true;
+        }
+
+        private void btnExit_MouseHover(object sender, System.EventArgs e)
+        {
+            ToolTip exit = new ToolTip();
+            exit.SetToolTip(btnExit, "Saves & Returns to Main");
         }
     }
 }

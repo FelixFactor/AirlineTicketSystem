@@ -156,7 +156,7 @@ namespace AdminPanel
             {
                 FillAvailableList("B");
             }
-            else if (rbExecE.Checked == true)
+            else if (rbExecE.Checked)
             {
                 FillAvailableList("E");
             }

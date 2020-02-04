@@ -37,6 +37,7 @@ namespace ClassLibrary
         }
         public List<string> ExecSeats { get { return GenerateSeatsExecutive(); }  }
         public List<string> EconSeats { get { return GenerateSeatsEconomy(); }  }
+        
 
         private string MakeID()
         {

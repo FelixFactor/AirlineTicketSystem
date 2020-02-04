@@ -59,14 +59,14 @@ namespace ClassLibrary
             stream.Close();
             return loaded;
         }
-        public static List<Aircraft> LoadFleet(string toLoad)
-        {
-            var file = Directory.GetCurrentDirectory();
-            XmlSerializer serial = new XmlSerializer(typeof(List<Aircraft>));
-            StreamReader stream = new StreamReader($@"{ file}\{toLoad}.xml");
-            List<Aircraft> loaded = (List<Aircraft>)(serial.Deserialize(stream));
-            stream.Close();
-            return loaded;
-        }
+        //public static List<Aircraft> LoadFleet(string toLoad)
+        //{
+        //    var file = Directory.GetCurrentDirectory();
+        //    XmlSerializer serial = new XmlSerializer(typeof(List<Aircraft>));
+        //    StreamReader stream = new StreamReader($@"{ file}\{toLoad}.xml");
+        //    List<Aircraft> loaded = (List<Aircraft>)(serial.Deserialize(stream));
+        //    stream.Close();
+        //    return loaded;
+        //}
     }
 }

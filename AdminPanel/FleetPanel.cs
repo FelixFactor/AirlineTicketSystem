@@ -8,11 +8,11 @@ namespace AdminPanel
 {
     public partial class FleetPanel : UserControl
     {
-        List<Aircraft> FlyHicrafts;
+        List<Aircraft> Planes;
         
         public FleetPanel(List<Aircraft> fleet)
         {
-            FlyHicrafts = fleet;
+            Planes = fleet;
             InitializeComponent();
             RefreshList();
             ClearFields();
@@ -28,7 +28,7 @@ namespace AdminPanel
                 {
                     if (!(string.IsNullOrWhiteSpace(tbSeats.Text)))
                     {
-                        FlyHicrafts.Add(new Aircraft { AircraftID = NextNumber(), Manufacturer = manufacturer, Model = model, TotalSeats = Convert.ToInt16(tbSeats.Text) });
+                        Planes.Add(new Aircraft { AircraftID = NextNumber(), Manufacturer = manufacturer, Model = model, TotalSeats = Convert.ToInt16(tbSeats.Text) });
                         RefreshList();
                         ClearFields();
                     }
@@ -74,7 +74,7 @@ namespace AdminPanel
                     answer = MessageBox.Show($"Are you sure you want to delete {toDelete.ToString()}?", "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
                     if (answer == DialogResult.Yes)
                     {
-                        FlyHicrafts.Remove(toDelete);
+                        Planes.Remove(toDelete);
                         RefreshList();
                     }
                 }
@@ -90,7 +90,7 @@ namespace AdminPanel
             Aircraft listed = new Aircraft();
             if (toCheck != null)
             {
-                foreach (Aircraft item in FlyHicrafts)
+                foreach (Aircraft item in Planes)
                 {
                     if (item == toCheck)
                     {
@@ -109,9 +109,9 @@ namespace AdminPanel
         private void RefreshList()
         {
             DGVFleet.DataSource = null;
-            if (FlyHicrafts.Count != 0)
+            if (Planes.Count != 0)
             {
-                DGVFleet.DataSource = FlyHicrafts;
+                DGVFleet.DataSource = Planes;
             }
         }
         private void ClearFields()
@@ -140,9 +140,9 @@ namespace AdminPanel
         }
         private int NextNumber()
         {
-            if (FlyHicrafts.Count != 0)
+            if (Planes.Count != 0)
             {
-                var last = FlyHicrafts[FlyHicrafts.Count - 1];
+                var last = Planes[Planes.Count - 1];
                 return last.AircraftID+1;
             }
             else
@@ -151,7 +151,7 @@ namespace AdminPanel
                 return number;
             }
         }
-        //<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void tbSeats_Enter(object sender, EventArgs e)
         {
             tbSeats.SelectionStart = 0;

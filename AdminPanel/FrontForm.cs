@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Windows.Forms;
-using ClassLibrary;
-using System.Collections.Generic;
 
 namespace AdminPanel
 {

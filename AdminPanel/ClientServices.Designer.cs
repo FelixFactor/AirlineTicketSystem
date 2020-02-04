@@ -59,7 +59,7 @@
             this.panel4.Controls.Add(this.panel3);
             this.panel4.Location = new System.Drawing.Point(-2, -1);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(199, 453);
+            this.panel4.Size = new System.Drawing.Size(200, 453);
             this.panel4.TabIndex = 1;
             // 
             // btnBooking
@@ -142,6 +142,7 @@
             this.btnExit.TabIndex = 0;
             this.btnExit.UseVisualStyleBackColor = true;
             this.btnExit.Click += new System.EventHandler(this.btnExit_Click);
+            this.btnExit.MouseHover += new System.EventHandler(this.btnExit_MouseHover);
             // 
             // panelmain
             // 

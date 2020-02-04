@@ -8,14 +8,14 @@ namespace AdminPanel
 {
     public partial class SearchFlight : UserControl
     {
-        List<Flight> FlyHiFlights;
+        List<Flight> FlightsToBook;
         List<Flight> SearchedFlights = new List<Flight>();
         ClientServices Form;
 
         public SearchFlight(List<Flight> flights, ClientServices frm)
         {
             Form = frm;
-            FlyHiFlights = flights;
+            FlightsToBook = flights;
             InitializeComponent();
             dateBox.MinDate = DateTime.UtcNow;
             checkOrigin.Enabled = false;
@@ -43,13 +43,13 @@ namespace AdminPanel
             ClearSearch();
             if (string.IsNullOrWhiteSpace(tbOrigin.Text))
             {
-                var dateResult = FlyHiFlights.Where(f => f.Date.ToShortDateString() == dateBox.Value.ToShortDateString());
+                var dateResult = FlightsToBook.Where(f => f.Date.ToShortDateString() == dateBox.Value.ToShortDateString());
                 SearchList((List<Flight>)dateResult.ToList());
             }
             else
             {
                 string toSearchFrom = Utils.UpperCase(tbOrigin.Text);
-                var results = FlyHiFlights.Where(f => f.Origin.City == toSearchFrom);
+                var results = FlightsToBook.Where(f => f.Origin.City == toSearchFrom);
                 SearchList((List<Flight>)results.ToList());
                 if (!string.IsNullOrWhiteSpace(tbDestination.Text) && SearchedFlights.Count != 0)
                 {
@@ -117,7 +117,7 @@ namespace AdminPanel
             Flight listed = new Flight();
             if (toCheck != null)
             {
-                foreach (Flight item in FlyHiFlights)
+                foreach (Flight item in FlightsToBook)
                 {
                     if (item == toCheck)
                     {
