@@ -15,24 +15,32 @@ namespace ClassLibrary
         public int TotalSeats { get; set; }
         public int FirstClass
         {
-            get { return Convert.ToInt16(TotalSeats * 0.05); }
+            get { return _firstClass; }
             set
             {
-                if (value >= 0 && value <= TotalSeats)
+                if (value >= 0 && value <= (TotalSeats*0.5))
                 {
                     _firstClass = value;
+                }
+                else
+                {
+                    throw new Exception("Total Capacity exceeded on Executive");
                 }
             } 
         }
         public int SecondClass
         {
-            get { return Convert.ToInt16(TotalSeats * 0.95); }
+            get { return _secondClass; }
             set
             {
-                if (value >= 0 && value <= TotalSeats)
+                if (value >= 0 && value <= TotalSeats - FirstClass)
                 {
                     _secondClass = value;
-                } 
+                }
+                else
+                {
+                    throw new Exception("Total Capacity exceeded on Economy");
+                }
             } 
         }
         public List<string> ExecSeats { get { return GenerateSeatsExecutive(); }  }

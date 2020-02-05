@@ -68,7 +68,7 @@ namespace AdminPanel
         }
         private void btnFleet_Click(object sender, EventArgs e)
         {
-            FleetPanel fleetPanel = new FleetPanel(Fleet);
+            FleetPanel fleetPanel = new FleetPanel(Fleet, Flights);
             AddControls(fleetPanel);
             btnFlight.BackColor = Color.SteelBlue;
             btnAirport.BackColor = Color.SteelBlue;
@@ -79,7 +79,7 @@ namespace AdminPanel
         }
         private void btnAirport_Click(object sender, EventArgs e)
         {
-            AirportPanel portPanel = new AirportPanel(Locations);
+            AirportPanel portPanel = new AirportPanel(Locations, Flights);
             AddControls(portPanel);
             btnFlight.BackColor = Color.SteelBlue;
             btnFleet.BackColor = Color.SteelBlue;

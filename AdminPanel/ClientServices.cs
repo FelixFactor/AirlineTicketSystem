@@ -35,6 +35,14 @@ namespace AdminPanel
             panelmain.Controls.Clear();
             panelmain.Controls.Add(toAdd);
         }
+        public void BackToSearch()
+        {
+            btnSearchFlight.BackColor = SystemColors.Control;
+            btnSearchFlight.Enabled = false;
+            btnBooking.Visible = false;
+            SearchFlight searchFlight = new SearchFlight(FlightsToBook, this);
+            AddControls(searchFlight);
+        }
         //<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void btnExit_Click(object sender, System.EventArgs e)
         {

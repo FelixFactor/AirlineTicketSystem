@@ -7,15 +7,17 @@ namespace AdminPanel
 {
     public partial class AirportPanel : UserControl
     {
-        List<Airport> Locations = new List<Airport>();
+        List<Airport> Airports = new List<Airport>();
+        List<Flight> Flights;
         
-        public AirportPanel(List<Airport> ports)
+        public AirportPanel(List<Airport> ports, List<Flight> flights)
         {
-            Locations = ports;
+            Flights = flights;
+            Airports = ports;
             InitializeComponent();
 
             RefreshList();
-            this.gbEditor.Location = new System.Drawing.Point(215, 33);
+            this.gbEditor.Location = new System.Drawing.Point(209, 98);
         }
 
         private void btnAdd_Click(object sender, EventArgs e)
@@ -26,10 +28,10 @@ namespace AdminPanel
                 {
                     if (CheckShort() != null)
                     {
-                        string country = textBoxCountry.Text;
-                        string city = textBoxCity.Text;
-                        string shortName = tbShortName.Text;
-                        Locations.Add(new Airport { AirportName = string.Empty, Country = country, City = city, ShortName = shortName.ToUpper() });
+                        Airports.Add(new Airport { AirportName = Utils.UpperCase(tbAirportName.Text), 
+                        Country = Utils.UpperCase(textBoxCountry.Text), 
+                        City = Utils.UpperCase(textBoxCity.Text),
+                        ShortName = tbShortName.Text.ToUpper() });
                         RefreshList();
                         ClearFields();
                     }
@@ -39,22 +41,26 @@ namespace AdminPanel
         private void btnEdit_Click(object sender, EventArgs e)
         {
             Airport local = (Airport)listBoxAirports.SelectedItem;
-            Airport toEdit = CheckList(local);
+            Airport toEdit = CheckList(local, Flights);
 
             if (toEdit != null)
             {
-                toEdit = CheckList(local);
                 listBoxAirports.Enabled = false;
                 gbEditor.Visible = true;
                 textBoxCity.Text = toEdit.City;
                 textBoxCountry.Text = toEdit.Country;
                 tbShortName.Text = toEdit.ShortName;
+                tbAirportName.Text = toEdit.AirportName;
+            }
+            else
+            {
+                MessageBox.Show("Airport cannot be edited because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             Airport local = (Airport)listBoxAirports.SelectedItem;
-            Airport toErase = CheckList(local);
+            Airport toErase = CheckList(local, Flights);
 
             if (toErase != null)
             {
@@ -62,24 +68,35 @@ namespace AdminPanel
                 answer = MessageBox.Show($"Are you sure you want to drop the {toErase.City} Airport connection?", "Confirm your action", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (answer == DialogResult.Yes)
                 {
-                    Locations.Remove(toErase);
+                    Airports.Remove(toErase);
                     RefreshList();
                 }
             }
+            else
+            {
+                MessageBox.Show("Airport cannot be deleted because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
-        // <<<<<<<<<<<<<<<<< EDIT BUTTON >>>>>>>>>>>>>>>>>>>>>>
+        // <<<<<<<<<<<<<<<<< EDIT BUTTONS >>>>>>>>>>>>>>>>>>>>>>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Airport local = CheckList((Airport)listBoxAirports.SelectedItem);
+            Airport local = CheckList((Airport)listBoxAirports.SelectedItem, Flights);
+
+            Airports.Remove(local);
+
             if (CheckCity() != null)
             {
                 if (CheckCountry() != null)
                 {
                     if (CheckShort() != null)
                     {
-                        local.City = Utils.UpperCase(textBoxCity.Text);
-                        local.Country = Utils.UpperCase(textBoxCountry.Text);
-                        local.ShortName = Utils.UpperCase(tbShortName.Text);
+                        Airports.Add(new Airport 
+                        {
+                            AirportName = Utils.UpperCase(tbAirportName.Text),
+                            Country = Utils.UpperCase(textBoxCountry.Text),
+                            City = Utils.UpperCase(textBoxCity.Text),
+                            ShortName = tbShortName.Text.ToUpper()
+                        });
                         listBoxAirports.Enabled = true;
                         gbEditor.Visible = false;
                         RefreshList();
@@ -100,16 +117,25 @@ namespace AdminPanel
         /// </summary>
         /// <param name="tester"></param>
         /// <returns>returns the object from the list or null</returns>
-        private Airport CheckList(Airport tester)
+        private Airport CheckList(Airport tester, List<Flight> flights)
         {
             try
             {
                 Airport tested = null;
-                foreach (Airport port in Locations)
+                
+                foreach (Airport port in Airports)
                 {
-                    if (tester.City == port.City)
+                    if (tester == port)
                     {
                         tested = port;
+                        break;
+                    }
+                }
+                foreach (Flight item in flights)
+                {
+                    if (item.Origin.City == tested.City || item.Destination.City == tested.City)
+                    {
+                        tested = null;
                         break;
                     }
                 }
@@ -117,7 +143,7 @@ namespace AdminPanel
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Something went wrong. /n Try again please.", "Critical ERROR", MessageBoxButtons.RetryCancel, MessageBoxIcon.Error);
+                MessageBox.Show("Reference lost. \nPlease try again.", "Critical ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return null;
             }
         }
@@ -126,11 +152,13 @@ namespace AdminPanel
             textBoxCountry.Text = string.Empty;
             textBoxCity.Text = string.Empty;
             tbShortName.Text = string.Empty;
+            tbAirportName.Text = string.Empty;
         }
         private void RefreshList()
         {
             listBoxAirports.DataSource = null;
-            listBoxAirports.DataSource = Locations;
+            listBoxAirports.DataSource = Airports;
+            
         }
         private string CheckCity()
         {
@@ -138,7 +166,7 @@ namespace AdminPanel
             {
                 string city = Utils.UpperCase(textBoxCity.Text);
                 string toSearch = Utils.UpperCase(textBoxCity.Text);
-                foreach (Airport airport in Locations)
+                foreach (Airport airport in Airports)
                 {
                     string search = airport.City;
 

@@ -42,6 +42,8 @@
             this.btnCancel = new System.Windows.Forms.Button();
             this.tbShortName = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tbAirportName = new System.Windows.Forms.TextBox();
             this.gbPanel.SuspendLayout();
             this.gbEditor.SuspendLayout();
             this.SuspendLayout();
@@ -50,7 +52,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(26, 33);
+            this.label1.Location = new System.Drawing.Point(20, 98);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(34, 18);
             this.label1.TabIndex = 3;
@@ -60,7 +62,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(26, 92);
+            this.label2.Location = new System.Drawing.Point(20, 157);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(57, 18);
             this.label2.TabIndex = 4;
@@ -69,7 +71,7 @@
             // textBoxCountry
             // 
             this.textBoxCountry.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCountry.Location = new System.Drawing.Point(26, 111);
+            this.textBoxCountry.Location = new System.Drawing.Point(20, 176);
             this.textBoxCountry.Name = "textBoxCountry";
             this.textBoxCountry.Size = new System.Drawing.Size(157, 21);
             this.textBoxCountry.TabIndex = 1;
@@ -77,7 +79,7 @@
             // textBoxCity
             // 
             this.textBoxCity.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBoxCity.Location = new System.Drawing.Point(26, 52);
+            this.textBoxCity.Location = new System.Drawing.Point(20, 117);
             this.textBoxCity.Name = "textBoxCity";
             this.textBoxCity.Size = new System.Drawing.Size(157, 21);
             this.textBoxCity.TabIndex = 0;
@@ -121,7 +123,7 @@
             // listBoxAirports
             // 
             this.listBoxAirports.FormattingEnabled = true;
-            this.listBoxAirports.Location = new System.Drawing.Point(326, 52);
+            this.listBoxAirports.Location = new System.Drawing.Point(320, 117);
             this.listBoxAirports.Name = "listBoxAirports";
             this.listBoxAirports.Size = new System.Drawing.Size(310, 199);
             this.listBoxAirports.TabIndex = 10;
@@ -132,7 +134,7 @@
             this.gbPanel.Controls.Add(this.btnEdit);
             this.gbPanel.Controls.Add(this.btnDelete);
             this.gbPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gbPanel.Location = new System.Drawing.Point(215, 33);
+            this.gbPanel.Location = new System.Drawing.Point(209, 98);
             this.gbPanel.Name = "gbPanel";
             this.gbPanel.Size = new System.Drawing.Size(86, 230);
             this.gbPanel.TabIndex = 11;
@@ -143,7 +145,7 @@
             this.gbEditor.Controls.Add(this.btnSave);
             this.gbEditor.Controls.Add(this.btnCancel);
             this.gbEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gbEditor.Location = new System.Drawing.Point(529, 21);
+            this.gbEditor.Location = new System.Drawing.Point(523, 86);
             this.gbEditor.Name = "gbEditor";
             this.gbEditor.Size = new System.Drawing.Size(86, 230);
             this.gbEditor.TabIndex = 12;
@@ -177,7 +179,7 @@
             // tbShortName
             // 
             this.tbShortName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbShortName.Location = new System.Drawing.Point(26, 167);
+            this.tbShortName.Location = new System.Drawing.Point(20, 232);
             this.tbShortName.Name = "tbShortName";
             this.tbShortName.Size = new System.Drawing.Size(157, 21);
             this.tbShortName.TabIndex = 2;
@@ -186,16 +188,36 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(26, 146);
+            this.label3.Location = new System.Drawing.Point(20, 211);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(81, 18);
             this.label3.TabIndex = 14;
             this.label3.Text = "Short Name:";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(20, 266);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(89, 18);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "Airport Name:";
+            // 
+            // tbAirportName
+            // 
+            this.tbAirportName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbAirportName.Location = new System.Drawing.Point(20, 284);
+            this.tbAirportName.Name = "tbAirportName";
+            this.tbAirportName.Size = new System.Drawing.Size(157, 21);
+            this.tbAirportName.TabIndex = 4;
+            // 
             // AirportPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tbAirportName);
+            this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.tbShortName);
             this.Controls.Add(this.gbEditor);
@@ -230,5 +252,7 @@
         private System.Windows.Forms.Button btnCancel;
         private System.Windows.Forms.TextBox tbShortName;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tbAirportName;
     }
 }

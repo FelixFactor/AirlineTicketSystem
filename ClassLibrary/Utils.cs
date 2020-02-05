@@ -28,7 +28,15 @@ namespace ClassLibrary
         static private string TurnUpperCase(string local)
         {
             char[] splat = local.ToCharArray();
-            splat[0] = char.ToUpper(splat[0]);
+            try
+            {
+                splat[0] = char.ToUpper(splat[0]);
+            }
+            catch (Exception)
+            {
+                string unknown = "Unknown";
+                TurnUpperCase(unknown);
+            }
             return new string(splat);
         }
     }

@@ -81,12 +81,12 @@
             this.rbMan = new System.Windows.Forms.RadioButton();
             this.rbWoman = new System.Windows.Forms.RadioButton();
             this.label36 = new System.Windows.Forms.Label();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.label37 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbPhone = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label2 = new System.Windows.Forms.Label();
+            this.tbBirthDate = new System.Windows.Forms.MaskedTextBox();
             this.gbEcon.SuspendLayout();
             this.gbExec.SuspendLayout();
             this.groupBox1.SuspendLayout();
@@ -707,13 +707,6 @@
             this.label36.TabIndex = 38;
             this.label36.Text = "BirthDate:";
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(111, 127);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
-            this.dateTimePicker1.TabIndex = 39;
-            // 
             // label37
             // 
             this.label37.AutoSize = true;
@@ -767,16 +760,27 @@
             this.label2.TabIndex = 44;
             this.label2.Text = "Seat Number";
             // 
+            // tbBirthDate
+            // 
+            this.tbBirthDate.Location = new System.Drawing.Point(111, 127);
+            this.tbBirthDate.Mask = "00/00/0000";
+            this.tbBirthDate.Name = "tbBirthDate";
+            this.tbBirthDate.Size = new System.Drawing.Size(200, 20);
+            this.tbBirthDate.TabIndex = 45;
+            this.tbBirthDate.Tag = "DD-MM-YYYY";
+            this.tbBirthDate.ValidatingType = typeof(System.DateTime);
+            this.tbBirthDate.TypeValidationCompleted += new System.Windows.Forms.TypeValidationEventHandler(this.tbBirthDate_TypeValidationCompleted);
+            // 
             // BookFlight
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.tbBirthDate);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tbPhone);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label37);
-            this.Controls.Add(this.dateTimePicker1);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.rbWoman);
             this.Controls.Add(this.rbMan);
@@ -869,11 +873,11 @@
         private System.Windows.Forms.RadioButton rbMan;
         private System.Windows.Forms.RadioButton rbWoman;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbPhone;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.MaskedTextBox tbBirthDate;
     }
 }

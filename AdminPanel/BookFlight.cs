@@ -11,15 +11,20 @@ namespace AdminPanel
         Flight toBook = new Flight();
         List<string> EconAvailable = new List<string>();
         List<string> ExecAvailable = new List<string>();
+        ClientServices Form;
         
-        public BookFlight(Flight selection)
+        public BookFlight(Flight selection, ClientServices form)
         {
+            Form = form;
             toBook = selection;
             EconAvailable = toBook.Plane.EconSeats;
             ExecAvailable = toBook.Plane.ExecSeats;
             InitializeComponent();
             btnCheckIn.Enabled = false;
             gbExec.Location = new System.Drawing.Point(363, 140);
+            tbBirthDate.Mask = "0000/00/00";
+            tbBirthDate.ValidatingType = typeof(DateTime);
+            tbBirthDate.TypeValidationCompleted += new TypeValidationEventHandler(tbBirthDate_TypeValidationCompleted);
             if (toBook.Plane.FirstClass == 0)
             {
                 rbExec.Enabled = false;
@@ -108,7 +113,7 @@ namespace AdminPanel
             toBook.Passengers.Add(newPassenger);
             toBook.TakenSeats.Add(newPassenger.Seat);
 
-
+            Form.BackToSearch();
         }
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void rbExec_CheckedChanged(object sender, EventArgs e)
@@ -183,6 +188,27 @@ namespace AdminPanel
             else
             {
                 btnCheckIn.Enabled = false;
+            }
+        }
+
+        private void tbBirthDate_TypeValidationCompleted(object sender, TypeValidationEventArgs e)
+        {
+            ToolTip toolTip1 = new ToolTip();
+            if (!e.IsValidInput)
+            {
+                toolTip1.ToolTipTitle = "Invalid Date";
+                toolTip1.Show("The data you supplied must be a valid date in the format yyyy/mm/dd.", tbBirthDate, 150, 0, 5000);
+            }
+            else
+            {
+                //Now that the type has passed basic type validation, enforce more specific type rules.
+                DateTime userDate = (DateTime)e.ReturnValue;
+                if (userDate > DateTime.Now)
+                {
+                    toolTip1.ToolTipTitle = "Invalid Date";
+                    toolTip1.Show("The date in this field must be older than today's date.", tbBirthDate, 150, 0, 5000);
+                    e.Cancel = true;
+                }
             }
         }
     }

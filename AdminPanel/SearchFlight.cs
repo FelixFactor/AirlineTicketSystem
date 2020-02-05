@@ -77,7 +77,7 @@ namespace AdminPanel
                 Flight toBook = CheckList(DGVSearch.CurrentRow.DataBoundItem as Flight);
                 if (toBook != null)
                 {
-                    BookFlight booking = new BookFlight(toBook);
+                    BookFlight booking = new BookFlight(toBook, Form);
                     Form.AddControls(booking);
                     Form.GoToBooking();
                 }
