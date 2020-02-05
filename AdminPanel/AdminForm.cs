@@ -7,7 +7,7 @@ using System.IO;
 
 namespace AdminPanel
 {
-    public partial class MainForm : Form
+    public partial class AdminForm : Form
     {
         //lists are instanced because of 1st use <<<let it be>>>
         List<Airport> Locations = new List<Airport>();
@@ -15,7 +15,7 @@ namespace AdminPanel
         List<Flight> Flights = new List<Flight>();
 
         FrontForm Front = new FrontForm();
-        public MainForm(FrontForm front)
+        public AdminForm(FrontForm front)
         {
             Front = front;
             //check if lists are empty so that a loading error is prevented in the 1st launch

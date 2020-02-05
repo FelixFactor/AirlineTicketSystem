@@ -141,7 +141,7 @@
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.DGVSearch.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.DGVSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.DGVSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DGVSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.flightNumberDataGridViewTextBoxColumn,
             this.originDataGridViewTextBoxColumn,
@@ -265,7 +265,7 @@
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.DataGridView DGVSearch;
-        private System.Windows.Forms.DataGridViewTextBoxColumn aircraftDataGridViewTextBoxColumn;
+  //      private System.Windows.Forms.DataGridViewTextBoxColumn aircraftDataGridViewTextBoxColumn;
         private System.Windows.Forms.CheckBox checkOrigin;
         private System.Windows.Forms.BindingSource flightBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn flightNumberDataGridViewTextBoxColumn;

@@ -26,7 +26,7 @@ namespace AdminPanel
             {
                 if (cboxModel.SelectedIndex != -1)
                 {
-                    if (!(string.IsNullOrWhiteSpace(tbSeats.Text)))
+                    if (!string.IsNullOrWhiteSpace(tbSeats.Text))
                     {
                         Planes.Add(new Aircraft { AircraftID = NextNumber(), Manufacturer = manufacturer, Model = model, TotalSeats = Convert.ToInt16(tbSeats.Text) });
                         RefreshList();

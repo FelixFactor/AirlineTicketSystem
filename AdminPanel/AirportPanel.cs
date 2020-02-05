@@ -144,6 +144,7 @@ namespace AdminPanel
 
                     if (search == toSearch)
                     {
+                        MessageBox.Show($"You already have an Airport connection to {toSearch}!", "Cannot add Airport!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         city = null;
                         break;
                     }
@@ -154,7 +155,6 @@ namespace AdminPanel
                 }
                 else
                 {
-                    MessageBox.Show($"You already have an Airport connection to {toSearch}!", "Cannot add Airport!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return null;
                 }
             }

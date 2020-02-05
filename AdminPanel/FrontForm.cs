@@ -19,7 +19,7 @@ namespace AdminPanel
 
         private void btnAdmin_Click(object sender, EventArgs e)
         {
-            MainForm Menu = new MainForm(this);
+            AdminForm Menu = new AdminForm(this);
             Menu.Show();
             this.Visible = false;
         }

@@ -28,34 +28,22 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
-            this.tbFlightNumber = new System.Windows.Forms.TextBox();
-            this.tbFrom = new System.Windows.Forms.TextBox();
-            this.tbDestination = new System.Windows.Forms.TextBox();
-            this.tbDate = new System.Windows.Forms.TextBox();
-            this.tbHour = new System.Windows.Forms.TextBox();
             this.tbName = new System.Windows.Forms.TextBox();
             this.tbLastName = new System.Windows.Forms.TextBox();
             this.tbIdentification = new System.Windows.Forms.TextBox();
             this.tbTaxNumber = new System.Windows.Forms.TextBox();
             this.tbEmail = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
             this.tbAddress = new System.Windows.Forms.TextBox();
             this.btnCheckIn = new System.Windows.Forms.Button();
             this.rbExec = new System.Windows.Forms.RadioButton();
             this.rbEcon = new System.Windows.Forms.RadioButton();
-            this.label14 = new System.Windows.Forms.Label();
             this.cbSeats = new System.Windows.Forms.ComboBox();
             this.gbEcon = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
@@ -90,70 +78,25 @@
             this.label33 = new System.Windows.Forms.Label();
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
+            this.rbMan = new System.Windows.Forms.RadioButton();
+            this.rbWoman = new System.Windows.Forms.RadioButton();
+            this.label36 = new System.Windows.Forms.Label();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
+            this.label37 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tbPhone = new System.Windows.Forms.TextBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.gbEcon.SuspendLayout();
             this.gbExec.SuspendLayout();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(11, 31);
-            this.label1.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(93, 18);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Flight Number:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(61, 59);
-            this.label2.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(43, 18);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "From:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(79, 87);
-            this.label3.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(25, 18);
-            this.label3.TabIndex = 2;
-            this.label3.Text = "To:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(61, 115);
-            this.label4.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 18);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "Date:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(64, 141);
-            this.label5.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(40, 18);
-            this.label5.TabIndex = 4;
-            this.label5.Text = "Time:";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
             this.label6.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label6.Location = new System.Drawing.Point(24, 208);
+            this.label6.Location = new System.Drawing.Point(24, 77);
             this.label6.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(77, 18);
@@ -164,7 +107,7 @@
             // 
             this.label7.AutoSize = true;
             this.label7.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.Location = new System.Drawing.Point(28, 232);
+            this.label7.Location = new System.Drawing.Point(28, 101);
             this.label7.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(75, 18);
@@ -175,7 +118,7 @@
             // 
             this.label8.AutoSize = true;
             this.label8.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label8.Location = new System.Drawing.Point(3, 260);
+            this.label8.Location = new System.Drawing.Point(3, 153);
             this.label8.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(100, 18);
@@ -186,7 +129,7 @@
             // 
             this.label9.AutoSize = true;
             this.label9.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label9.Location = new System.Drawing.Point(64, 288);
+            this.label9.Location = new System.Drawing.Point(64, 181);
             this.label9.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(39, 18);
@@ -197,119 +140,68 @@
             // 
             this.label10.AutoSize = true;
             this.label10.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label10.Location = new System.Drawing.Point(60, 316);
+            this.label10.Location = new System.Drawing.Point(60, 209);
             this.label10.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(43, 18);
             this.label10.TabIndex = 9;
             this.label10.Text = "Email:";
             // 
-            // tbFlightNumber
-            // 
-            this.tbFlightNumber.Enabled = false;
-            this.tbFlightNumber.Location = new System.Drawing.Point(111, 31);
-            this.tbFlightNumber.Name = "tbFlightNumber";
-            this.tbFlightNumber.Size = new System.Drawing.Size(148, 20);
-            this.tbFlightNumber.TabIndex = 10;
-            // 
-            // tbFrom
-            // 
-            this.tbFrom.Enabled = false;
-            this.tbFrom.Location = new System.Drawing.Point(111, 59);
-            this.tbFrom.Name = "tbFrom";
-            this.tbFrom.Size = new System.Drawing.Size(148, 20);
-            this.tbFrom.TabIndex = 11;
-            // 
-            // tbDestination
-            // 
-            this.tbDestination.Enabled = false;
-            this.tbDestination.Location = new System.Drawing.Point(111, 87);
-            this.tbDestination.Name = "tbDestination";
-            this.tbDestination.Size = new System.Drawing.Size(148, 20);
-            this.tbDestination.TabIndex = 12;
-            // 
-            // tbDate
-            // 
-            this.tbDate.Enabled = false;
-            this.tbDate.Location = new System.Drawing.Point(111, 115);
-            this.tbDate.Name = "tbDate";
-            this.tbDate.Size = new System.Drawing.Size(148, 20);
-            this.tbDate.TabIndex = 13;
-            // 
-            // tbHour
-            // 
-            this.tbHour.Enabled = false;
-            this.tbHour.Location = new System.Drawing.Point(111, 141);
-            this.tbHour.Name = "tbHour";
-            this.tbHour.Size = new System.Drawing.Size(148, 20);
-            this.tbHour.TabIndex = 14;
-            // 
             // tbName
             // 
-            this.tbName.Location = new System.Drawing.Point(111, 206);
+            this.tbName.Location = new System.Drawing.Point(111, 75);
             this.tbName.Name = "tbName";
-            this.tbName.Size = new System.Drawing.Size(181, 20);
+            this.tbName.Size = new System.Drawing.Size(200, 20);
             this.tbName.TabIndex = 15;
             this.tbName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // tbLastName
             // 
-            this.tbLastName.Location = new System.Drawing.Point(111, 232);
+            this.tbLastName.Location = new System.Drawing.Point(111, 101);
             this.tbLastName.Name = "tbLastName";
-            this.tbLastName.Size = new System.Drawing.Size(181, 20);
+            this.tbLastName.Size = new System.Drawing.Size(200, 20);
             this.tbLastName.TabIndex = 16;
             this.tbLastName.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // tbIdentification
             // 
-            this.tbIdentification.Location = new System.Drawing.Point(111, 260);
+            this.tbIdentification.Location = new System.Drawing.Point(111, 153);
             this.tbIdentification.Name = "tbIdentification";
-            this.tbIdentification.Size = new System.Drawing.Size(181, 20);
+            this.tbIdentification.Size = new System.Drawing.Size(200, 20);
             this.tbIdentification.TabIndex = 17;
             this.tbIdentification.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // tbTaxNumber
             // 
-            this.tbTaxNumber.Location = new System.Drawing.Point(111, 288);
+            this.tbTaxNumber.Location = new System.Drawing.Point(111, 181);
             this.tbTaxNumber.Name = "tbTaxNumber";
-            this.tbTaxNumber.Size = new System.Drawing.Size(181, 20);
+            this.tbTaxNumber.Size = new System.Drawing.Size(200, 20);
             this.tbTaxNumber.TabIndex = 18;
             // 
             // tbEmail
             // 
-            this.tbEmail.Location = new System.Drawing.Point(111, 314);
+            this.tbEmail.Location = new System.Drawing.Point(111, 207);
             this.tbEmail.Name = "tbEmail";
-            this.tbEmail.Size = new System.Drawing.Size(181, 20);
+            this.tbEmail.Size = new System.Drawing.Size(200, 20);
             this.tbEmail.TabIndex = 19;
             this.tbEmail.TextChanged += new System.EventHandler(this.tbName_TextChanged);
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label11.Location = new System.Drawing.Point(108, 169);
+            this.label11.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label11.Location = new System.Drawing.Point(22, 10);
             this.label11.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(114, 18);
+            this.label11.Size = new System.Drawing.Size(167, 25);
             this.label11.TabIndex = 20;
             this.label11.Text = "Passenger Details";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label12.Location = new System.Drawing.Point(108, 10);
-            this.label12.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(85, 18);
-            this.label12.TabIndex = 21;
-            this.label12.Text = "Flight Details";
             // 
             // label13
             // 
             this.label13.AutoSize = true;
             this.label13.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label13.Location = new System.Drawing.Point(41, 344);
+            this.label13.Location = new System.Drawing.Point(41, 237);
             this.label13.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(60, 18);
@@ -318,9 +210,10 @@
             // 
             // tbAddress
             // 
-            this.tbAddress.Location = new System.Drawing.Point(111, 342);
+            this.tbAddress.Location = new System.Drawing.Point(111, 235);
+            this.tbAddress.Multiline = true;
             this.tbAddress.Name = "tbAddress";
-            this.tbAddress.Size = new System.Drawing.Size(181, 20);
+            this.tbAddress.Size = new System.Drawing.Size(200, 20);
             this.tbAddress.TabIndex = 23;
             // 
             // btnCheckIn
@@ -339,7 +232,7 @@
             // 
             this.rbExec.AutoSize = true;
             this.rbExec.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbExec.Location = new System.Drawing.Point(308, 208);
+            this.rbExec.Location = new System.Drawing.Point(6, 32);
             this.rbExec.Name = "rbExec";
             this.rbExec.Size = new System.Drawing.Size(118, 22);
             this.rbExec.TabIndex = 25;
@@ -352,7 +245,7 @@
             // 
             this.rbEcon.AutoSize = true;
             this.rbEcon.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbEcon.Location = new System.Drawing.Point(308, 233);
+            this.rbEcon.Location = new System.Drawing.Point(6, 57);
             this.rbEcon.Name = "rbEcon";
             this.rbEcon.Size = new System.Drawing.Size(114, 22);
             this.rbEcon.TabIndex = 26;
@@ -361,21 +254,10 @@
             this.rbEcon.UseVisualStyleBackColor = true;
             this.rbEcon.CheckedChanged += new System.EventHandler(this.rbExec_CheckedChanged);
             // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label14.Location = new System.Drawing.Point(305, 177);
-            this.label14.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(82, 18);
-            this.label14.TabIndex = 27;
-            this.label14.Text = "Seat Planner";
-            // 
             // cbSeats
             // 
             this.cbSeats.FormattingEnabled = true;
-            this.cbSeats.Location = new System.Drawing.Point(308, 259);
+            this.cbSeats.Location = new System.Drawing.Point(363, 265);
             this.cbSeats.Name = "cbSeats";
             this.cbSeats.Size = new System.Drawing.Size(121, 21);
             this.cbSeats.TabIndex = 28;
@@ -399,7 +281,7 @@
             this.gbEcon.Controls.Add(this.rbEconB);
             this.gbEcon.Controls.Add(this.rbEconA);
             this.gbEcon.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbEcon.Location = new System.Drawing.Point(465, 191);
+            this.gbEcon.Location = new System.Drawing.Point(363, 140);
             this.gbEcon.Name = "gbEcon";
             this.gbEcon.Size = new System.Drawing.Size(180, 90);
             this.gbEcon.TabIndex = 29;
@@ -487,7 +369,7 @@
             // 
             this.label15.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label15.Font = new System.Drawing.Font("Roboto", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label15.Location = new System.Drawing.Point(88, 12);
+            this.label15.Location = new System.Drawing.Point(88, 15);
             this.label15.Name = "label15";
             this.label15.Size = new System.Drawing.Size(10, 71);
             this.label15.TabIndex = 6;
@@ -601,7 +483,7 @@
             this.gbExec.Controls.Add(this.rbExecB);
             this.gbExec.Controls.Add(this.rbExecA);
             this.gbExec.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.gbExec.Location = new System.Drawing.Point(465, 95);
+            this.gbExec.Location = new System.Drawing.Point(353, 326);
             this.gbExec.Name = "gbExec";
             this.gbExec.Size = new System.Drawing.Size(180, 90);
             this.gbExec.TabIndex = 30;
@@ -671,7 +553,7 @@
             // 
             this.label32.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.label32.Font = new System.Drawing.Font("Roboto", 6F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label32.Location = new System.Drawing.Point(88, 12);
+            this.label32.Location = new System.Drawing.Point(88, 15);
             this.label32.Name = "label32";
             this.label32.Size = new System.Drawing.Size(10, 71);
             this.label32.TabIndex = 6;
@@ -742,7 +624,7 @@
             // 
             this.label24.AutoSize = true;
             this.label24.ForeColor = System.Drawing.Color.Red;
-            this.label24.Location = new System.Drawing.Point(96, 209);
+            this.label24.Location = new System.Drawing.Point(96, 78);
             this.label24.Margin = new System.Windows.Forms.Padding(0);
             this.label24.Name = "label24";
             this.label24.Size = new System.Drawing.Size(11, 13);
@@ -753,7 +635,7 @@
             // 
             this.label27.AutoSize = true;
             this.label27.ForeColor = System.Drawing.Color.Red;
-            this.label27.Location = new System.Drawing.Point(97, 235);
+            this.label27.Location = new System.Drawing.Point(97, 104);
             this.label27.Margin = new System.Windows.Forms.Padding(0);
             this.label27.Name = "label27";
             this.label27.Size = new System.Drawing.Size(11, 13);
@@ -764,7 +646,7 @@
             // 
             this.label33.AutoSize = true;
             this.label33.ForeColor = System.Drawing.Color.Red;
-            this.label33.Location = new System.Drawing.Point(97, 263);
+            this.label33.Location = new System.Drawing.Point(97, 156);
             this.label33.Margin = new System.Windows.Forms.Padding(0);
             this.label33.Name = "label33";
             this.label33.Size = new System.Drawing.Size(11, 13);
@@ -775,7 +657,7 @@
             // 
             this.label34.AutoSize = true;
             this.label34.ForeColor = System.Drawing.Color.Red;
-            this.label34.Location = new System.Drawing.Point(97, 317);
+            this.label34.Location = new System.Drawing.Point(97, 210);
             this.label34.Margin = new System.Windows.Forms.Padding(0);
             this.label34.Name = "label34";
             this.label34.Size = new System.Drawing.Size(11, 13);
@@ -785,94 +667,171 @@
             // label35
             // 
             this.label35.ForeColor = System.Drawing.Color.Red;
-            this.label35.Location = new System.Drawing.Point(97, 190);
+            this.label35.Location = new System.Drawing.Point(97, 294);
             this.label35.Margin = new System.Windows.Forms.Padding(0);
             this.label35.Name = "label35";
             this.label35.Size = new System.Drawing.Size(85, 13);
             this.label35.TabIndex = 35;
             this.label35.Text = "* Must be filled";
             // 
+            // rbMan
+            // 
+            this.rbMan.AutoSize = true;
+            this.rbMan.Location = new System.Drawing.Point(111, 52);
+            this.rbMan.Name = "rbMan";
+            this.rbMan.Size = new System.Drawing.Size(40, 17);
+            this.rbMan.TabIndex = 36;
+            this.rbMan.TabStop = true;
+            this.rbMan.Text = "Mr.";
+            this.rbMan.UseVisualStyleBackColor = true;
+            // 
+            // rbWoman
+            // 
+            this.rbWoman.AutoSize = true;
+            this.rbWoman.Location = new System.Drawing.Point(157, 52);
+            this.rbWoman.Name = "rbWoman";
+            this.rbWoman.Size = new System.Drawing.Size(71, 17);
+            this.rbWoman.TabIndex = 37;
+            this.rbWoman.TabStop = true;
+            this.rbWoman.Text = "Mrs./Miss";
+            this.rbWoman.UseVisualStyleBackColor = true;
+            // 
+            // label36
+            // 
+            this.label36.AutoSize = true;
+            this.label36.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label36.Location = new System.Drawing.Point(33, 129);
+            this.label36.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
+            this.label36.Name = "label36";
+            this.label36.Size = new System.Drawing.Size(68, 18);
+            this.label36.TabIndex = 38;
+            this.label36.Text = "BirthDate:";
+            // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(111, 127);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(200, 20);
+            this.dateTimePicker1.TabIndex = 39;
+            // 
+            // label37
+            // 
+            this.label37.AutoSize = true;
+            this.label37.ForeColor = System.Drawing.Color.Red;
+            this.label37.Location = new System.Drawing.Point(97, 130);
+            this.label37.Margin = new System.Windows.Forms.Padding(0);
+            this.label37.Name = "label37";
+            this.label37.Size = new System.Drawing.Size(11, 13);
+            this.label37.TabIndex = 40;
+            this.label37.Text = "*";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(5, 265);
+            this.label1.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(96, 18);
+            this.label1.TabIndex = 41;
+            this.label1.Text = "Phone Number:";
+            // 
+            // tbPhone
+            // 
+            this.tbPhone.Location = new System.Drawing.Point(111, 265);
+            this.tbPhone.Multiline = true;
+            this.tbPhone.Name = "tbPhone";
+            this.tbPhone.Size = new System.Drawing.Size(200, 20);
+            this.tbPhone.TabIndex = 42;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.rbExec);
+            this.groupBox1.Controls.Add(this.rbEcon);
+            this.groupBox1.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBox1.Location = new System.Drawing.Point(363, 52);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(135, 82);
+            this.groupBox1.TabIndex = 43;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Seat Planner";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Location = new System.Drawing.Point(360, 237);
+            this.label2.Margin = new System.Windows.Forms.Padding(10, 10, 3, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(84, 18);
+            this.label2.TabIndex = 44;
+            this.label2.Text = "Seat Number";
+            // 
             // BookFlight
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.groupBox1);
+            this.Controls.Add(this.tbPhone);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.label37);
+            this.Controls.Add(this.dateTimePicker1);
+            this.Controls.Add(this.label36);
+            this.Controls.Add(this.rbWoman);
+            this.Controls.Add(this.rbMan);
             this.Controls.Add(this.label35);
             this.Controls.Add(this.label34);
             this.Controls.Add(this.label33);
+            this.Controls.Add(this.cbSeats);
             this.Controls.Add(this.label27);
             this.Controls.Add(this.label24);
             this.Controls.Add(this.gbExec);
             this.Controls.Add(this.gbEcon);
-            this.Controls.Add(this.cbSeats);
-            this.Controls.Add(this.label14);
-            this.Controls.Add(this.rbEcon);
-            this.Controls.Add(this.rbExec);
             this.Controls.Add(this.btnCheckIn);
             this.Controls.Add(this.tbAddress);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.tbEmail);
             this.Controls.Add(this.tbTaxNumber);
             this.Controls.Add(this.tbIdentification);
             this.Controls.Add(this.tbLastName);
             this.Controls.Add(this.tbName);
-            this.Controls.Add(this.tbHour);
-            this.Controls.Add(this.tbDate);
-            this.Controls.Add(this.tbDestination);
-            this.Controls.Add(this.tbFrom);
-            this.Controls.Add(this.tbFlightNumber);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.label5);
-            this.Controls.Add(this.label4);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
             this.Name = "BookFlight";
             this.Size = new System.Drawing.Size(655, 375);
             this.gbEcon.ResumeLayout(false);
             this.gbEcon.PerformLayout();
             this.gbExec.ResumeLayout(false);
             this.gbExec.PerformLayout();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox tbFlightNumber;
-        private System.Windows.Forms.TextBox tbFrom;
-        private System.Windows.Forms.TextBox tbDestination;
-        private System.Windows.Forms.TextBox tbDate;
-        private System.Windows.Forms.TextBox tbHour;
         private System.Windows.Forms.TextBox tbName;
         private System.Windows.Forms.TextBox tbLastName;
         private System.Windows.Forms.TextBox tbIdentification;
         private System.Windows.Forms.TextBox tbTaxNumber;
         private System.Windows.Forms.TextBox tbEmail;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.TextBox tbAddress;
         private System.Windows.Forms.Button btnCheckIn;
         private System.Windows.Forms.RadioButton rbExec;
         private System.Windows.Forms.RadioButton rbEcon;
-        private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox cbSeats;
         private System.Windows.Forms.GroupBox gbEcon;
         private System.Windows.Forms.RadioButton rbEconA;
@@ -907,5 +866,14 @@
         private System.Windows.Forms.Label label33;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label35;
+        private System.Windows.Forms.RadioButton rbMan;
+        private System.Windows.Forms.RadioButton rbWoman;
+        private System.Windows.Forms.Label label36;
+        private System.Windows.Forms.DateTimePicker dateTimePicker1;
+        private System.Windows.Forms.Label label37;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox tbPhone;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label2;
     }
 }

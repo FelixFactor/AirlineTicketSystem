@@ -18,13 +18,8 @@ namespace AdminPanel
             EconAvailable = toBook.Plane.EconSeats;
             ExecAvailable = toBook.Plane.ExecSeats;
             InitializeComponent();
-            tbFlightNumber.Text = $"FlyHi0{toBook.FlightNumber.ToString()}";
-            tbFrom.Text = toBook.Origin.City + toBook.Origin.AirportName;
-            tbDestination.Text = toBook.Destination.City + toBook.Destination.AirportName;
-            tbDate.Text = toBook.Date.ToLongDateString();
-            tbHour.Text = toBook.Date.ToShortTimeString();
             btnCheckIn.Enabled = false;
-            gbExec.Location = new System.Drawing.Point(465, 191);
+            gbExec.Location = new System.Drawing.Point(363, 140);
             if (toBook.Plane.FirstClass == 0)
             {
                 rbExec.Enabled = false;
@@ -96,10 +91,24 @@ namespace AdminPanel
             rbEconE.Checked = false;
             rbEconF.Checked = false;
         }
-        //<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void btnCheckIn_Click(object sender, EventArgs e)
         {
-            
+            Passenger newPassenger = new Passenger
+            {
+                PassengerName = tbName.Text,
+                LastName = tbLastName.Text,
+                Identification = tbIdentification.Text,
+                Email = tbEmail.Text,
+                Seat = cbSeats.Text,
+                Address = tbAddress.Text,
+                TaxNumber = tbTaxNumber.Text,
+                IdPassenger = $"Pass{toBook.FlightNumber}" + DateTime.UtcNow.ToShortTimeString().ToString()
+            };
+            toBook.Passengers.Add(newPassenger);
+            toBook.TakenSeats.Add(newPassenger.Seat);
+
+
         }
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void rbExec_CheckedChanged(object sender, EventArgs e)

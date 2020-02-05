@@ -58,7 +58,6 @@ namespace AdminPanel
         {
             Form.Visible = true;
         }
-
         private void btnExit_MouseHover(object sender, System.EventArgs e)
         {
             ToolTip exit = new ToolTip();

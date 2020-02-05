@@ -2,7 +2,7 @@
 namespace AdminPanel
 {
     
-    partial class MainForm
+    partial class AdminForm
     {
         
         /// <summary>
@@ -31,7 +31,7 @@ namespace AdminPanel
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AdminForm));
             this.panel1 = new System.Windows.Forms.Panel();
             this.btnAirport = new System.Windows.Forms.Button();
             this.btnFleet = new System.Windows.Forms.Button();
