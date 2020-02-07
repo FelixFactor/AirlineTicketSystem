@@ -29,12 +29,11 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.tbOrigin = new System.Windows.Forms.TextBox();
             this.tbDestination = new System.Windows.Forms.TextBox();
-            this.dateBox = new System.Windows.Forms.DateTimePicker();
             this.label3 = new System.Windows.Forms.Label();
             this.btnSearch = new System.Windows.Forms.Button();
             this.btnClear = new System.Windows.Forms.Button();
@@ -46,8 +45,9 @@
             this.hourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.planeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flightBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.checkOrigin = new System.Windows.Forms.CheckBox();
+            this.checkFlexibleDate = new System.Windows.Forms.CheckBox();
             this.btnBooking = new System.Windows.Forms.Button();
+            this.dateBox = new System.Windows.Forms.MonthCalendar();
             ((System.ComponentModel.ISupportInitialize)(this.DGVSearch)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flightBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -56,7 +56,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(24, 63);
+            this.label1.Location = new System.Drawing.Point(24, 43);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(43, 18);
             this.label1.TabIndex = 0;
@@ -66,7 +66,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(164, 63);
+            this.label2.Location = new System.Drawing.Point(164, 43);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(25, 18);
             this.label2.TabIndex = 1;
@@ -74,7 +74,7 @@
             // 
             // tbOrigin
             // 
-            this.tbOrigin.Location = new System.Drawing.Point(27, 81);
+            this.tbOrigin.Location = new System.Drawing.Point(27, 61);
             this.tbOrigin.Name = "tbOrigin";
             this.tbOrigin.Size = new System.Drawing.Size(100, 20);
             this.tbOrigin.TabIndex = 2;
@@ -82,23 +82,16 @@
             // 
             // tbDestination
             // 
-            this.tbDestination.Location = new System.Drawing.Point(167, 81);
+            this.tbDestination.Location = new System.Drawing.Point(167, 61);
             this.tbDestination.Name = "tbDestination";
             this.tbDestination.Size = new System.Drawing.Size(100, 20);
             this.tbDestination.TabIndex = 3;
-            // 
-            // dateBox
-            // 
-            this.dateBox.Location = new System.Drawing.Point(380, 81);
-            this.dateBox.Name = "dateBox";
-            this.dateBox.Size = new System.Drawing.Size(200, 20);
-            this.dateBox.TabIndex = 4;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(377, 63);
+            this.label3.Location = new System.Drawing.Point(326, 43);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(40, 18);
             this.label3.TabIndex = 5;
@@ -133,14 +126,14 @@
             this.DGVSearch.AllowUserToResizeColumns = false;
             this.DGVSearch.AllowUserToResizeRows = false;
             this.DGVSearch.AutoGenerateColumns = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.DGVSearch.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Roboto", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.DGVSearch.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.DGVSearch.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.DGVSearch.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.flightNumberDataGridViewTextBoxColumn,
@@ -206,17 +199,17 @@
             this.flightBindingSource.DataSource = typeof(ClassLibrary.Flight);
             this.flightBindingSource.Sort = "AData";
             // 
-            // checkOrigin
+            // checkFlexibleDate
             // 
-            this.checkOrigin.AutoSize = true;
-            this.checkOrigin.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.checkOrigin.Location = new System.Drawing.Point(27, 132);
-            this.checkOrigin.Name = "checkOrigin";
-            this.checkOrigin.Size = new System.Drawing.Size(101, 22);
-            this.checkOrigin.TabIndex = 9;
-            this.checkOrigin.Text = "Flexible date";
-            this.checkOrigin.UseVisualStyleBackColor = true;
-            this.checkOrigin.CheckedChanged += new System.EventHandler(this.checkOrigin_CheckedChanged);
+            this.checkFlexibleDate.AutoSize = true;
+            this.checkFlexibleDate.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.checkFlexibleDate.Location = new System.Drawing.Point(27, 132);
+            this.checkFlexibleDate.Name = "checkFlexibleDate";
+            this.checkFlexibleDate.Size = new System.Drawing.Size(101, 22);
+            this.checkFlexibleDate.TabIndex = 9;
+            this.checkFlexibleDate.Text = "Flexible date";
+            this.checkFlexibleDate.UseVisualStyleBackColor = true;
+            this.checkFlexibleDate.CheckedChanged += new System.EventHandler(this.checkFlexibleDate_CheckedChanged);
             // 
             // btnBooking
             // 
@@ -230,17 +223,23 @@
             this.btnBooking.UseVisualStyleBackColor = true;
             this.btnBooking.Click += new System.EventHandler(this.btnBooking_Click);
             // 
+            // dateBox
+            // 
+            this.dateBox.Location = new System.Drawing.Point(378, 43);
+            this.dateBox.Name = "dateBox";
+            this.dateBox.TabIndex = 11;
+            // 
             // SearchFlight
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.dateBox);
             this.Controls.Add(this.btnBooking);
-            this.Controls.Add(this.checkOrigin);
+            this.Controls.Add(this.checkFlexibleDate);
             this.Controls.Add(this.DGVSearch);
             this.Controls.Add(this.btnClear);
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.dateBox);
             this.Controls.Add(this.tbDestination);
             this.Controls.Add(this.tbOrigin);
             this.Controls.Add(this.label2);
@@ -260,13 +259,12 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox tbOrigin;
         private System.Windows.Forms.TextBox tbDestination;
-        private System.Windows.Forms.DateTimePicker dateBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Button btnSearch;
         private System.Windows.Forms.Button btnClear;
         private System.Windows.Forms.DataGridView DGVSearch;
   //      private System.Windows.Forms.DataGridViewTextBoxColumn aircraftDataGridViewTextBoxColumn;
-        private System.Windows.Forms.CheckBox checkOrigin;
+        private System.Windows.Forms.CheckBox checkFlexibleDate;
         private System.Windows.Forms.BindingSource flightBindingSource;
         private System.Windows.Forms.DataGridViewTextBoxColumn flightNumberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn originDataGridViewTextBoxColumn;
@@ -275,5 +273,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn hourDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn planeDataGridViewTextBoxColumn;
         private System.Windows.Forms.Button btnBooking;
+        private System.Windows.Forms.MonthCalendar dateBox;
     }
 }

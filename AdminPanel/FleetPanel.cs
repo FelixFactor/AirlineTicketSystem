@@ -8,8 +8,8 @@ namespace AdminPanel
 {
     public partial class FleetPanel : UserControl
     {
-        List<Aircraft> Planes;
-        List<Flight> Flights;
+        readonly List<Aircraft> Planes;
+        readonly List<Flight> Flights;
         
         public FleetPanel(List<Aircraft> fleet, List<Flight> flights)
         {
@@ -185,6 +185,13 @@ namespace AdminPanel
             if (Planes.Count != 0)
             {
                 DGVFleet.DataSource = Planes;
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
+            }
+            else
+            {
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
             }
         }
         private void ClearFields()
@@ -195,7 +202,7 @@ namespace AdminPanel
             tbSeats.Text = string.Empty;
         }
         /// <summary>
-        /// Grabs the string in the cboxManufacturer and loads a XML with the same name, with all models refering to that Manufacturer
+        /// Grabs the string in the cboxManufacturer and loads the cboxModel with 2 models from that manufacturer
         /// </summary>
         /// <param name="tosearch"></param>
         private void FillModelList(string tosearch)
@@ -252,13 +259,17 @@ namespace AdminPanel
 
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        private void tbSeats_Enter(object sender, EventArgs e)
-        {
-            tbSeats.SelectionStart = 0;
-        }
+        
         private void tbSeats_Click(object sender, EventArgs e)
         {
-            tbSeats.SelectionStart = 0;
+            if (string.IsNullOrWhiteSpace(tbSeats.Text))
+            {
+                tbSeats.SelectionStart = 0;
+            }
+            else
+            {
+                tbSeats.SelectAll();
+            }
         }
         private void DGVFleet_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -270,7 +281,6 @@ namespace AdminPanel
             {
 
             }
-            
         }
         private void cboxManufacturer_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -298,11 +308,21 @@ namespace AdminPanel
                 }
             }
         }
-
         private void tbExec_MouseClick(object sender, MouseEventArgs e)
         {
-            tbEcon.SelectionStart = 0;
-            tbExec.SelectionStart = 0;
+            if (string.IsNullOrWhiteSpace(tbExec.Text))
+            {
+                tbExec.SelectionStart = 0;
+            }
+            else { tbExec.SelectAll(); }
+        }
+        private void tbEcon_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbEcon.Text))
+            {
+                tbEcon.SelectionStart = 0;
+            }
+            else { tbEcon.SelectAll(); }
         }
     }
 }

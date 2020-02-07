@@ -7,8 +7,8 @@ namespace AdminPanel
 {
     public partial class AirportPanel : UserControl
     {
-        List<Airport> Airports = new List<Airport>();
-        List<Flight> Flights;
+        readonly List<Airport> Airports = new List<Airport>();
+        readonly List<Flight> Flights;
         
         public AirportPanel(List<Airport> ports, List<Flight> flights)
         {
@@ -156,9 +156,18 @@ namespace AdminPanel
         }
         private void RefreshList()
         {
+            if (Airports.Count != 0)
+            {
+                btnEdit.Enabled = true;
+                btnDelete.Enabled = true;
+            }
+            else
+            {
+                btnEdit.Enabled = false;
+                btnDelete.Enabled = false;
+            }
             listBoxAirports.DataSource = null;
             listBoxAirports.DataSource = Airports;
-            
         }
         private string CheckCity()
         {

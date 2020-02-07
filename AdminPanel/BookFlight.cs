@@ -181,7 +181,7 @@ namespace AdminPanel
         }
         private void tbName_TextChanged(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(tbName.Text) && !string.IsNullOrWhiteSpace(tbLastName.Text) && !string.IsNullOrWhiteSpace(tbIdentification.Text) && !string.IsNullOrWhiteSpace(tbEmail.Text) && !string.IsNullOrEmpty(cbSeats.Text))
+            if (!string.IsNullOrWhiteSpace(tbName.Text) && !string.IsNullOrWhiteSpace(tbLastName.Text) && !string.IsNullOrWhiteSpace(tbIdentification.Text) && !string.IsNullOrWhiteSpace(tbEmail.Text) && !string.IsNullOrEmpty(cbSeats.Text) && (rbMan.Checked || rbWoman.Checked))
             {
                 btnCheckIn.Enabled = true;
             }
@@ -190,7 +190,6 @@ namespace AdminPanel
                 btnCheckIn.Enabled = false;
             }
         }
-
         private void tbBirthDate_TypeValidationCompleted(object sender, TypeValidationEventArgs e)
         {
             ToolTip toolTip1 = new ToolTip();
@@ -211,5 +210,15 @@ namespace AdminPanel
                 }
             }
         }
+
+        private void tbBirthDate_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(tbBirthDate.Text))
+            {
+                tbBirthDate.SelectionStart = 0;
+            }
+            else { tbBirthDate.SelectAll(); }
+        }
+
     }
 }

@@ -262,6 +262,7 @@
             this.cbSeats.Size = new System.Drawing.Size(121, 21);
             this.cbSeats.TabIndex = 28;
             this.cbSeats.SelectedIndexChanged += new System.EventHandler(this.tbName_TextChanged);
+//            this.cbSeats.SelectedValueChanged += new System.EventHandler(this.cbSeats_SelectedValueChanged);
             // 
             // gbEcon
             // 
@@ -770,6 +771,7 @@
             this.tbBirthDate.Tag = "DD-MM-YYYY";
             this.tbBirthDate.ValidatingType = typeof(System.DateTime);
             this.tbBirthDate.TypeValidationCompleted += new System.Windows.Forms.TypeValidationEventHandler(this.tbBirthDate_TypeValidationCompleted);
+            this.tbBirthDate.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbBirthDate_MouseClick);
             // 
             // BookFlight
             // 

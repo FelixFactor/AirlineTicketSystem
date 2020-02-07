@@ -88,11 +88,12 @@
             // 
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAdd.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAdd.Location = new System.Drawing.Point(6, 19);
+            this.btnAdd.Location = new System.Drawing.Point(3, 19);
+            this.btnAdd.Margin = new System.Windows.Forms.Padding(1);
             this.btnAdd.Name = "btnAdd";
-            this.btnAdd.Size = new System.Drawing.Size(75, 50);
+            this.btnAdd.Size = new System.Drawing.Size(85, 50);
             this.btnAdd.TabIndex = 7;
-            this.btnAdd.Text = "Add Airport";
+            this.btnAdd.Text = "Create Connection";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -100,11 +101,11 @@
             // 
             this.btnEdit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnEdit.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnEdit.Location = new System.Drawing.Point(6, 96);
+            this.btnEdit.Location = new System.Drawing.Point(3, 92);
             this.btnEdit.Name = "btnEdit";
-            this.btnEdit.Size = new System.Drawing.Size(75, 50);
+            this.btnEdit.Size = new System.Drawing.Size(85, 50);
             this.btnEdit.TabIndex = 8;
-            this.btnEdit.Text = "Edit Airport";
+            this.btnEdit.Text = "Edit Connection";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
@@ -112,11 +113,11 @@
             // 
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDelete.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(5, 168);
+            this.btnDelete.Location = new System.Drawing.Point(3, 168);
             this.btnDelete.Name = "btnDelete";
-            this.btnDelete.Size = new System.Drawing.Size(75, 50);
+            this.btnDelete.Size = new System.Drawing.Size(85, 50);
             this.btnDelete.TabIndex = 9;
-            this.btnDelete.Text = "Delete Airport";
+            this.btnDelete.Text = "Delete Connection";
             this.btnDelete.UseVisualStyleBackColor = true;
             this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
@@ -135,8 +136,9 @@
             this.gbPanel.Controls.Add(this.btnDelete);
             this.gbPanel.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.gbPanel.Location = new System.Drawing.Point(209, 98);
+            this.gbPanel.Margin = new System.Windows.Forms.Padding(1);
             this.gbPanel.Name = "gbPanel";
-            this.gbPanel.Size = new System.Drawing.Size(86, 230);
+            this.gbPanel.Size = new System.Drawing.Size(92, 230);
             this.gbPanel.TabIndex = 11;
             this.gbPanel.TabStop = false;
             // 
@@ -145,9 +147,10 @@
             this.gbEditor.Controls.Add(this.btnSave);
             this.gbEditor.Controls.Add(this.btnCancel);
             this.gbEditor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.gbEditor.Location = new System.Drawing.Point(523, 86);
+            this.gbEditor.Location = new System.Drawing.Point(459, 23);
+            this.gbEditor.Margin = new System.Windows.Forms.Padding(1);
             this.gbEditor.Name = "gbEditor";
-            this.gbEditor.Size = new System.Drawing.Size(86, 230);
+            this.gbEditor.Size = new System.Drawing.Size(93, 230);
             this.gbEditor.TabIndex = 12;
             this.gbEditor.TabStop = false;
             this.gbEditor.Visible = false;
@@ -156,9 +159,10 @@
             // 
             this.btnSave.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnSave.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSave.Location = new System.Drawing.Point(6, 19);
+            this.btnSave.Location = new System.Drawing.Point(4, 17);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(1);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(75, 50);
+            this.btnSave.Size = new System.Drawing.Size(85, 50);
             this.btnSave.TabIndex = 7;
             this.btnSave.Text = "Save Changes";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -168,9 +172,9 @@
             // 
             this.btnCancel.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCancel.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCancel.Location = new System.Drawing.Point(6, 96);
+            this.btnCancel.Location = new System.Drawing.Point(4, 94);
             this.btnCancel.Name = "btnCancel";
-            this.btnCancel.Size = new System.Drawing.Size(75, 50);
+            this.btnCancel.Size = new System.Drawing.Size(85, 50);
             this.btnCancel.TabIndex = 8;
             this.btnCancel.Text = "Cancel Changes";
             this.btnCancel.UseVisualStyleBackColor = true;

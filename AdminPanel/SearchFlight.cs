@@ -8,17 +8,18 @@ namespace AdminPanel
 {
     public partial class SearchFlight : UserControl
     {
-        List<Flight> FlightsToBook;
+        readonly List<Flight> FlightsToBook;
         List<Flight> SearchedFlights = new List<Flight>();
-        ClientServices Form;
+        readonly ClientServices Form;
 
         public SearchFlight(List<Flight> flights, ClientServices frm)
         {
             Form = frm;
             FlightsToBook = flights;
             InitializeComponent();
-            dateBox.MinDate = DateTime.UtcNow;
-            checkOrigin.Enabled = false;
+            dateBox.MinDate = DateTime.Now;
+            tbDestination.Enabled = false;
+            checkFlexibleDate.Enabled = false;
             RefreshList();
         }
 
@@ -27,8 +28,8 @@ namespace AdminPanel
             ClearSearch();
             tbOrigin.Text = string.Empty;
             tbDestination.Text = string.Empty;
-            dateBox.Value = DateTime.UtcNow;
-            checkOrigin.Checked = false;
+            dateBox.SelectionRange.Start = DateTime.Now;
+            checkFlexibleDate.Checked = false;
             btnBooking.Enabled = false;
         }
         /// <summary>
@@ -43,25 +44,29 @@ namespace AdminPanel
             ClearSearch();
             if (string.IsNullOrWhiteSpace(tbOrigin.Text))
             {
-                var dateResult = FlightsToBook.Where(f => f.Date.ToShortDateString() == dateBox.Value.ToShortDateString());
-                SearchList((List<Flight>)dateResult.ToList());
+                var dateResult = FlightsToBook.Where(f => f.Date.ToShortDateString() == dateBox.SelectionRange.Start.ToShortDateString());
+                CopyList(dateResult.ToList());
             }
             else
             {
                 string toSearchFrom = Utils.UpperCase(tbOrigin.Text);
                 var results = FlightsToBook.Where(f => f.Origin.City == toSearchFrom);
-                SearchList((List<Flight>)results.ToList());
+                CopyList(results.ToList());
                 if (!string.IsNullOrWhiteSpace(tbDestination.Text) && SearchedFlights.Count != 0)
                 {
                     string toSearchWhere = Utils.UpperCase(tbDestination.Text);
                     var resultsDest = SearchedFlights.Where(f => f.Destination.City == toSearchWhere);
-                    SearchList((List<Flight>)resultsDest.ToList());
+                    CopyList(resultsDest.ToList());
                 }
-                else if (checkOrigin.Checked == false && SearchedFlights.Count != 0)
+                else if (checkFlexibleDate.Checked == false && SearchedFlights.Count != 0)
                 {
-                    var dateResult = SearchedFlights.Where(f => f.Date.ToShortDateString() == dateBox.Value.ToShortDateString());
-                    SearchList((List<Flight>)dateResult.ToList());
+                    var dateResult = SearchedFlights.Where(f => f.Date.ToShortDateString() == dateBox.SelectionRange.Start.ToShortDateString());
+                    CopyList(dateResult.ToList());
                 }
+            }
+            if (SearchedFlights.Count != 0)
+            {
+                DeleteOldFlights();
             }
             if (SearchedFlights.Count == 0)
             {
@@ -70,6 +75,7 @@ namespace AdminPanel
             }
             RefreshList();
         }
+
         private void btnBooking_Click(object sender, EventArgs e)
         {
             try
@@ -84,7 +90,7 @@ namespace AdminPanel
             }
             catch (NullReferenceException)
             {
-                MessageBox.Show("Please choose a flight from the list!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("No flight selected.\nCheck selection.", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
         }
         //<<<<<<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -92,7 +98,7 @@ namespace AdminPanel
         /// copies the result to the SearchedFlights List
         /// </summary>
         /// <param name="result"></param>
-        private void SearchList(List<Flight> result)
+        private void CopyList(List<Flight> result)
         {
             SearchedFlights.Clear();
             SearchedFlights = result;
@@ -132,11 +138,16 @@ namespace AdminPanel
                 return null;
             }
         }
+        private void DeleteOldFlights()
+        {
+            var result = SearchedFlights.Where(f => f.Date > DateTime.Now);
+            CopyList(result.ToList());
+        }
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        private void checkOrigin_CheckedChanged(object sender, EventArgs e)
+        private void checkFlexibleDate_CheckedChanged(object sender, EventArgs e)
         {
-            if (checkOrigin.Checked == true)
+            if (checkFlexibleDate.Checked == true)
             {
                 dateBox.Enabled = false;
             }
@@ -144,18 +155,19 @@ namespace AdminPanel
             {
                 dateBox.Enabled = true;
             }
-            
         }
         private void tbOrigin_TextChanged(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbOrigin.Text))
             {
-                checkOrigin.Enabled = false;
-                checkOrigin.Checked = false;
+                checkFlexibleDate.Enabled = false;
+                checkFlexibleDate.Checked = false;
+                tbDestination.Enabled = false;
             }
             else
             {
-                checkOrigin.Enabled = true;
+                checkFlexibleDate.Enabled = true;
+                tbDestination.Enabled = true;
             }
         }
     }

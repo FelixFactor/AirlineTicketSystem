@@ -39,26 +39,26 @@
             this.btnDelete = new System.Windows.Forms.Button();
             this.tbSeats = new System.Windows.Forms.MaskedTextBox();
             this.DGVFleet = new System.Windows.Forms.DataGridView();
-            this.gbEdit = new System.Windows.Forms.GroupBox();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.tbExec = new System.Windows.Forms.MaskedTextBox();
-            this.tbEcon = new System.Windows.Forms.MaskedTextBox();
-            this.gbButtons = new System.Windows.Forms.GroupBox();
-            this.gbEditBtns = new System.Windows.Forms.GroupBox();
-            this.btnSave = new System.Windows.Forms.Button();
-            this.btnCancel = new System.Windows.Forms.Button();
             this.internalIDDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.manufacturerDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.modelDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.firstClassDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.secondClassDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.aircraftBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.gbEdit = new System.Windows.Forms.GroupBox();
+            this.tbEcon = new System.Windows.Forms.MaskedTextBox();
+            this.tbExec = new System.Windows.Forms.MaskedTextBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.gbButtons = new System.Windows.Forms.GroupBox();
+            this.gbEditBtns = new System.Windows.Forms.GroupBox();
+            this.btnSave = new System.Windows.Forms.Button();
+            this.btnCancel = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DGVFleet)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aircraftBindingSource)).BeginInit();
             this.gbEdit.SuspendLayout();
             this.gbButtons.SuspendLayout();
             this.gbEditBtns.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.aircraftBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
             // cboxManufacturer
@@ -92,7 +92,7 @@
             this.label1.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(24, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(86, 15);
+            this.label1.Size = new System.Drawing.Size(88, 18);
             this.label1.TabIndex = 2;
             this.label1.Text = "Manufacturer";
             // 
@@ -102,7 +102,7 @@
             this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(24, 88);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(42, 15);
+            this.label2.Size = new System.Drawing.Size(43, 18);
             this.label2.TabIndex = 3;
             this.label2.Text = "Model";
             // 
@@ -112,7 +112,7 @@
             this.label3.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(24, 147);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(71, 15);
+            this.label3.Size = new System.Drawing.Size(73, 18);
             this.label3.TabIndex = 5;
             this.label3.Text = "Total Seats";
             // 
@@ -160,7 +160,7 @@
             this.tbSeats.Size = new System.Drawing.Size(25, 20);
             this.tbSeats.TabIndex = 2;
             this.tbSeats.Click += new System.EventHandler(this.tbSeats_Click);
-            this.tbSeats.Enter += new System.EventHandler(this.tbSeats_Enter);
+//            this.tbSeats.Enter += new System.EventHandler(this.tbSeats_Enter);
             // 
             // DGVFleet
             // 
@@ -185,6 +185,45 @@
             this.DGVFleet.TabIndex = 13;
             this.DGVFleet.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.DGVFleet_CellMouseClick);
             // 
+            // internalIDDataGridViewTextBoxColumn
+            // 
+            this.internalIDDataGridViewTextBoxColumn.DataPropertyName = "InternalID";
+            this.internalIDDataGridViewTextBoxColumn.HeaderText = "Aircraft ID";
+            this.internalIDDataGridViewTextBoxColumn.Name = "internalIDDataGridViewTextBoxColumn";
+            this.internalIDDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // manufacturerDataGridViewTextBoxColumn
+            // 
+            this.manufacturerDataGridViewTextBoxColumn.DataPropertyName = "Manufacturer";
+            this.manufacturerDataGridViewTextBoxColumn.HeaderText = "Manufacturer";
+            this.manufacturerDataGridViewTextBoxColumn.Name = "manufacturerDataGridViewTextBoxColumn";
+            this.manufacturerDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // modelDataGridViewTextBoxColumn
+            // 
+            this.modelDataGridViewTextBoxColumn.DataPropertyName = "Model";
+            this.modelDataGridViewTextBoxColumn.HeaderText = "Model";
+            this.modelDataGridViewTextBoxColumn.Name = "modelDataGridViewTextBoxColumn";
+            this.modelDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // firstClassDataGridViewTextBoxColumn
+            // 
+            this.firstClassDataGridViewTextBoxColumn.DataPropertyName = "FirstClass";
+            this.firstClassDataGridViewTextBoxColumn.HeaderText = "Executive Seats";
+            this.firstClassDataGridViewTextBoxColumn.Name = "firstClassDataGridViewTextBoxColumn";
+            this.firstClassDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // secondClassDataGridViewTextBoxColumn
+            // 
+            this.secondClassDataGridViewTextBoxColumn.DataPropertyName = "SecondClass";
+            this.secondClassDataGridViewTextBoxColumn.HeaderText = "Economy Seats";
+            this.secondClassDataGridViewTextBoxColumn.Name = "secondClassDataGridViewTextBoxColumn";
+            this.secondClassDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // aircraftBindingSource
+            // 
+            this.aircraftBindingSource.DataSource = typeof(ClassLibrary.Aircraft);
+            // 
             // gbEdit
             // 
             this.gbEdit.Controls.Add(this.tbEcon);
@@ -200,25 +239,15 @@
             this.gbEdit.Text = "Edit Seats";
             this.gbEdit.Visible = false;
             // 
-            // label5
+            // tbEcon
             // 
-            this.label5.AutoSize = true;
-            this.label5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(83, 28);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(60, 15);
-            this.label5.TabIndex = 7;
-            this.label5.Text = "Economy";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(6, 28);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 15);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Executive";
+            this.tbEcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbEcon.Location = new System.Drawing.Point(86, 46);
+            this.tbEcon.Mask = "000";
+            this.tbEcon.Name = "tbEcon";
+            this.tbEcon.Size = new System.Drawing.Size(25, 20);
+            this.tbEcon.TabIndex = 9;
+            this.tbEcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbEcon_MouseClick);
             // 
             // tbExec
             // 
@@ -230,15 +259,25 @@
             this.tbExec.TabIndex = 8;
             this.tbExec.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbExec_MouseClick);
             // 
-            // tbEcon
+            // label5
             // 
-            this.tbEcon.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbEcon.Location = new System.Drawing.Point(86, 46);
-            this.tbEcon.Mask = "000";
-            this.tbEcon.Name = "tbEcon";
-            this.tbEcon.Size = new System.Drawing.Size(25, 20);
-            this.tbEcon.TabIndex = 9;
-            this.tbEcon.MouseClick += new System.Windows.Forms.MouseEventHandler(this.tbExec_MouseClick);
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label5.Location = new System.Drawing.Point(83, 28);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(61, 18);
+            this.label5.TabIndex = 7;
+            this.label5.Text = "Economy";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(6, 28);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(65, 18);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Executive";
             // 
             // gbButtons
             // 
@@ -286,45 +325,6 @@
             this.btnCancel.UseVisualStyleBackColor = true;
             this.btnCancel.Click += new System.EventHandler(this.btnCancel_Click);
             // 
-            // internalIDDataGridViewTextBoxColumn
-            // 
-            this.internalIDDataGridViewTextBoxColumn.DataPropertyName = "InternalID";
-            this.internalIDDataGridViewTextBoxColumn.HeaderText = "Aircraft ID";
-            this.internalIDDataGridViewTextBoxColumn.Name = "internalIDDataGridViewTextBoxColumn";
-            this.internalIDDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // manufacturerDataGridViewTextBoxColumn
-            // 
-            this.manufacturerDataGridViewTextBoxColumn.DataPropertyName = "Manufacturer";
-            this.manufacturerDataGridViewTextBoxColumn.HeaderText = "Manufacturer";
-            this.manufacturerDataGridViewTextBoxColumn.Name = "manufacturerDataGridViewTextBoxColumn";
-            this.manufacturerDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // modelDataGridViewTextBoxColumn
-            // 
-            this.modelDataGridViewTextBoxColumn.DataPropertyName = "Model";
-            this.modelDataGridViewTextBoxColumn.HeaderText = "Model";
-            this.modelDataGridViewTextBoxColumn.Name = "modelDataGridViewTextBoxColumn";
-            this.modelDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // firstClassDataGridViewTextBoxColumn
-            // 
-            this.firstClassDataGridViewTextBoxColumn.DataPropertyName = "FirstClass";
-            this.firstClassDataGridViewTextBoxColumn.HeaderText = "Executive Seats";
-            this.firstClassDataGridViewTextBoxColumn.Name = "firstClassDataGridViewTextBoxColumn";
-            this.firstClassDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // secondClassDataGridViewTextBoxColumn
-            // 
-            this.secondClassDataGridViewTextBoxColumn.DataPropertyName = "SecondClass";
-            this.secondClassDataGridViewTextBoxColumn.HeaderText = "Economy Seats";
-            this.secondClassDataGridViewTextBoxColumn.Name = "secondClassDataGridViewTextBoxColumn";
-            this.secondClassDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // aircraftBindingSource
-            // 
-            this.aircraftBindingSource.DataSource = typeof(ClassLibrary.Aircraft);
-            // 
             // FleetPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -342,11 +342,11 @@
             this.Name = "FleetPanel";
             this.Size = new System.Drawing.Size(654, 375);
             ((System.ComponentModel.ISupportInitialize)(this.DGVFleet)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.aircraftBindingSource)).EndInit();
             this.gbEdit.ResumeLayout(false);
             this.gbEdit.PerformLayout();
             this.gbButtons.ResumeLayout(false);
             this.gbEditBtns.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.aircraftBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
