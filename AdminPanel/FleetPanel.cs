@@ -67,9 +67,9 @@ namespace AdminPanel
         {
             try
             {
-                Aircraft toEdit = CheckList((Aircraft)DGVFleet.CurrentRow.DataBoundItem, Flights);
+                Aircraft toEdit = CheckPlaneList((Aircraft)DGVFleet.CurrentRow.DataBoundItem);
 
-                if (toEdit != null)
+                if (IsUsed(toEdit))
                 {
                     DGVFleet.Enabled = false;
                     gbButtons.Visible = false;
@@ -81,20 +81,20 @@ namespace AdminPanel
                 }
                 else
                 {
-                    MessageBox.Show("Airport cannot be edited because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Aircraft cannot be edited because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception)
+            catch (NullReferenceException ex)
             {
-                MessageBox.Show("You must select an aircraft", "Nothing to edit", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
             }
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                Aircraft toDelete = CheckList((Aircraft)DGVFleet.CurrentRow.DataBoundItem, Flights);
-                if (toDelete != null)
+                Aircraft toDelete = CheckPlaneList((Aircraft)DGVFleet.CurrentRow.DataBoundItem);
+                if (IsUsed(toDelete))
                 {
                     DialogResult answer;
                     answer = MessageBox.Show($"Are you sure you want to delete {toDelete.ToString()}?", "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
@@ -109,9 +109,9 @@ namespace AdminPanel
                     MessageBox.Show("Aircraft cannot be deleted because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
-            catch (Exception)
+            catch (NullReferenceException ex)
             {
-                MessageBox.Show("You must select an aircraft", "Nothing to delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
             }
         }
         private void btnCancel_Click(object sender, EventArgs e)
@@ -129,7 +129,7 @@ namespace AdminPanel
                     {
                         try
                         {
-                            Aircraft toEdit = CheckList((Aircraft)DGVFleet.CurrentRow.DataBoundItem, Flights);
+                            Aircraft toEdit = CheckPlaneList((Aircraft)DGVFleet.CurrentRow.DataBoundItem);
                             toEdit.TotalSeats = Convert.ToInt16(tbSeats.Text);
                             toEdit.FirstClass = Convert.ToInt16(tbExec.Text);
                             toEdit.SecondClass = Convert.ToInt16(tbEcon.Text);
@@ -150,34 +150,46 @@ namespace AdminPanel
 
 
         //<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>
-        private Aircraft CheckList(Aircraft toCheck, List<Flight> flights)
+        /// <summary>
+        /// matches the selected index with the list
+        /// </summary>
+        /// <param name="toCheck"></param>
+        /// <returns></returns>
+        private Aircraft CheckPlaneList(Aircraft toCheck)
         {
-            try
+            Aircraft tested = null;
+            foreach (Aircraft item in Planes)//matches the result from the datagridview to the list
             {
-                Aircraft tested = null;
-                foreach (Aircraft item in Planes)//matches the result from the datagridview to the list
+                if (item.AircraftID == toCheck.AircraftID)
                 {
-                    if (item.AircraftID == toCheck.AircraftID)
-                    {
-                        tested = item;
-                        break;
-                    }
+                    tested = item;
+                    break;
                 }
-                foreach (Flight item in flights)//checks if the plane is in use in a flight
-                {
-                    if (item.Plane.AircraftID == tested.AircraftID)
-                    {
-                        tested = null;
-                        break;
-                    }
-                }
+            }
+            if (tested != null)
+            {
                 return tested;
             }
-            catch (NullReferenceException)
+            else
             {
-                MessageBox.Show("Reference lost. \nPlease try again.", "Critical ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                throw new NullReferenceException("There is no aircraft selected.\nPlease try again.");
             }
+        }
+        /// <summary>
+        /// runs the flight list to check if the plane is associated with a flight
+        /// </summary>
+        /// <param name="isUsed"></param>
+        /// <returns></returns>
+        private bool IsUsed(Aircraft isUsed)
+        {
+            foreach (Flight item in Flights)//checks if the plane is in use in a flight
+            {
+                if (item.Plane.AircraftID == isUsed.AircraftID)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         private void RefreshList()
         {

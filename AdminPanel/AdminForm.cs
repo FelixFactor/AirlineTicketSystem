@@ -19,18 +19,10 @@ namespace AdminPanel
         {
             Front = front;
             //check if lists are empty so that a loading error is prevented in the 1st launch
-            //adcionar check files
-            if (!(Directory.Exists(SaveLoad.PathToData)))
-            {
-                if (!File.Exists(SaveLoad.PathToData))
-                {
-                    SaveLoad.SaveFleet(Fleet);
-                    SaveLoad.SaveFlights(Flights);
-                    SaveLoad.SaveAirports(Locations);
-                }
-            }
-            
+            SaveLoad.CheckForFiles(Locations, Fleet, Flights);
+
             InitializeComponent();
+
             Flights = SaveLoad.LoadFlights();
             Fleet = SaveLoad.LoadFleet();
             Locations = SaveLoad.LoadAirports();

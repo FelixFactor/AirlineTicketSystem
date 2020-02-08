@@ -13,7 +13,7 @@ namespace ClassLibrary
         /// <returns>upper casing the 1st letter of each string if user doesn't inputed right</returns>
         public static string UpperCase(string local)
         {
-            string[] splited = local.Split(' ');
+            string[] splited = local.Trim().Split(' ');
             try
             {
                 string loca = TurnUpperCase(splited[0]);

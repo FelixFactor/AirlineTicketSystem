@@ -202,7 +202,7 @@ namespace AdminPanel
             {
                 //Now that the type has passed basic type validation, enforce more specific type rules.
                 DateTime userDate = (DateTime)e.ReturnValue;
-                if (userDate > DateTime.Now)
+                if (userDate > DateTime.UtcNow)
                 {
                     toolTip1.ToolTipTitle = "Invalid Date";
                     toolTip1.Show("The date in this field must be older than today's date.", tbBirthDate, 150, 0, 5000);

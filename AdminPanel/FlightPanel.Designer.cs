@@ -42,14 +42,15 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cbAircrafts = new System.Windows.Forms.ComboBox();
             this.DGVFlights = new System.Windows.Forms.DataGridView();
+            this.tbHour = new System.Windows.Forms.MaskedTextBox();
+            this.flightBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.flightNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.originDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.destinationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.hourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.departureDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.departureHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.estimatedTimeArrivalDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.planeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.flightBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tbHour = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVFlights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flightBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -186,17 +187,38 @@
             this.flightNumberDataGridViewTextBoxColumn,
             this.originDataGridViewTextBoxColumn,
             this.destinationDataGridViewTextBoxColumn,
-            this.dateDataGridViewTextBoxColumn,
-            this.hourDataGridViewTextBoxColumn,
+            this.departureDateDataGridViewTextBoxColumn,
+            this.departureHourDataGridViewTextBoxColumn,
+            this.estimatedTimeArrivalDataGridViewTextBoxColumn,
             this.planeDataGridViewTextBoxColumn});
             this.DGVFlights.DataSource = this.flightBindingSource;
-            this.DGVFlights.Location = new System.Drawing.Point(6, 202);
+            this.DGVFlights.Location = new System.Drawing.Point(3, 202);
             this.DGVFlights.MultiSelect = false;
             this.DGVFlights.Name = "DGVFlights";
             this.DGVFlights.ReadOnly = true;
             this.DGVFlights.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVFlights.Size = new System.Drawing.Size(645, 170);
             this.DGVFlights.TabIndex = 32;
+            // 
+            // tbHour
+            // 
+            this.tbHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbHour.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.tbHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbHour.Location = new System.Drawing.Point(452, 41);
+            this.tbHour.Mask = "00:00";
+            this.tbHour.Name = "tbHour";
+            this.tbHour.PromptChar = ' ';
+            this.tbHour.Size = new System.Drawing.Size(56, 26);
+            this.tbHour.SkipLiterals = false;
+            this.tbHour.TabIndex = 2;
+            this.tbHour.ValidatingType = typeof(System.DateTime);
+            this.tbHour.Click += new System.EventHandler(this.tbHour_Click);
+            this.tbHour.Enter += new System.EventHandler(this.tbHour_Enter);
+            // 
+            // flightBindingSource
+            // 
+            this.flightBindingSource.DataSource = typeof(ClassLibrary.Flight);
             // 
             // flightNumberDataGridViewTextBoxColumn
             // 
@@ -219,46 +241,33 @@
             this.destinationDataGridViewTextBoxColumn.Name = "destinationDataGridViewTextBoxColumn";
             this.destinationDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // dateDataGridViewTextBoxColumn
+            // departureDateDataGridViewTextBoxColumn
             // 
-            this.dateDataGridViewTextBoxColumn.DataPropertyName = "AData";
-            this.dateDataGridViewTextBoxColumn.HeaderText = "Date";
-            this.dateDataGridViewTextBoxColumn.Name = "dateDataGridViewTextBoxColumn";
-            this.dateDataGridViewTextBoxColumn.ReadOnly = true;
+            this.departureDateDataGridViewTextBoxColumn.DataPropertyName = "DepartureDate";
+            this.departureDateDataGridViewTextBoxColumn.HeaderText = "DepartureDate";
+            this.departureDateDataGridViewTextBoxColumn.Name = "departureDateDataGridViewTextBoxColumn";
+            this.departureDateDataGridViewTextBoxColumn.ReadOnly = true;
             // 
-            // hourDataGridViewTextBoxColumn
+            // departureHourDataGridViewTextBoxColumn
             // 
-            this.hourDataGridViewTextBoxColumn.DataPropertyName = "Hour";
-            this.hourDataGridViewTextBoxColumn.HeaderText = "Hour";
-            this.hourDataGridViewTextBoxColumn.Name = "hourDataGridViewTextBoxColumn";
-            this.hourDataGridViewTextBoxColumn.ReadOnly = true;
+            this.departureHourDataGridViewTextBoxColumn.DataPropertyName = "DepartureHour";
+            this.departureHourDataGridViewTextBoxColumn.HeaderText = "DepartureHour";
+            this.departureHourDataGridViewTextBoxColumn.Name = "departureHourDataGridViewTextBoxColumn";
+            this.departureHourDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // estimatedTimeArrivalDataGridViewTextBoxColumn
+            // 
+            this.estimatedTimeArrivalDataGridViewTextBoxColumn.DataPropertyName = "EstimatedTimeArrival";
+            this.estimatedTimeArrivalDataGridViewTextBoxColumn.HeaderText = "EstimatedTimeArrival";
+            this.estimatedTimeArrivalDataGridViewTextBoxColumn.Name = "estimatedTimeArrivalDataGridViewTextBoxColumn";
+            this.estimatedTimeArrivalDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // planeDataGridViewTextBoxColumn
             // 
             this.planeDataGridViewTextBoxColumn.DataPropertyName = "Plane";
-            this.planeDataGridViewTextBoxColumn.HeaderText = "Aircraft";
+            this.planeDataGridViewTextBoxColumn.HeaderText = "Plane";
             this.planeDataGridViewTextBoxColumn.Name = "planeDataGridViewTextBoxColumn";
             this.planeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // flightBindingSource
-            // 
-            this.flightBindingSource.DataSource = typeof(ClassLibrary.Flight);
-            // 
-            // tbHour
-            // 
-            this.tbHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbHour.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
-            this.tbHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbHour.Location = new System.Drawing.Point(452, 41);
-            this.tbHour.Mask = "00:00";
-            this.tbHour.Name = "tbHour";
-            this.tbHour.PromptChar = ' ';
-            this.tbHour.Size = new System.Drawing.Size(37, 20);
-            this.tbHour.SkipLiterals = false;
-            this.tbHour.TabIndex = 2;
-            this.tbHour.ValidatingType = typeof(System.DateTime);
-            this.tbHour.Click += new System.EventHandler(this.tbHour_Click);
-            this.tbHour.Enter += new System.EventHandler(this.tbHour_Enter);
             // 
             // FlightPanel
             // 
@@ -303,13 +312,14 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox cbAircrafts;
         private System.Windows.Forms.DataGridView DGVFlights;
-        private System.Windows.Forms.BindingSource flightBindingSource;
+        private System.Windows.Forms.MaskedTextBox tbHour;
         private System.Windows.Forms.DataGridViewTextBoxColumn flightNumberDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn originDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn destinationDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn dateDataGridViewTextBoxColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn hourDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn departureDateDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn departureHourDataGridViewTextBoxColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn estimatedTimeArrivalDataGridViewTextBoxColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn planeDataGridViewTextBoxColumn;
-        private System.Windows.Forms.MaskedTextBox tbHour;
+        private System.Windows.Forms.BindingSource flightBindingSource;
     }
 }

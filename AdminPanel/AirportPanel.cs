@@ -40,47 +40,51 @@ namespace AdminPanel
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
-            Airport local = (Airport)listBoxAirports.SelectedItem;
-            Airport toEdit = CheckList(local, Flights);
-
-            if (toEdit != null)
+            try
             {
-                listBoxAirports.Enabled = false;
-                gbEditor.Visible = true;
-                textBoxCity.Text = toEdit.City;
-                textBoxCountry.Text = toEdit.Country;
-                tbShortName.Text = toEdit.ShortName;
-                tbAirportName.Text = toEdit.AirportName;
+                Airport toEdit = MatchAirportList((Airport)listBoxAirports.SelectedItem);
+                if (IsUsed(toEdit))
+                {
+                    listBoxAirports.Enabled = false;
+                    gbEditor.Visible = true;
+                    textBoxCity.Text = toEdit.City;
+                    textBoxCountry.Text = toEdit.Country;
+                    tbShortName.Text = toEdit.ShortName;
+                    tbAirportName.Text = toEdit.AirportName;
+                }
+                else MessageBox.Show("Airport cannot be edited because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
+            catch (NullReferenceException ex)
             {
-                MessageBox.Show("Airport cannot be edited because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
             }
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            Airport local = (Airport)listBoxAirports.SelectedItem;
-            Airport toErase = CheckList(local, Flights);
-
-            if (toErase != null)
+            try
             {
-                DialogResult answer;
-                answer = MessageBox.Show($"Are you sure you want to drop the {toErase.City} Airport connection?", "Confirm your action", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
-                if (answer == DialogResult.Yes)
+                Airport toErase = MatchAirportList((Airport)listBoxAirports.SelectedItem);
+                if (IsUsed(toErase))
                 {
-                    Airports.Remove(toErase);
-                    RefreshList();
+                    DialogResult answer;
+                    answer = MessageBox.Show($"Are you sure you want to drop the {toErase.City} Airport connection?", "Confirm your action", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    if (answer == DialogResult.Yes)
+                    {
+                        Airports.Remove(toErase);
+                        RefreshList();
+                    }
                 }
+                else MessageBox.Show("Airport cannot be deleted because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
+            catch (NullReferenceException ex)
             {
-                MessageBox.Show("Airport cannot be deleted because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(ex.Message);
             }
         }
         // <<<<<<<<<<<<<<<<< EDIT BUTTONS >>>>>>>>>>>>>>>>>>>>>>
         private void btnSave_Click(object sender, EventArgs e)
         {
-            Airport local = CheckList((Airport)listBoxAirports.SelectedItem, Flights);
+            Airport local = MatchAirportList((Airport)listBoxAirports.SelectedItem);
 
             Airports.Remove(local);
 
@@ -113,39 +117,38 @@ namespace AdminPanel
         }
         //<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>
         /// <summary>
-        /// tests objects selected from the listBox
+        /// matches objects from the selection with the list
         /// </summary>
         /// <param name="tester"></param>
-        /// <returns>returns the object from the list or null</returns>
-        private Airport CheckList(Airport tester, List<Flight> flights)
+        /// <returns>returns the object from the list</returns>
+        private Airport MatchAirportList(Airport tester)
         {
-            try
+            Airport tested = null;
+
+            foreach (Airport port in Airports)
             {
-                Airport tested = null;
-                
-                foreach (Airport port in Airports)
+                if (tester == port)
                 {
-                    if (tester == port)
-                    {
-                        tested = port;
-                        break;
-                    }
+                    tested = port;
+                    break;
                 }
-                foreach (Flight item in flights)
-                {
-                    if (item.Origin.City == tested.City || item.Destination.City == tested.City)
-                    {
-                        tested = null;
-                        break;
-                    }
-                }
+            }
+            if (tested != null)
+            {
                 return tested;
             }
-            catch (NullReferenceException)
+            else throw new NullReferenceException("Airport not found.\nPlease check and try again.");
+        }
+        private bool IsUsed(Airport toEdit)
+        {
+            foreach (Flight item in Flights)
             {
-                MessageBox.Show("Reference lost. \nPlease try again.", "Critical ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return null;
+                if (item.Origin.City == toEdit.City || item.Destination.City == toEdit.City)
+                {
+                    return false;
+                }
             }
+            return true;
         }
         private void ClearFields()
         {

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -7,7 +8,16 @@ namespace ClassLibrary
     public static class SaveLoad
     {
         public static string PathToData { get { return $@"{Directory.GetCurrentDirectory()}\Data"; } }
-        
+        public static void CheckForFiles(List<Airport> locations, List<Aircraft> fleet, List<Flight> flights)
+        {
+            if (!Directory.Exists(PathToData))
+            {
+                Directory.CreateDirectory(PathToData);
+                SaveAirports(locations);
+                SaveFleet(fleet);
+                SaveFlights(flights);
+            }
+        }
         public static void SaveAirports(List<Airport> objects)
         {
             var file = Directory.CreateDirectory(PathToData);

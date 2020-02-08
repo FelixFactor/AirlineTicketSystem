@@ -17,7 +17,7 @@ namespace AdminPanel
             Form = frm;
             FlightsToBook = flights;
             InitializeComponent();
-            dateBox.MinDate = DateTime.Now;
+            dateBox.MinDate = DateTime.UtcNow;
             tbDestination.Enabled = false;
             checkFlexibleDate.Enabled = false;
             RefreshList();
@@ -28,7 +28,7 @@ namespace AdminPanel
             ClearSearch();
             tbOrigin.Text = string.Empty;
             tbDestination.Text = string.Empty;
-            dateBox.SelectionRange.Start = DateTime.Now;
+            dateBox.SelectionRange.Start = DateTime.UtcNow;
             checkFlexibleDate.Checked = false;
             btnBooking.Enabled = false;
         }
@@ -50,7 +50,7 @@ namespace AdminPanel
             else
             {
                 string toSearchFrom = Utils.UpperCase(tbOrigin.Text);
-                var results = FlightsToBook.Where(f => f.Origin.City == toSearchFrom);
+                var results = FlightsToBook.Where(f => f.Origin.City.StartsWith(toSearchFrom));
                 CopyList(results.ToList());
                 if (!string.IsNullOrWhiteSpace(tbDestination.Text) && SearchedFlights.Count != 0)
                 {
@@ -75,22 +75,18 @@ namespace AdminPanel
             }
             RefreshList();
         }
-
         private void btnBooking_Click(object sender, EventArgs e)
         {
             try
             {
                 Flight toBook = CheckList(DGVSearch.CurrentRow.DataBoundItem as Flight);
-                if (toBook != null)
-                {
-                    BookFlight booking = new BookFlight(toBook, Form);
-                    Form.AddControls(booking);
-                    Form.GoToBooking();
-                }
+                BookFlight booking = new BookFlight(toBook, Form);
+                Form.AddControls(booking);
+                Form.GoToBooking();
             }
-            catch (NullReferenceException)
+            catch (Exception ex)
             {
-                MessageBox.Show("No flight selected.\nCheck selection.", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ex.Message);
             }
         }
         //<<<<<<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -120,27 +116,27 @@ namespace AdminPanel
         }
         private Flight CheckList(Flight toCheck)
         {
-            Flight listed = new Flight();
-            if (toCheck != null)
+            Flight listed = null;
+            foreach (Flight item in FlightsToBook)
             {
-                foreach (Flight item in FlightsToBook)
+                if (item == toCheck)
                 {
-                    if (item == toCheck)
-                    {
-                        listed = item;
-                        break;
-                    }
+                    listed = item;
+                    break;
                 }
+            }
+            if (listed != null)
+            {
                 return listed;
             }
             else
             {
-                return null;
+                throw new NullReferenceException("No flight selected! \nPlease check and try again.");
             }
         }
         private void DeleteOldFlights()
         {
-            var result = SearchedFlights.Where(f => f.Date > DateTime.Now);
+            var result = SearchedFlights.Where(f => f.Date > DateTime.UtcNow);
             CopyList(result.ToList());
         }
 
