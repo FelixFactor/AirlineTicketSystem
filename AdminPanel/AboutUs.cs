@@ -8,6 +8,7 @@ namespace AdminPanel
         public AboutUs()
         {
             InitializeComponent();
+            lblVersion.Text = $"version: {ProductVersion}";
         }
 
         private void button1_Click(object sender, EventArgs e)

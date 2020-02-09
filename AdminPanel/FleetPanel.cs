@@ -21,7 +21,6 @@ namespace AdminPanel
             ClearFields();
         }
 
-
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -53,15 +52,12 @@ namespace AdminPanel
                         }
                     }
                 }
-                else
-                {
-                    MessageBox.Show("You must choose a Model!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
+                else 
+                    MessageBox.Show("Please choose a model from the Model's menu!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else
-            {
-                MessageBox.Show("You must choose a Manufacturer!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
+            else 
+                MessageBox.Show("Please choose a manufacturer from the Manufacturer's menu!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+              
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
@@ -81,7 +77,7 @@ namespace AdminPanel
                 }
                 else
                 {
-                    MessageBox.Show("Aircraft cannot be edited because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"{toEdit.ToString()} cannot be edited while it has an active flight plan!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
             catch (NullReferenceException ex)
@@ -105,9 +101,7 @@ namespace AdminPanel
                     }
                 }
                 else
-                {
-                    MessageBox.Show("Aircraft cannot be deleted because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                    MessageBox.Show($"{toDelete.ToString()} cannot be deleted while it has an active flight plan!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (NullReferenceException ex)
             {
@@ -145,8 +139,6 @@ namespace AdminPanel
                 }
             }
         }
-
-
 
 
         //<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>
@@ -231,7 +223,7 @@ namespace AdminPanel
             }
         }
         /// <summary>
-        /// 
+        /// returns the next id based on the index from the list
         /// </summary>
         /// <returns>returns the next id based on the index from the list</returns>
         private int NextNumber()
@@ -262,12 +254,10 @@ namespace AdminPanel
             }
             else
             {
-                MessageBox.Show("A plane without seats?!\n Please enter the number of seats!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("A plane with 0 seats?!\n Please enter the number of seats!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
         }
-
-
 
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>

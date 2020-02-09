@@ -52,7 +52,7 @@ namespace AdminPanel
                     tbShortName.Text = toEdit.ShortName;
                     tbAirportName.Text = toEdit.AirportName;
                 }
-                else MessageBox.Show("Airport cannot be edited because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else MessageBox.Show($"{toEdit.City} Airport cannot be edited \nwhile it is an Origin/Destination of a Flight!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (NullReferenceException ex)
             {
@@ -74,7 +74,7 @@ namespace AdminPanel
                         RefreshList();
                     }
                 }
-                else MessageBox.Show("Airport cannot be deleted because it is in use!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else MessageBox.Show($"{toErase.City} Airport cannot be deleted \nwhile it is an Origin/Destination of a Flight!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (NullReferenceException ex)
             {
@@ -219,14 +219,14 @@ namespace AdminPanel
         }
         private string CheckShort()
         {
-            if (!(string.IsNullOrWhiteSpace(tbShortName.Text)))
+            if (!(string.IsNullOrWhiteSpace(tbShortName.Text) || tbShortName.Text.Length > 3 || tbShortName.Text.Length < 3))
             {
                 string shortName = Utils.UpperCase(tbShortName.Text);
                 return shortName;
             }
             else
             {
-                MessageBox.Show("Input an Airport short name, please. \n Be creative!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show("Please input an Airport short name composed of 3 letters. \nBe creative!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return null;
             }
         }

@@ -35,6 +35,8 @@ namespace AdminPanel
             }
             AvailableSeats();
         }
+
+
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
         /// <summary>
         /// Checks for seats taken in the selected flight and removes them from the available
@@ -96,6 +98,8 @@ namespace AdminPanel
             rbEconE.Checked = false;
             rbEconF.Checked = false;
         }
+
+
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void btnCheckIn_Click(object sender, EventArgs e)
         {
@@ -115,6 +119,8 @@ namespace AdminPanel
 
             Form.BackToSearch();
         }
+
+
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void rbExec_CheckedChanged(object sender, EventArgs e)
         {
@@ -210,7 +216,6 @@ namespace AdminPanel
                 }
             }
         }
-
         private void tbBirthDate_MouseClick(object sender, MouseEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbBirthDate.Text))

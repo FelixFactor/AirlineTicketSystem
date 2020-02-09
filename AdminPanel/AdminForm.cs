@@ -90,7 +90,7 @@ namespace AdminPanel
         private void btnExit_MouseHover(object sender, EventArgs e)
         {
             ToolTip exit = new ToolTip();
-            exit.SetToolTip(btnExit,"Saves & Returns to Main");
+            exit.SetToolTip(btnExit,"Saves & Returns to Front Menu");
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

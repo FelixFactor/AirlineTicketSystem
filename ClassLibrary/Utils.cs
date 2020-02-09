@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace ClassLibrary
 {
@@ -14,16 +12,23 @@ namespace ClassLibrary
         public static string UpperCase(string local)
         {
             string[] splited = local.Trim().Split(' ');
-            try
+            string city = "";
+            for (int i = 0; i < splited.Length; i++)
             {
-                string loca = TurnUpperCase(splited[0]);
-                string tion = TurnUpperCase(splited[1]);
-                return loca + " " + tion;
+                splited[i] = TurnUpperCase(splited[i]);
+                city += $" {splited[i]}";
             }
-            catch (IndexOutOfRangeException)
-            {
-                return TurnUpperCase(local);
-            }
+            return city.Trim();
+            //try
+            //{
+            //    string loca = TurnUpperCase(splited[0]);
+            //    string tion = TurnUpperCase(splited[1]);
+            //    return loca + " " + tion;
+            //}
+            //catch (IndexOutOfRangeException)
+            //{
+            //    return TurnUpperCase(local);
+            //}
         }
         static private string TurnUpperCase(string local)
         {
@@ -32,7 +37,7 @@ namespace ClassLibrary
             {
                 splat[0] = char.ToUpper(splat[0]);
             }
-            catch (Exception)
+            catch (IndexOutOfRangeException)
             {
                 string unknown = "Unknown";
                 TurnUpperCase(unknown);

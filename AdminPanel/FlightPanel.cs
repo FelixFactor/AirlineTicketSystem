@@ -22,7 +22,8 @@ namespace AdminPanel
             InitializeComponent();
 
             calendar.MinDate = DateTime.UtcNow.AddDays(1);
-            
+            calendar.SelectionStart = DateTime.UtcNow.AddDays(1);
+
             RefreshLists();
             RefreshFlights();
            
@@ -32,15 +33,8 @@ namespace AdminPanel
             Airport origin = (Airport)cboxOrigin.SelectedItem;
             Airport destination = (Airport)cboxDestination.SelectedItem;
             Aircraft plane = (Aircraft)cbAircrafts.SelectedItem;
-            DateTime setDate = new DateTime();
-            try
-            {
-                setDate = HourMinute();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            DateTime setDate = calendar.SelectionRange.Start;
+
             if (CheckAirport(origin))
             {
                 if(CheckAirport(destination))
@@ -49,56 +43,46 @@ namespace AdminPanel
                     {
                         MessageBox.Show("Destination Airport cannot be the same as the Airport of Origin!!", "Cannot create flight", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                     }
-                    else if(IsBeingUsed(plane, setDate))
-                    {
-                        MessageBox.Show($"Aircraft {plane.AircraftID} cannot be selected for this flight \nbecause it is being used for another flight.", "Cannot create flight", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    }
                     else
                     {
-                        CreateFlight(origin, destination, plane, setDate);
-                        CreateFlight(destination, origin, plane, setDate.AddHours(8));
-                        RefreshFlights();
-                        RefreshLists();
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Please select a Destination!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Please select an Origin!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-            }
-        }
-        /// <summary>
-        /// goes through flights to avoid creating a flight with the same plane at the same hour or close
-        /// </summary>
-        /// <param name="plane"></param>
-        /// <param name="checkDate"></param>
-        /// <returns></returns>
-        private bool IsBeingUsed(Aircraft plane, DateTime checkDate)
-        {
-            var result = Flights.Where(f => f.Plane.AircraftID == plane.AircraftID);
-            var otherResult = result.Where(f => f.Date.Date == checkDate.Date);
-            List<Flight> CheckTime = otherResult.ToList();
-            if (CheckTime.Count != 0)
-            {
-                foreach (Flight item in CheckTime)
-                {
-                    if (checkDate.Hour >= item.Date.Hour -8 || checkDate.Hour <= item.Date.Hour + 8)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-            else
-            {
-                return false;
-            }
-        }
+                        string[] hourMinute = tbHour.ToString().Trim().Split(':');
+                        if (!string.IsNullOrWhiteSpace(hourMinute[1]) || !string.IsNullOrWhiteSpace(hourMinute[2]))
+                        {
+                            double setHours = double.Parse(hourMinute[1]);
+                            double setMinutes = double.Parse(hourMinute[2]);
 
+                            if (setHours >= 24 || setMinutes >= 60)
+                            {
+                                MessageBox.Show("Incorrect Hour");
+                            }
+                            else
+                            {
+                                setDate.AddHours(setHours).AddMinutes(setMinutes);
+                            }
+                            if (IsBeingUsed(plane, setDate))
+                            {
+                                MessageBox.Show($"Aircraft {plane.InternalID} cannot be selected for this flight \nbecause it already has a flight plan scheduled.", "Cannot create flight", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                            }
+                            else
+                            {
+                                CreateFlight(origin, destination, plane, setDate);
+                                CreateFlight(destination, origin, plane, setDate.AddHours(8));
+                                RefreshFlights();
+                                RefreshLists();
+
+                            }
+                        }
+                        else 
+                            MessageBox.Show("Enter time of departure(0-24h)");
+                    }
+                }
+                else 
+                    MessageBox.Show("Please select a Destination!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            }
+            else 
+                MessageBox.Show("Please select an Origin!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+        
         private void btnDelete_Click(object sender, EventArgs e)
         {
             Flight toDelete = (Flight)DGVFlights.CurrentRow.DataBoundItem;
@@ -123,6 +107,33 @@ namespace AdminPanel
 
 
         //<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>
+        /// <summary>
+        /// goes through flights to avoid creating a flight with the same plane at the same hour or close
+        /// </summary>
+        /// <param name="plane"></param>
+        /// <param name="checkDate"></param>
+        /// <returns></returns>
+        private bool IsBeingUsed(Aircraft plane, DateTime checkDate)
+        {
+            var result = Flights.Where(f => f.Plane.AircraftID == plane.AircraftID);
+            var otherResult = result.Where(f => f.Date.Date == checkDate.Date);
+            List<Flight> CheckTime = otherResult.ToList();
+            if (CheckTime.Count != 0)
+            {
+                foreach (Flight item in CheckTime)
+                {
+                    if (checkDate.Hour >= item.Date.Hour - 8 || checkDate.Hour <= item.Date.Hour + 8)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+            else
+            {
+                return false;
+            }
+        }
         /// <summary>
         /// the bindingContext allows for the comboBoxes to be handled separately from one another
         /// </summary>
@@ -224,22 +235,7 @@ namespace AdminPanel
                 return number;
             }
         }
-        private DateTime HourMinute()
-        {
-            string[] hourMinute = tbHour.ToString().Split(':');
-            double setHours = double.Parse(hourMinute[1]);
-            double setMinutes = double.Parse(hourMinute[2]);
-            if (setHours >= 24 || setMinutes >= 60)
-            {
-                throw new Exception("Incorrect Hour");
-            }
-            //day starts at 00.00, the upper lines add the hours so it can display proper departure time
-            DateTime setDate = calendar.SelectionRange.Start.AddHours(setHours).AddMinutes(setMinutes);
-            return setDate;
-        }
-
-
-
+        
 
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>

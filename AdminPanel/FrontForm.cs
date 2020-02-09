@@ -46,7 +46,7 @@ namespace AdminPanel
         private void btnAbout_MouseHover(object sender, EventArgs e)
         {
             ToolTip about = new ToolTip();
-            about.SetToolTip(btnAbout, "I've made this!");
+            about.SetToolTip(btnAbout, "Who made this?");
         }
     }
 }
