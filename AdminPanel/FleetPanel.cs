@@ -51,6 +51,8 @@ namespace AdminPanel
                             MessageBox.Show(ex.Message);
                         }
                     }
+                    else
+                        MessageBox.Show("A plane with 0 seats?!\n Please enter the number of seats!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else 
                     MessageBox.Show("Please choose a model from the Model's menu!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -76,9 +78,7 @@ namespace AdminPanel
                     tbSeats.Text = toEdit.TotalSeats.ToString();
                 }
                 else
-                {
                     MessageBox.Show($"{toEdit.ToString()} cannot be edited while it has an active flight plan!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
             }
             catch (NullReferenceException ex)
             {
@@ -159,13 +159,9 @@ namespace AdminPanel
                 }
             }
             if (tested != null)
-            {
                 return tested;
-            }
             else
-            {
                 throw new NullReferenceException("There is no aircraft selected.\nPlease try again.");
-            }
         }
         /// <summary>
         /// runs the flight list to check if the plane is associated with a flight
@@ -174,12 +170,10 @@ namespace AdminPanel
         /// <returns></returns>
         private bool IsUsed(Aircraft isUsed)
         {
-            foreach (Flight item in Flights)//checks if the plane is in use in a flight
+            foreach (Flight item in Flights)
             {
-                if (item.Plane.AircraftID == isUsed.AircraftID)
-                {
+                if (item.Plane.AircraftID == isUsed.AircraftID && item.Date.CompareTo(DateTime.UtcNow) == 1)
                     return false;
-                }
             }
             return true;
         }
@@ -249,14 +243,9 @@ namespace AdminPanel
         private bool CheckEmptySeats()
         {
             if (!string.IsNullOrWhiteSpace(tbSeats.Text))
-            {
                 return true;
-            }
             else
-            {
-                MessageBox.Show("A plane with 0 seats?!\n Please enter the number of seats!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
-            }
         }
 
 
@@ -265,13 +254,9 @@ namespace AdminPanel
         private void tbSeats_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbSeats.Text))
-            {
                 tbSeats.SelectionStart = 0;
-            }
             else
-            {
                 tbSeats.SelectAll();
-            }
         }
         private void DGVFleet_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
@@ -301,30 +286,24 @@ namespace AdminPanel
             if (cboxModel.SelectedIndex != -1)
             {
                 if (cboxModel.SelectedIndex == 0)
-                {
                     tbSeats.Text = "160";
-                }
                 else
-                {
                     tbSeats.Text = "200";
-                }
             }
         }
         private void tbExec_MouseClick(object sender, MouseEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbExec.Text))
-            {
                 tbExec.SelectionStart = 0;
-            }
-            else { tbExec.SelectAll(); }
+            else  
+                tbExec.SelectAll(); 
         }
         private void tbEcon_MouseClick(object sender, MouseEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbEcon.Text))
-            {
                 tbEcon.SelectionStart = 0;
-            }
-            else { tbEcon.SelectAll(); }
+            else 
+                tbEcon.SelectAll(); 
         }
     }
 }

@@ -132,9 +132,9 @@
             this.label5.Font = new System.Drawing.Font("Roboto", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label5.Location = new System.Drawing.Point(12, 9);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(156, 21);
+            this.label5.Size = new System.Drawing.Size(152, 21);
             this.label5.TabIndex = 10;
-            this.label5.Text = "Fly Hi Ticket System";
+            this.label5.Text = "FlyHi Ticket System";
             // 
             // AboutUs
             // 

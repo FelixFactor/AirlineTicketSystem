@@ -9,7 +9,6 @@ namespace AdminPanel
         public FrontForm()
         {
             InitializeComponent();
-            
         }
 
         private void btnExit_Click(object sender, EventArgs e)

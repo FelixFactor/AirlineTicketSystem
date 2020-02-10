@@ -9,28 +9,23 @@ namespace AdminPanel
 {
     public partial class AdminForm : Form
     {
-        //lists are instanced because of 1st use <<<let it be>>>
-        List<Airport> Locations = new List<Airport>();
-        List<Aircraft> Fleet = new List<Aircraft>();
-        List<Flight> Flights = new List<Flight>();
+        
+        List<Airport> Locations = SaveLoad.LoadAirports();
+        List<Aircraft> Fleet = SaveLoad.LoadFleet();
+        List<Flight> Flights = SaveLoad.LoadFlights();
 
         FrontForm Front = new FrontForm();
         public AdminForm(FrontForm front)
         {
             Front = front;
-            //check if lists are empty so that a loading error is prevented in the 1st launch
-            SaveLoad.CheckForFiles(Locations, Fleet, Flights);
-
             InitializeComponent();
 
-            Flights = SaveLoad.LoadFlights();
-            Fleet = SaveLoad.LoadFleet();
-            Locations = SaveLoad.LoadAirports();
             FlightPanel flightPanel = new FlightPanel(Flights, Fleet, Locations);
             
             AddControls(flightPanel);
             btnFlight.BackColor = SystemColors.Control;
             btnFlight.Enabled = false;
+            
         }
         //<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>
         private void AddControls(UserControl panels)

@@ -23,15 +23,6 @@ namespace AdminPanel
             RefreshList();
         }
 
-        private void btnClear_Click(object sender, EventArgs e)
-        {
-            ClearSearch();
-            tbOrigin.Text = string.Empty;
-            tbDestination.Text = string.Empty;
-            dateBox.SelectionRange.Start = DateTime.UtcNow;
-            checkFlexibleDate.Checked = false;
-            btnBooking.Enabled = false;
-        }
         /// <summary>
         /// 1st-checks if the origin is empty if(true) searches by date; if(false) checks the origin text with the list and creates a searchlist; 
         /// then for the destination and last if unckecked(flexible date) for the date in the searchlist
@@ -41,31 +32,45 @@ namespace AdminPanel
         private void btnSearch_Click(object sender, EventArgs e)
         {
             btnBooking.Enabled = true;
+            //clears the DGV so that no duplicate results appear
             ClearSearch();
+
             if (string.IsNullOrWhiteSpace(tbOrigin.Text))
             {
+                //creates a result list of flights matching the date since the textBox is empty
                 var dateResult = FlightsToBook.Where(f => f.Date.ToShortDateString() == dateBox.SelectionRange.Start.ToShortDateString());
                 CopyList(dateResult.ToList());
             }
             else
             {
                 string toSearchFrom = Utils.UpperCase(tbOrigin.Text);
+
+                //creates a result list of flights matching the textBox 
                 var results = FlightsToBook.Where(f => f.Origin.City.StartsWith(toSearchFrom));
+
+                //copies the result to a list
                 CopyList(results.ToList());
+
                 if (!string.IsNullOrWhiteSpace(tbDestination.Text) && SearchedFlights.Count != 0)
                 {
                     string toSearchWhere = Utils.UpperCase(tbDestination.Text);
-                    var resultsDest = SearchedFlights.Where(f => f.Destination.City == toSearchWhere);
+
+                    //if inputed searches the 1st result list for flights that match the destination 
+                    var resultsDest = SearchedFlights.Where(f => f.Destination.City.StartsWith(toSearchWhere));
+
                     CopyList(resultsDest.ToList());
                 }
-                else if (checkFlexibleDate.Checked == false && SearchedFlights.Count != 0)
+                else if (checkFlexibleDate.Checked == false && SearchedFlights.Count != 0)//check button on
                 {
-                    var dateResult = SearchedFlights.Where(f => f.Date.ToShortDateString() == dateBox.SelectionRange.Start.ToShortDateString());
+                    //creates a final result with the selected date 
+                    var dateResult = SearchedFlights.Where(f => f.Date.ToShortDateString().CompareTo(dateBox.SelectionRange.Start.ToShortDateString()) == 0);
+
                     CopyList(dateResult.ToList());
                 }
             }
             if (SearchedFlights.Count != 0)
             {
+                //goes through the list to delete the results that are older than the present day
                 DeleteOldFlights();
             }
             if (SearchedFlights.Count == 0)
@@ -89,9 +94,20 @@ namespace AdminPanel
                 MessageBox.Show(ex.Message);
             }
         }
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearSearch();
+            tbOrigin.Text = string.Empty;
+            tbDestination.Text = string.Empty;
+            dateBox.SelectionRange.Start = DateTime.UtcNow;
+            checkFlexibleDate.Checked = false;
+            btnBooking.Enabled = false;
+        }
+
+
         //<<<<<<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
         /// <summary>
-        /// copies the result to the SearchedFlights List
+        /// clears the list and copies the result to the SearchedFlights List
         /// </summary>
         /// <param name="result"></param>
         private void CopyList(List<Flight> result)
@@ -125,14 +141,11 @@ namespace AdminPanel
                     break;
                 }
             }
+
             if (listed != null)
-            {
                 return listed;
-            }
             else
-            {
                 throw new NullReferenceException("No flight selected! \nPlease check and try again.");
-            }
         }
         private void DeleteOldFlights()
         {
@@ -140,17 +153,14 @@ namespace AdminPanel
             CopyList(result.ToList());
         }
 
+
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void checkFlexibleDate_CheckedChanged(object sender, EventArgs e)
         {
             if (checkFlexibleDate.Checked == true)
-            {
                 dateBox.Enabled = false;
-            }
-            else
-            {
+            else//checked false
                 dateBox.Enabled = true;
-            }
         }
         private void tbOrigin_TextChanged(object sender, EventArgs e)
         {
@@ -165,6 +175,10 @@ namespace AdminPanel
                 checkFlexibleDate.Enabled = true;
                 tbDestination.Enabled = true;
             }
+        }
+        private void DGVSearch_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            btnBooking_Click(sender, e);
         }
     }
 }

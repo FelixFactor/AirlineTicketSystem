@@ -52,7 +52,8 @@ namespace AdminPanel
                     tbShortName.Text = toEdit.ShortName;
                     tbAirportName.Text = toEdit.AirportName;
                 }
-                else MessageBox.Show($"{toEdit.City} Airport cannot be edited \nwhile it is an Origin/Destination of a Flight!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else
+                    MessageBox.Show($"{toEdit.City} Airport cannot be edited \nwhile it is an Origin/Destination of a Flight!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (NullReferenceException ex)
             {
@@ -74,7 +75,8 @@ namespace AdminPanel
                         RefreshList();
                     }
                 }
-                else MessageBox.Show($"{toErase.City} Airport cannot be deleted \nwhile it is an Origin/Destination of a Flight!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                else 
+                    MessageBox.Show($"{toErase.City} Airport cannot be deleted \nwhile it is an Origin/Destination of a Flight!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (NullReferenceException ex)
             {
@@ -134,19 +136,16 @@ namespace AdminPanel
                 }
             }
             if (tested != null)
-            {
                 return tested;
-            }
-            else throw new NullReferenceException("Airport not found.\nPlease check and try again.");
+            else 
+                throw new NullReferenceException("Airport not found.\nPlease check and try again.");
         }
         private bool IsUsed(Airport toEdit)
         {
             foreach (Flight item in Flights)
             {
                 if (item.Origin.City == toEdit.City || item.Destination.City == toEdit.City)
-                {
                     return false;
-                }
             }
             return true;
         }
@@ -190,13 +189,9 @@ namespace AdminPanel
                     }
                 }
                 if (city != null)
-                {
                     return city;
-                }
                 else
-                {
                     return null;
-                }
             }
             else
             {

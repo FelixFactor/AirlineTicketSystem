@@ -118,13 +118,15 @@
             // 
             // btnAdd
             // 
+            this.btnAdd.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btnAdd.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnAdd.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAdd.ImageAlign = System.Drawing.ContentAlignment.TopRight;
             this.btnAdd.Location = new System.Drawing.Point(6, 19);
             this.btnAdd.Name = "btnAdd";
             this.btnAdd.Size = new System.Drawing.Size(76, 47);
             this.btnAdd.TabIndex = 3;
-            this.btnAdd.Text = "Add Aircraft";
+            this.btnAdd.Text = "Buy Aircraft";
             this.btnAdd.UseVisualStyleBackColor = true;
             this.btnAdd.Click += new System.EventHandler(this.btnAdd_Click);
             // 
@@ -136,7 +138,7 @@
             this.btnEdit.Name = "btnEdit";
             this.btnEdit.Size = new System.Drawing.Size(76, 47);
             this.btnEdit.TabIndex = 4;
-            this.btnEdit.Text = "Edit Aircraft";
+            this.btnEdit.Text = "Edit  Seats";
             this.btnEdit.UseVisualStyleBackColor = true;
             this.btnEdit.Click += new System.EventHandler(this.btnEdit_Click);
             // 
@@ -160,7 +162,6 @@
             this.tbSeats.Size = new System.Drawing.Size(25, 20);
             this.tbSeats.TabIndex = 2;
             this.tbSeats.Click += new System.EventHandler(this.tbSeats_Click);
-//            this.tbSeats.Enter += new System.EventHandler(this.tbSeats_Enter);
             // 
             // DGVFleet
             // 

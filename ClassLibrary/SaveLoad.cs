@@ -8,15 +8,31 @@ namespace ClassLibrary
     public static class SaveLoad
     {
         public static string PathToData { get { return $@"{Directory.GetCurrentDirectory()}\Data"; } }
+        public static string PathToTemplates { get { return $@"{Directory.GetCurrentDirectory()}\dlls"; } }
+        public static string PathToBoardPass { get { return $@"{PathToData}\Boarding Passes"; } }
+
         public static void CheckForFiles(List<Airport> locations, List<Aircraft> fleet, List<Flight> flights)
         {
             if (!Directory.Exists(PathToData))
             {
                 Directory.CreateDirectory(PathToData);
+                Directory.CreateDirectory(PathToData + "\\Boarding Passes");
                 SaveAirports(locations);
                 SaveFleet(fleet);
                 SaveFlights(flights);
             }
+        }
+        internal static void CreateFile(string boardingPass)
+        {
+            File.Create(boardingPass).Close();
+        }
+        internal static string CreateDir(string pdfDir)
+        {
+            if (!Directory.Exists(PathToBoardPass + pdfDir))
+            {
+                Directory.CreateDirectory($"{PathToBoardPass}\\{pdfDir}");
+            }
+            return $"{PathToBoardPass}\\{pdfDir}";
         }
         public static void SaveAirports(List<Airport> objects)
         {
@@ -52,6 +68,7 @@ namespace ClassLibrary
             stream.Close();
             return loaded;
         }
+        
         public static void SaveFlights(List<Flight> objects)
         {
             var file = Directory.CreateDirectory(PathToData);

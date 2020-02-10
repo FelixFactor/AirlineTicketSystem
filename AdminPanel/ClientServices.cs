@@ -6,7 +6,7 @@ namespace AdminPanel
 {
     public partial class ClientServices : Form
     {
-        List<Flight> FlightsToBook = new List<Flight>();
+        List<Flight> FlightsToBook = SaveLoad.LoadFlights();
         
         FrontForm Form;
         public ClientServices(FrontForm form)
@@ -14,7 +14,6 @@ namespace AdminPanel
             Form = form;
             InitializeComponent();
             
-            FlightsToBook = SaveLoad.LoadFlights();
             btnBooking.Visible = false;
             SearchFlight searchFlight = new SearchFlight(FlightsToBook, this);
             AddControls(searchFlight);

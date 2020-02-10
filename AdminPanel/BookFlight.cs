@@ -17,24 +17,52 @@ namespace AdminPanel
         {
             Form = form;
             toBook = selection;
+
+            //these lists will have the available seats for purchase
             EconAvailable = toBook.Plane.EconSeats;
             ExecAvailable = toBook.Plane.ExecSeats;
+
             InitializeComponent();
+
             btnCheckIn.Enabled = false;
             gbExec.Location = new System.Drawing.Point(363, 140);
+
+            //masked textBox settings
             tbBirthDate.Mask = "0000/00/00";
             tbBirthDate.ValidatingType = typeof(DateTime);
             tbBirthDate.TypeValidationCompleted += new TypeValidationEventHandler(tbBirthDate_TypeValidationCompleted);
+
+            //checks upfront if the plane has executive and economy seats and disables the button if not
             if (toBook.Plane.FirstClass == 0)
-            {
                 rbExec.Enabled = false;
-            }
             if (toBook.Plane.SecondClass == 0)
-            {
                 rbEcon.Enabled = false;
-            }
+
             AvailableSeats();
         }
+
+        //<<<<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        private void btnCheckIn_Click(object sender, EventArgs e)
+        {
+            //variables
+            string name = Utils.UpperCase(tbName.Text) + " " + Utils.UpperCase(tbLastName.Text);
+            string internId = MakeId(name);
+            string id = tbIdentification.Text;
+            string email = tbEmail.Text;
+            string gender = GetGender();
+            string seat = cbSeats.Text;
+            string seatClass = GetClass();
+
+            Ticket newPassenger = new Ticket(internId, name, id, email, gender, seat, seatClass);
+            toBook.TakenSeats.Add(cbSeats.Text);
+            //toBook.Tickets.Add(newPassenger);
+
+            Utils.FillPDF(newPassenger, toBook);
+
+            Form.BackToSearch();
+        }
+
+        
 
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -70,6 +98,7 @@ namespace AdminPanel
                 }
             }
         }
+        //fills the comboBox with the seats from the selected row
         private void FillAvailableList(string row)
         {
             if (gbEcon.Visible == true)
@@ -98,27 +127,29 @@ namespace AdminPanel
             rbEconE.Checked = false;
             rbEconF.Checked = false;
         }
-
-
-        //<<<<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        private void btnCheckIn_Click(object sender, EventArgs e)
+        private string GetGender()
         {
-            Passenger newPassenger = new Passenger
-            {
-                PassengerName = tbName.Text,
-                LastName = tbLastName.Text,
-                Identification = tbIdentification.Text,
-                Email = tbEmail.Text,
-                Seat = cbSeats.Text,
-                Address = tbAddress.Text,
-                TaxNumber = tbTaxNumber.Text,
-                IdPassenger = $"Pass{toBook.FlightNumber}" + DateTime.UtcNow.ToShortTimeString().ToString()
-            };
-            toBook.Passengers.Add(newPassenger);
-            toBook.TakenSeats.Add(newPassenger.Seat);
-
-            Form.BackToSearch();
+            if (rbMan.Checked)
+                return "Mr.";
+            else
+                return "Mrs.";
         }
+        private string MakeId(string trans)
+        {
+            string[] split = trans.Split(' ');
+            Random n = new Random();
+            int number = n.Next(10000);
+            string id = split[0][0] + split[1][0] + number.ToString();
+            return id;
+        }
+        private string GetClass()
+        {
+            if (rbEcon.Checked)
+                return "Economy";
+            else
+                return "Executive";
+        }
+
 
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -140,61 +171,47 @@ namespace AdminPanel
         private void rbEconA_CheckedChanged(object sender, EventArgs e)
         {
             cbSeats.DataSource = null;
+
             if (rbEconA.Checked == true)
-            {
                 FillAvailableList("A");
-            }
+
             else if (rbEconB.Checked == true)
-            {
                 FillAvailableList("B");
-            }
+
             else if (rbEconC.Checked == true)
-            {
                 FillAvailableList("C");
-            }
+
             else if (rbEconD.Checked == true)
-            {
                 FillAvailableList("D");
-            }
+
             else if (rbEconE.Checked == true)
-            {
                 FillAvailableList("E");
-            }
+
             else
-            {
                 FillAvailableList("F");
-            }
         }
         private void rbExecA_CheckedChanged(object sender, EventArgs e)
         {
             cbSeats.DataSource = null;
+
             if (rbExecA.Checked == true)
-            {
                 FillAvailableList("A");
-            }
+
             else if (rbExecB.Checked == true)
-            {
                 FillAvailableList("B");
-            }
+
             else if (rbExecE.Checked)
-            {
                 FillAvailableList("E");
-            }
+
             else
-            {
                 FillAvailableList("F");
-            }
         }
         private void tbName_TextChanged(object sender, EventArgs e)
         {
             if (!string.IsNullOrWhiteSpace(tbName.Text) && !string.IsNullOrWhiteSpace(tbLastName.Text) && !string.IsNullOrWhiteSpace(tbIdentification.Text) && !string.IsNullOrWhiteSpace(tbEmail.Text) && !string.IsNullOrEmpty(cbSeats.Text) && (rbMan.Checked || rbWoman.Checked))
-            {
                 btnCheckIn.Enabled = true;
-            }
             else
-            {
                 btnCheckIn.Enabled = false;
-            }
         }
         private void tbBirthDate_TypeValidationCompleted(object sender, TypeValidationEventArgs e)
         {
@@ -219,10 +236,9 @@ namespace AdminPanel
         private void tbBirthDate_MouseClick(object sender, MouseEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbBirthDate.Text))
-            {
                 tbBirthDate.SelectionStart = 0;
-            }
-            else { tbBirthDate.SelectAll(); }
+            else  
+                tbBirthDate.SelectAll(); 
         }
 
     }

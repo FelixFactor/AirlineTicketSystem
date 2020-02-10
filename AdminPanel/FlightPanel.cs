@@ -22,12 +22,11 @@ namespace AdminPanel
             InitializeComponent();
 
             calendar.MinDate = DateTime.UtcNow.AddDays(1);
-            calendar.SelectionStart = DateTime.UtcNow.AddDays(1);
-
+            
             RefreshLists();
             RefreshFlights();
-           
         }
+
         private void btnCreateFlight_Click_1(object sender, EventArgs e)
         {
             Airport origin = (Airport)cboxOrigin.SelectedItem;
@@ -35,6 +34,7 @@ namespace AdminPanel
             Aircraft plane = (Aircraft)cbAircrafts.SelectedItem;
             DateTime setDate = calendar.SelectionRange.Start;
 
+            //CheckAirport function matches the comboBox selection with the list of Airports and returns a bool if it exists
             if (CheckAirport(origin))
             {
                 if(CheckAirport(destination))
@@ -45,35 +45,36 @@ namespace AdminPanel
                     }
                     else
                     {
+                        //splits the textBox into hours minutes
                         string[] hourMinute = tbHour.ToString().Trim().Split(':');
                         if (!string.IsNullOrWhiteSpace(hourMinute[1]) || !string.IsNullOrWhiteSpace(hourMinute[2]))
                         {
                             double setHours = double.Parse(hourMinute[1]);
                             double setMinutes = double.Parse(hourMinute[2]);
 
-                            if (setHours >= 24 || setMinutes >= 60)
-                            {
+                            //checks for incorrect time input
+                            if (setHours > 23 || setMinutes >= 60)
                                 MessageBox.Show("Incorrect Hour");
-                            }
+                            else if (setHours < 6 && setHours > 23)
+                                MessageBox.Show("Due to legislation \nair traffic during 00.00 and 06.00 is limited for comercial flights.");
                             else
                             {
-                                setDate.AddHours(setHours).AddMinutes(setMinutes);
-                            }
-                            if (IsBeingUsed(plane, setDate))
-                            {
-                                MessageBox.Show($"Aircraft {plane.InternalID} cannot be selected for this flight \nbecause it already has a flight plan scheduled.", "Cannot create flight", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                            }
-                            else
-                            {
-                                CreateFlight(origin, destination, plane, setDate);
-                                CreateFlight(destination, origin, plane, setDate.AddHours(8));
-                                RefreshFlights();
-                                RefreshLists();
-
+                                //since the date starts at 00.00 we have to add the time to it
+                                //adds the variables from the split above to the date
+                                setDate = setDate.AddHours(setHours).AddMinutes(setMinutes);
+                                if (IsBeingUsed(plane, setDate))//IsbeingUsed checks if the plane has a flight plan on the chosen date, and between minus or plus 8hours than the one it is in
+                                    MessageBox.Show($"Aircraft {plane.InternalID} cannot be selected for this flight \nbecause it already has a flight plan scheduled.", "Cannot create flight", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                else
+                                {
+                                    CreateFlight(origin, destination, plane, setDate);
+                                    //CreateFlight(destination, origin, plane, setDate.AddHours(8));
+                                    RefreshFlights();
+                                    RefreshLists();
+                                }
                             }
                         }
                         else 
-                            MessageBox.Show("Enter time of departure(0-24h)");
+                            MessageBox.Show("Enter time of departure(6-23h)");
                     }
                 }
                 else 
@@ -82,28 +83,32 @@ namespace AdminPanel
             else 
                 MessageBox.Show("Please select an Origin!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
-        
         private void btnDelete_Click(object sender, EventArgs e)
         {
             Flight toDelete = (Flight)DGVFlights.CurrentRow.DataBoundItem;
+
+            //CheckFlight matches the datagridview item with the item from the list
             if (CheckFlightList(toDelete))
             {
-                DialogResult answer;
-                answer = MessageBox.Show($"Are you sure you want to delete the flight n.{toDelete.FlightNumber} from {toDelete.Origin} to {toDelete.Destination}?", "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (answer == DialogResult.Yes)
+                if (toDelete.TakenSeats.Count == 0)
                 {
-                    Flights.Remove(toDelete);
-                    RefreshFlights();
-                    RefreshLists();
+                    DialogResult answer;
+                    answer = MessageBox.Show($"Are you sure you want to delete the flight n.{toDelete.FlightNumber} from {toDelete.Origin} to {toDelete.Destination}?", "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                    if (answer == DialogResult.Yes)
+                    {
+                        //the idea is not to remove any flight, just make them invisible, but for now it is erased for good
+                        Flights.Remove(toDelete);
+                        RefreshFlights();
+                        RefreshLists();
+                    }
                 }
+                else
+                    MessageBox.Show("Cannot delete a flight that has already tickets sold.", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
             }
             else
-            {
                 MessageBox.Show("You must select a flight", "Nothing to delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
-
-
 
 
         //<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>
@@ -115,24 +120,32 @@ namespace AdminPanel
         /// <returns></returns>
         private bool IsBeingUsed(Aircraft plane, DateTime checkDate)
         {
+            //uses Linq to create a list of variables(objects in this case) matching the chosen plane for the flight
             var result = Flights.Where(f => f.Plane.AircraftID == plane.AircraftID);
-            var otherResult = result.Where(f => f.Date.Date == checkDate.Date);
+
+            //this query matches the result above to the selected date
+            var otherResult = result.Where(f => f.Date.Date.CompareTo(checkDate.Date) == 0);
+
             List<Flight> CheckTime = otherResult.ToList();
             if (CheckTime.Count != 0)
             {
+                //runs the query to check the time of departure and return the error
+                //if the flight to be created is between 6h above or below the departure
                 foreach (Flight item in CheckTime)
                 {
-                    if (checkDate.Hour >= item.Date.Hour - 8 || checkDate.Hour <= item.Date.Hour + 8)
-                    {
-                        return true;
-                    }
+                    if (checkDate.Hour < item.Date.Hour)
+                        if (checkDate.Hour > item.Date.Hour - 6)
+                            return true;
+                    
+                    else//checkDate.Hour > item.Hour
+                        if (checkDate.Hour < item.Date.Hour + 6)
+                            return true;
                 }
                 return false;
             }
-            else
-            {
+            else            
                 return false;
-            }
+
         }
         /// <summary>
         /// the bindingContext allows for the comboBoxes to be handled separately from one another
@@ -165,6 +178,11 @@ namespace AdminPanel
             RefreshFlights();
             RefreshLists();
         }
+        /// <summary>
+        /// checks if the airport really exists in the list
+        /// </summary>
+        /// <param name="origin"></param>
+        /// <returns></returns>
         private bool CheckAirport(Airport origin)
         {
             Airport exists = null;
@@ -177,21 +195,17 @@ namespace AdminPanel
                 }
             }
             if (exists != null)
-            {
                 return true;
-            }
+            
             else
-            {
                 return false;
-            }
+            
         }
         private void RefreshFlights()
         {
             DGVFlights.DataSource = null;
             if (Flights.Count != 0)
-            {
-                DGVFlights.DataSource = Flights;
-            }
+                DGVFlights.DataSource = Flights; 
         }
         /// <summary>
         /// matches the selected item with the list
@@ -210,13 +224,9 @@ namespace AdminPanel
                 }
             }
             if (listed != null)
-            {
                 return true;
-            }
             else
-            {
                 return false;
-            }
         }
         /// <summary>
         /// checks the last entry in the list
