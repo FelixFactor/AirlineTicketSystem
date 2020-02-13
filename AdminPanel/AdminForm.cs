@@ -1,9 +1,8 @@
-﻿using System;
+﻿using ClassLibrary;
+using System;
 using System.Collections.Generic;
-using System.Windows.Forms;
-using ClassLibrary;
 using System.Drawing;
-using System.IO;
+using System.Windows.Forms;
 
 namespace AdminPanel
 {
@@ -37,9 +36,6 @@ namespace AdminPanel
         //<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>
         private void btnExit_Click(object sender, EventArgs e)
         {
-            SaveLoad.SaveAirports(Locations);
-            SaveLoad.SaveFleet(Fleet);
-            SaveLoad.SaveFlights(Flights);
             this.Close();
         }
         private void btnFlight_Click_1(object sender, EventArgs e)
@@ -91,6 +87,13 @@ namespace AdminPanel
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             Front.Visible = true;
+        }
+
+        private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            SaveLoad.SaveAirports(Locations);
+            SaveLoad.SaveFleet(Fleet);
+            SaveLoad.SaveFlights(Flights);
         }
     }
 }

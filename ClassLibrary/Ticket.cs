@@ -11,5 +11,10 @@
             Seat = seat;
             SeatClass = seatClass;
         }
+
+        public Ticket()
+        {
+            //rever esta salganhada e alterar o nome de passenger para person e ticket para passenger
+        }
     }
 }

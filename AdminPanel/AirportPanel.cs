@@ -86,11 +86,12 @@ namespace AdminPanel
         // <<<<<<<<<<<<<<<<< EDIT BUTTONS >>>>>>>>>>>>>>>>>>>>>>
         private void btnSave_Click(object sender, EventArgs e)
         {
+            //this function is not perfect has it removes the airport that is being edited and creates a new one
             Airport local = MatchAirportList((Airport)listBoxAirports.SelectedItem);
 
             Airports.Remove(local);
 
-            if (CheckCity() != null)
+            if (CheckCity() != null)//this function prevents the editing to an existing airport in the list
             {
                 if (CheckCountry() != null)
                 {

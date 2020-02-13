@@ -25,7 +25,7 @@ namespace ClassLibrary
             set {_estimatedTimeArrival = Date.AddHours(FlightDuration()); } 
         }
         public List<string> TakenSeats { get; set; }
-        //public List<Ticket> Tickets { get; set; }
+        public List<Ticket> Tickets { get; set; }
 
 
         private string makeId()
@@ -34,7 +34,7 @@ namespace ClassLibrary
         }
         private double FlightDuration()
         {
-            return 4;
+            return 4;//TODO check flight duration
         }
     }
 }

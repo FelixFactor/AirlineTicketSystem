@@ -8,15 +8,18 @@ namespace ClassLibrary
     public static class SaveLoad
     {
         public static string PathToData { get { return $@"{Directory.GetCurrentDirectory()}\Data"; } }
-        public static string PathToTemplates { get { return $@"{Directory.GetCurrentDirectory()}\dlls"; } }
+        public static string PathToTemplates { get { return $@"{Directory.GetCurrentDirectory()}"; } }
         public static string PathToBoardPass { get { return $@"{PathToData}\Boarding Passes"; } }
+        //private static string AirportsFile { get { return "airport.xml"; } }
+        //private static string FleetFile { get { return "aircrafts.xml"; } }
+        //private static string FlightsFile { get { return "flights.xml"; } }
 
         public static void CheckForFiles(List<Airport> locations, List<Aircraft> fleet, List<Flight> flights)
         {
             if (!Directory.Exists(PathToData))
             {
                 Directory.CreateDirectory(PathToData);
-                Directory.CreateDirectory(PathToData + "\\Boarding Passes");
+                Directory.CreateDirectory(PathToBoardPass);
                 SaveAirports(locations);
                 SaveFleet(fleet);
                 SaveFlights(flights);
@@ -26,7 +29,12 @@ namespace ClassLibrary
         {
             File.Create(boardingPass).Close();
         }
-        internal static string CreateDir(string pdfDir)
+        /// <summary>
+        /// if it doesn't exists, creates a directory named after the flightnumber and returns the full path
+        /// </summary>
+        /// <param name="pdfDir"></param>
+        /// <returns></returns>
+        public static string CreateDir(string pdfDir)
         {
             if (!Directory.Exists(PathToBoardPass + pdfDir))
             {

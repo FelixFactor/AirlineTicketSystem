@@ -76,16 +76,18 @@ namespace ClassLibrary
             //gets the document and prepares the fields to be written
             PdfAcroForm writeFields = PdfAcroForm.GetAcroForm(pdfDoc, true);
 
+            writeFields.GetField("gender").SetValue(fields.Gender);
             writeFields.GetField("pName").SetValue(fields.PassengerName);
             writeFields.GetField("origin").SetValue(origin);
             writeFields.GetField("destination").SetValue(destination);
             writeFields.GetField("departureTime").SetValue( flight.DepartureHour);
-            writeFields.GetField("eta").SetValue( "Unknown");
+            writeFields.GetField("eta").SetValue(flight.EstimatedTimeArrival.ToShortTimeString());
             writeFields.GetField("flightNumber").SetValue( flight.EntryNumber.ToString());
             writeFields.GetField("date").SetValue( flight.Date.ToLongDateString());
             writeFields.GetField("depTime").SetValue( flight.DepartureHour);
             writeFields.GetField("gatesTime").SetValue( gatesClose);
             writeFields.GetField("seatClass").SetValue(fields.SeatClass);
+            writeFields.GetField("seatNumber").SetValue(fields.Seat);
 
             pdfDoc.Close();
         }

@@ -103,8 +103,7 @@ namespace AdminPanel
                     }
                 }
                 else
-                    MessageBox.Show("Cannot delete a flight that has already tickets sold.", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
+                    MessageBox.Show("Cannot delete a flight that already has tickets sold.", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else
                 MessageBox.Show("You must select a flight", "Nothing to delete", MessageBoxButtons.OK, MessageBoxIcon.Error);

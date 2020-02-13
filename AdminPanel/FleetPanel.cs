@@ -2,7 +2,7 @@
 using ClassLibrary;
 using System;
 using System.Collections.Generic;
-
+using System.Linq;
 
 namespace AdminPanel
 {
@@ -170,13 +170,22 @@ namespace AdminPanel
         /// <returns></returns>
         private bool IsUsed(Aircraft isUsed)
         {
-            foreach (Flight item in Flights)
+            List<Flight> Results = CreateResults(isUsed.AircraftID);
+
+            foreach (Flight item in Results)
             {
-                if (item.Plane.AircraftID == isUsed.AircraftID && item.Date.CompareTo(DateTime.UtcNow) == 1)
-                    return false;
+                if (item.Plane.AircraftID == isUsed.AircraftID)
+                    if(item.EstimatedTimeArrival < DateTime.UtcNow)
+                        return true;
             }
             return true;
         }
+        private List<Flight> CreateResults(int aircraftID)
+        {
+            var result = Flights.Where(f => f.Plane.AircraftID == aircraftID);
+            return result.ToList();
+        }
+
         private void RefreshList()
         {
             DGVFleet.DataSource = null;

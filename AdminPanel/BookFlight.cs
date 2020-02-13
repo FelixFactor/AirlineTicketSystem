@@ -53,18 +53,34 @@ namespace AdminPanel
             string seat = cbSeats.Text;
             string seatClass = GetClass();
 
-            Ticket newPassenger = new Ticket(internId, name, id, email, gender, seat, seatClass);
-            toBook.TakenSeats.Add(cbSeats.Text);
-            //toBook.Tickets.Add(newPassenger);
+            //Ticket newPassenger = (new Ticket
+            //{
+            //    PassengerName = name,
+            //    IdPassenger = internId,
+            //    Identification = id,
+            //    Email = email,
+            //    Gender = gender,
+            //    Seat = seat,
+            //    SeatClass = seatClass
+            //});
 
+            Ticket newPassenger = new Ticket(internId, name, id, email, gender, seat, seatClass);
+
+            toBook.TakenSeats.Add(cbSeats.Text);
+            toBook.Tickets.Add(newPassenger);
+            
+            //creates the PDF using the inputed fields
             Utils.FillPDF(newPassenger, toBook);
 
-            Form.BackToSearch();
+            MessageBox.Show($"The Boarding Pass for passenger {name} was created.");
+
+            ShowPDF showPDF = new ShowPDF(this, internId, toBook.FlightNumber);
+            showPDF.ShowDialog();
+
+            BackToSearch();
         }
 
         
-
-
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
         /// <summary>
         /// Checks for seats taken in the selected flight and removes them from the available
@@ -149,7 +165,10 @@ namespace AdminPanel
             else
                 return "Executive";
         }
-
+        public void BackToSearch()
+        {
+            Form.BackToSearch();
+        }
 
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -207,7 +226,7 @@ namespace AdminPanel
                 FillAvailableList("F");
         }
         private void tbName_TextChanged(object sender, EventArgs e)
-        {
+        {//TODO create an event for each textbox
             if (!string.IsNullOrWhiteSpace(tbName.Text) && !string.IsNullOrWhiteSpace(tbLastName.Text) && !string.IsNullOrWhiteSpace(tbIdentification.Text) && !string.IsNullOrWhiteSpace(tbEmail.Text) && !string.IsNullOrEmpty(cbSeats.Text) && (rbMan.Checked || rbWoman.Checked))
                 btnCheckIn.Enabled = true;
             else

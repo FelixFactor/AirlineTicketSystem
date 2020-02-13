@@ -22,5 +22,9 @@ namespace ClassLibrary
             Email = email;
             Gender = gender;
         }
+        public Passenger()
+        {
+
+        }
     }
 }
