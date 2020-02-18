@@ -8,7 +8,7 @@ namespace AdminPanel
 {
     public partial class BookFlight : UserControl
     {
-        Flight toBook = new Flight();
+        Flight toBook;
         List<string> EconAvailable = new List<string>();
         List<string> ExecAvailable = new List<string>();
         ClientServices Form;
@@ -63,7 +63,7 @@ namespace AdminPanel
 
             MessageBox.Show($"The Boarding Pass for passenger {name} was created.");
 
-            ShowPDF showPDF = new ShowPDF(this, internId, toBook.FlightNumber);
+            ShowPDF showPDF = new ShowPDF(this, toBook.FlightNumber, newPassenger);
             showPDF.ShowDialog();
 
             BackToSearch();

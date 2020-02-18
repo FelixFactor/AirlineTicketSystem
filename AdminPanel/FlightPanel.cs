@@ -127,30 +127,35 @@ namespace AdminPanel
         /// <returns></returns>
         private bool IsBeingUsed(Aircraft plane, DateTime checkDate)
         {
-            //uses Linq to create a list of variables(objects in this case) matching the chosen plane for the flight
-            var result = Flights.Where(f => f.Plane.AircraftID == plane.AircraftID);
-
-            //this query matches the result above to the selected date
-            var otherResult = result.Where(f => f.Date.Date.CompareTo(checkDate.Date) == 0);
-
-            List<Flight> CheckTime = otherResult.ToList();
-            if (CheckTime.Count != 0)
+            if (Flights.Count != 0)
             {
-                //runs the query to check the time of departure and return the error
-                //if the flight to be created is between 6h above or below the departure
-                foreach (Flight item in CheckTime)
+                //uses Linq to create a list of variables(objects in this case) matching the chosen plane for the flight
+                var result = Flights.Where(f => f.Plane.AircraftID == plane.AircraftID);
+
+                //this query matches the result above to the selected date
+                var otherResult = result.Where(f => f.Date.Date.CompareTo(checkDate.Date) == 0);
+
+                List<Flight> CheckTime = otherResult.ToList();
+                if (CheckTime.Count != 0)
                 {
-                    if (checkDate.Hour < item.Date.Hour)
-                        if (checkDate.Hour > item.Date.Hour - 6)
-                            return true;
-                    
-                    else//checkDate.Hour > item.Hour
-                        if (checkDate.Hour < item.Date.Hour + 6)
-                            return true;
+                    //runs the query to check the time of departure and return the error
+                    //if the flight to be created is between 6h above or below the departure
+                    foreach (Flight item in CheckTime)
+                    {
+                        if (checkDate.Hour < item.Date.Hour)
+                            if (checkDate.Hour > item.Date.Hour - 6)
+                                return true;
+
+                            else//checkDate.Hour > item.Hour
+                            if (checkDate.Hour < item.Date.Hour + 6)
+                                return true;
+                    }
+                    return false;
                 }
-                return false;
+                else
+                    return false;
             }
-            else            
+            else
                 return false;
 
         }

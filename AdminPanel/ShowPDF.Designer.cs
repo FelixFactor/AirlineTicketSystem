@@ -54,6 +54,7 @@
             this.btnSendEmail.TabIndex = 1;
             this.btnSendEmail.Text = "Send by Email";
             this.btnSendEmail.UseVisualStyleBackColor = true;
+            this.btnSendEmail.Click += new System.EventHandler(this.btnSendEmail_Click);
             // 
             // btnPrint
             // 

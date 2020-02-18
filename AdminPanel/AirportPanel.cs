@@ -176,7 +176,7 @@ namespace AdminPanel
             }
             else//the result will return 0 because it's a new airport
             {
-                var checkName = Airports.Where(a => a.IATA == airportNew.IATA);//this will check for a repeated IATA
+                var checkName = Airports.Where(a => a.IATA == airportNew.IATA);//this will check for a repeated IATA code
                 if (checkName.ToList().Count != 0)
                 {
                     MessageBox.Show($"You already have an Airport connection to {Utils.UpperCase(textBoxCity.Text)}!", "Cannot add Airport!", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -274,7 +274,7 @@ namespace AdminPanel
         }
         private Task<List<Airport>> GetAirport()
         {
-            var result = AllAirports.Where(a => a.City == Utils.UpperCase(textBoxCity.Text));
+            var result = AllAirports.Where(a => a.City.StartsWith(Utils.UpperCase(textBoxCity.Text)));
             return Task.FromResult<List<Airport>>(result.ToList());
         }
         private Airport SearchInAll(Airport selectedItem)

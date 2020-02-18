@@ -2,7 +2,6 @@
 using iText.Kernel.Pdf;
 using System;
 using System.Collections.Generic;
-using System.IO;
 
 namespace ClassLibrary
 {
