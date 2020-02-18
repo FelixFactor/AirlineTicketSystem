@@ -53,18 +53,7 @@ namespace AdminPanel
             string seat = cbSeats.Text;
             string seatClass = GetClass();
 
-            //Ticket newPassenger = (new Ticket
-            //{
-            //    PassengerName = name,
-            //    IdPassenger = internId,
-            //    Identification = id,
-            //    Email = email,
-            //    Gender = gender,
-            //    Seat = seat,
-            //    SeatClass = seatClass
-            //});
-
-            Ticket newPassenger = new Ticket(internId, name, id, email, gender, seat, seatClass);
+            Passenger newPassenger = new Passenger(internId, name, id, email, gender, seat, seatClass);
 
             toBook.TakenSeats.Add(cbSeats.Text);
             toBook.Tickets.Add(newPassenger);

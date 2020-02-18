@@ -1,30 +1,20 @@
-﻿using System;
-
-namespace ClassLibrary
+﻿namespace ClassLibrary
 {
-    public abstract class Passenger
+    public class Passenger : Person
     {
-        public  string IdPassenger { get; set; }
-        public  string PassengerName { get; set; }
-        public  string Identification { get; set; }
-        public  string TaxNumber { get; set; }
-        public  string Email { get; set; }
-        public  string Address { get; set; }
-        public  string Gender { get; set; }
-        public  string PhoneNumber { get; set; }
-        public  DateTime BirthDate { get; set; }
+        public string Seat { get; set; }
+        public string SeatClass { get; set; }
 
-        public Passenger(string id, string name, string identification, string email, string gender)
+        public Passenger(string id, string name, string identification, string email, string gender, string seat, string seatClass)
+            :base(id, name, identification, email, gender)
         {
-            IdPassenger = id;
-            PassengerName = name;
-            Identification = identification;
-            Email = email;
-            Gender = gender;
+            Seat = seat;
+            SeatClass = seatClass;
         }
+
         public Passenger()
         {
-
+            //rever esta salganhada e alterar o nome de passenger para person e ticket para passenger
         }
     }
 }

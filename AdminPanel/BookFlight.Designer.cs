@@ -81,7 +81,6 @@
             this.rbMan = new System.Windows.Forms.RadioButton();
             this.rbWoman = new System.Windows.Forms.RadioButton();
             this.label36 = new System.Windows.Forms.Label();
-            this.label37 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.tbPhone = new System.Windows.Forms.TextBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -262,7 +261,6 @@
             this.cbSeats.Size = new System.Drawing.Size(121, 21);
             this.cbSeats.TabIndex = 28;
             this.cbSeats.SelectedIndexChanged += new System.EventHandler(this.tbName_TextChanged);
-//            this.cbSeats.SelectedValueChanged += new System.EventHandler(this.cbSeats_SelectedValueChanged);
             // 
             // gbEcon
             // 
@@ -708,17 +706,6 @@
             this.label36.TabIndex = 38;
             this.label36.Text = "BirthDate:";
             // 
-            // label37
-            // 
-            this.label37.AutoSize = true;
-            this.label37.ForeColor = System.Drawing.Color.Red;
-            this.label37.Location = new System.Drawing.Point(97, 130);
-            this.label37.Margin = new System.Windows.Forms.Padding(0);
-            this.label37.Name = "label37";
-            this.label37.Size = new System.Drawing.Size(11, 13);
-            this.label37.TabIndex = 40;
-            this.label37.Text = "*";
-            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -782,7 +769,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tbPhone);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.label37);
             this.Controls.Add(this.label36);
             this.Controls.Add(this.rbWoman);
             this.Controls.Add(this.rbMan);
@@ -875,7 +861,6 @@
         private System.Windows.Forms.RadioButton rbMan;
         private System.Windows.Forms.RadioButton rbWoman;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Label label37;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox tbPhone;
         private System.Windows.Forms.GroupBox groupBox1;

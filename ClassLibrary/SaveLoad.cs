@@ -59,6 +59,15 @@ namespace ClassLibrary
             stream.Close();
             return loaded;
         }
+        public static List<Airport> LoadAllAirports()
+        {
+            var file = PathToTemplates;
+            XmlSerializer serial = new XmlSerializer(typeof(List<Airport>));
+            StreamReader stream = new StreamReader($@"{file}\airports.xml");
+            List<Airport> loaded = (List<Airport>)serial.Deserialize(stream);
+            stream.Close();
+            return loaded;
+        }
         public static void SaveFleet(List<Aircraft> objects)
         {
             var file = Directory.CreateDirectory(PathToData);

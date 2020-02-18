@@ -34,8 +34,7 @@ namespace AdminPanel
             Aircraft plane = (Aircraft)cbAircrafts.SelectedItem;
             DateTime setDate = calendar.SelectionRange.Start;
 
-            //CheckAirport function matches the comboBox selection with the list of Airports and returns a bool if it exists
-            if (CheckAirport(origin))
+            if (CheckAirport(origin))//CheckAirport function matches the comboBox selection with the list of Airports and returns a bool if it exists
             {
                 if(CheckAirport(destination))
                 {
@@ -45,36 +44,45 @@ namespace AdminPanel
                     }
                     else
                     {
-                        //splits the textBox into hours minutes
-                        string[] hourMinute = tbHour.ToString().Trim().Split(':');
-                        if (!string.IsNullOrWhiteSpace(hourMinute[1]) || !string.IsNullOrWhiteSpace(hourMinute[2]))
+                        if(plane != null) 
                         {
-                            double setHours = double.Parse(hourMinute[1]);
-                            double setMinutes = double.Parse(hourMinute[2]);
-
-                            //checks for incorrect time input
-                            if (setHours > 23 || setMinutes >= 60)
-                                MessageBox.Show("Incorrect Hour");
-                            else if (setHours < 6 && setHours > 23)
-                                MessageBox.Show("Due to legislation \nair traffic during 00.00 and 06.00 is limited for comercial flights.");
-                            else
+                            //splits the textBox into hours minutes
+                            string[] hourMinute = tbHour.ToString().Trim().Split(':');
+                            if (!string.IsNullOrWhiteSpace(hourMinute[1]) || !string.IsNullOrWhiteSpace(hourMinute[2]))
                             {
-                                //since the date starts at 00.00 we have to add the time to it
-                                //adds the variables from the split above to the date
-                                setDate = setDate.AddHours(setHours).AddMinutes(setMinutes);
-                                if (IsBeingUsed(plane, setDate))//IsbeingUsed checks if the plane has a flight plan on the chosen date, and between minus or plus 8hours than the one it is in
-                                    MessageBox.Show($"Aircraft {plane.InternalID} cannot be selected for this flight \nbecause it already has a flight plan scheduled.", "Cannot create flight", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                double setHours = double.Parse(hourMinute[1]);
+                                double setMinutes = double.Parse(hourMinute[2]);
+
+                                //checks for incorrect time input
+                                if (setHours > 23 || setMinutes >= 60)
+                                    MessageBox.Show("Incorrect Hour");
+                                else if (setHours < 6 && setHours > 23)
+                                    MessageBox.Show("Due to legislation \nair traffic during 00.00 and 06.00 is limited for comercial flights.");
                                 else
                                 {
-                                    CreateFlight(origin, destination, plane, setDate);
-                                    //CreateFlight(destination, origin, plane, setDate.AddHours(8));
-                                    RefreshFlights();
-                                    RefreshLists();
+                                    //since the date starts at 00.00 we have to add the time to it
+                                    //adds the variables from the split above to the date
+                                    setDate = setDate.AddHours(setHours).AddMinutes(setMinutes);
+
+                                    if (IsBeingUsed(plane, setDate))//IsbeingUsed checks if the plane has a flight plan on the chosen date, and between minus or plus 8hours than the one it is in
+                                    {
+                                        MessageBox.Show($"Aircraft {plane.InternalID} cannot be selected for this flight " +
+                                            $"\nbecause it already has a flight plan scheduled.", "Cannot create flight", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                                    }
+                                    else
+                                    {
+                                        CreateFlight(origin, destination, plane, setDate);
+                                        //CreateFlight(destination, origin, plane, setDate.AddHours(8));//creates the return flight
+                                        RefreshFlights();
+                                        RefreshLists();
+                                    }
                                 }
                             }
+                            else
+                                MessageBox.Show("Enter time of departure(6-23h)");
                         }
-                        else 
-                            MessageBox.Show("Enter time of departure(6-23h)");
+                        else
+                            MessageBox.Show("Please select an aircraft for this flight.");
                     }
                 }
                 else 

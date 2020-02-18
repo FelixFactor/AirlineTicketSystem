@@ -19,7 +19,7 @@ namespace ClassLibrary
         /// <returns>upper casing the 1st letter of each string if user doesn't inputed right</returns>
         public static string UpperCase(string local)
         {
-            string[] splited = local.Trim().Split(' ');
+            string[] splited = local.Trim().ToLower().Split(' ');
             string city = "";
             for (int i = 0; i < splited.Length; i++)
             {
@@ -53,13 +53,13 @@ namespace ClassLibrary
             return new string(splat);
         }
 
-        public static void FillPDF(Ticket fields, Flight flight)
+        public static void FillPDF(Passenger fields, Flight flight)
         {
             string pathTemplate = SaveLoad.PathToTemplates;
             //readying some strings we will need later
             string gatesClose = flight.Date.AddMinutes(-40).ToShortTimeString();
-            string destination = flight.Destination.City + $"({flight.Destination.AirportName})";
-            string origin = flight.Origin.City + $"({flight.Origin.AirportName})";
+            string destination = flight.Destination.City + $"({flight.Destination.Name})";
+            string origin = flight.Origin.City + $"({flight.Origin.Name})";
 
             //creates a new directory for the flight
             string pdfDir = SaveLoad.CreateDir(flight.FlightNumber);
@@ -68,7 +68,7 @@ namespace ClassLibrary
             string template = pathTemplate + "\\boardingPass.pdf";
 
             //creates the file with a new passenger Boarding Pass
-            string boardingPass = pdfDir + $"\\{fields.IdPassenger}.pdf";
+            string boardingPass = pdfDir + $"\\{fields.InternPersonId}.pdf";
             SaveLoad.CreateFile(boardingPass);
             
             //opens the template and readies it to be written creating a new PDFDocument
