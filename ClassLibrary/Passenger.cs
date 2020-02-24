@@ -14,7 +14,7 @@
 
         public Passenger()
         {
-            //rever esta salganhada e alterar o nome de passenger para person e ticket para passenger
+            
         }
     }
 }

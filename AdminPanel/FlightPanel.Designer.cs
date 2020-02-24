@@ -41,14 +41,14 @@
             this.label5 = new System.Windows.Forms.Label();
             this.cbAircrafts = new System.Windows.Forms.ComboBox();
             this.DGVFlights = new System.Windows.Forms.DataGridView();
-            this.flightBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.tbHour = new System.Windows.Forms.MaskedTextBox();
             this.flightNumberDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.originDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.destinationDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.departureDateDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.departureHourDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.planeDataGridViewTextBoxColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.flightBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tbHour = new System.Windows.Forms.MaskedTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.DGVFlights)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.flightBindingSource)).BeginInit();
             this.SuspendLayout();
@@ -57,7 +57,7 @@
             // 
             this.btnCreateFlight.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnCreateFlight.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnCreateFlight.Location = new System.Drawing.Point(468, 130);
+            this.btnCreateFlight.Location = new System.Drawing.Point(468, 119);
             this.btnCreateFlight.Name = "btnCreateFlight";
             this.btnCreateFlight.Size = new System.Drawing.Size(146, 30);
             this.btnCreateFlight.TabIndex = 25;
@@ -99,7 +99,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(17, 97);
+            this.label2.Location = new System.Drawing.Point(17, 67);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(79, 18);
             this.label2.TabIndex = 21;
@@ -111,16 +111,16 @@
             this.cboxOrigin.FormattingEnabled = true;
             this.cboxOrigin.Location = new System.Drawing.Point(20, 41);
             this.cboxOrigin.Name = "cboxOrigin";
-            this.cboxOrigin.Size = new System.Drawing.Size(148, 23);
+            this.cboxOrigin.Size = new System.Drawing.Size(180, 23);
             this.cboxOrigin.TabIndex = 0;
             // 
             // cboxDestination
             // 
             this.cboxDestination.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cboxDestination.FormattingEnabled = true;
-            this.cboxDestination.Location = new System.Drawing.Point(20, 118);
+            this.cboxDestination.Location = new System.Drawing.Point(20, 88);
             this.cboxDestination.Name = "cboxDestination";
-            this.cboxDestination.Size = new System.Drawing.Size(148, 23);
+            this.cboxDestination.Size = new System.Drawing.Size(180, 23);
             this.cboxDestination.TabIndex = 1;
             // 
             // label4
@@ -137,7 +137,7 @@
             // 
             this.btnDelete.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.btnDelete.Font = new System.Drawing.Font("Roboto", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnDelete.Location = new System.Drawing.Point(468, 166);
+            this.btnDelete.Location = new System.Drawing.Point(468, 155);
             this.btnDelete.Name = "btnDelete";
             this.btnDelete.Size = new System.Drawing.Size(146, 30);
             this.btnDelete.TabIndex = 29;
@@ -149,7 +149,7 @@
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Roboto", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(451, 85);
+            this.label5.Location = new System.Drawing.Point(17, 137);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(57, 18);
             this.label5.TabIndex = 30;
@@ -157,7 +157,7 @@
             // 
             // cbAircrafts
             // 
-            this.cbAircrafts.Location = new System.Drawing.Point(452, 103);
+            this.cbAircrafts.Location = new System.Drawing.Point(18, 155);
             this.cbAircrafts.Name = "cbAircrafts";
             this.cbAircrafts.Size = new System.Drawing.Size(182, 21);
             this.cbAircrafts.TabIndex = 4;
@@ -185,26 +185,6 @@
             this.DGVFlights.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.DGVFlights.Size = new System.Drawing.Size(645, 170);
             this.DGVFlights.TabIndex = 32;
-            // 
-            // flightBindingSource
-            // 
-            this.flightBindingSource.DataSource = typeof(ClassLibrary.Flight);
-            // 
-            // tbHour
-            // 
-            this.tbHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.tbHour.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
-            this.tbHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tbHour.Location = new System.Drawing.Point(452, 41);
-            this.tbHour.Mask = "00:00";
-            this.tbHour.Name = "tbHour";
-            this.tbHour.PromptChar = ' ';
-            this.tbHour.Size = new System.Drawing.Size(56, 26);
-            this.tbHour.SkipLiterals = false;
-            this.tbHour.TabIndex = 2;
-            this.tbHour.ValidatingType = typeof(System.DateTime);
-            this.tbHour.Click += new System.EventHandler(this.tbHour_Click);
-            this.tbHour.Enter += new System.EventHandler(this.tbHour_Enter);
             // 
             // flightNumberDataGridViewTextBoxColumn
             // 
@@ -247,6 +227,26 @@
             this.planeDataGridViewTextBoxColumn.HeaderText = "Aircraft";
             this.planeDataGridViewTextBoxColumn.Name = "planeDataGridViewTextBoxColumn";
             this.planeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // flightBindingSource
+            // 
+            this.flightBindingSource.DataSource = typeof(ClassLibrary.Flight);
+            // 
+            // tbHour
+            // 
+            this.tbHour.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.tbHour.CutCopyMaskFormat = System.Windows.Forms.MaskFormat.IncludePrompt;
+            this.tbHour.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tbHour.Location = new System.Drawing.Point(452, 41);
+            this.tbHour.Mask = "00:00";
+            this.tbHour.Name = "tbHour";
+            this.tbHour.PromptChar = ' ';
+            this.tbHour.Size = new System.Drawing.Size(56, 26);
+            this.tbHour.SkipLiterals = false;
+            this.tbHour.TabIndex = 2;
+            this.tbHour.ValidatingType = typeof(System.DateTime);
+            this.tbHour.Click += new System.EventHandler(this.tbHour_Click);
+            this.tbHour.Enter += new System.EventHandler(this.tbHour_Enter);
             // 
             // FlightPanel
             // 

@@ -9,13 +9,13 @@ namespace AdminPanel
 {
     public partial class AirportPanel : UserControl
     {
-        readonly List<Airport> Airports = new List<Airport>();
+        readonly List<Airport> Airports;
         readonly List<Flight> Flights;
         readonly List<Airport> AllAirports;
         
-        public AirportPanel(List<Airport> ports, List<Flight> flights)
+        public AirportPanel(List<Airport> ports, List<Flight> flights, List<Airport> allAirports)
         {
-            AllAirports = SaveLoad.LoadAllAirports();
+            AllAirports = allAirports;
             Flights = flights;
             Airports = ports;
             InitializeComponent();
@@ -196,7 +196,12 @@ namespace AdminPanel
             {
                 if (item.Origin.InternId == toEdit.InternId || item.Destination.InternId == toEdit.InternId)
                 {
-                    return false;
+                    if (item.EstimatedTimeArrival < DateTime.UtcNow)
+                    {
+                        return true;
+                    }
+                    else
+                        return false;
                 }
             }
             return true;
@@ -275,7 +280,7 @@ namespace AdminPanel
         private Task<List<Airport>> GetAirport()
         {
             var result = AllAirports.Where(a => a.City.StartsWith(Utils.UpperCase(textBoxCity.Text)));
-            return Task.FromResult<List<Airport>>(result.ToList());
+            return Task.FromResult(result.ToList());
         }
         private Airport SearchInAll(Airport selectedItem)
         {

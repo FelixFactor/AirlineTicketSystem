@@ -120,7 +120,7 @@ namespace AdminPanel
 
         //<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>
         /// <summary>
-        /// goes through flights to avoid creating a flight with the same plane at the same hour or close
+        /// goes through flight's list to avoid creating a flight with the same plane at the same hour or close
         /// </summary>
         /// <param name="plane"></param>
         /// <param name="checkDate"></param>
@@ -139,16 +139,20 @@ namespace AdminPanel
                 if (CheckTime.Count != 0)
                 {
                     //runs the query to check the time of departure and return the error
-                    //if the flight to be created is between 6h above or below the departure
+                    //if the flight to be created has between 6h above or below the departure
                     foreach (Flight item in CheckTime)
                     {
                         if (checkDate.Hour < item.Date.Hour)
+                        {
                             if (checkDate.Hour > item.Date.Hour - 6)
                                 return true;
-
-                            else//checkDate.Hour > item.Hour
+                        }
+                        else//checkDate.Hour > item.Hour
+                        {
                             if (checkDate.Hour < item.Date.Hour + 6)
                                 return true;
+                        }    
+                            
                     }
                     return false;
                 }

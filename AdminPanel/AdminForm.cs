@@ -12,6 +12,7 @@ namespace AdminPanel
         List<Airport> Locations = SaveLoad.LoadAirports();
         List<Aircraft> Fleet = SaveLoad.LoadFleet();
         List<Flight> Flights = SaveLoad.LoadFlights();
+        List<Airport> AllAirports = SaveLoad.LoadAllAirports();
 
         FrontForm Front = new FrontForm();
         public AdminForm(FrontForm front)
@@ -36,7 +37,7 @@ namespace AdminPanel
         //<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>
         private void btnExit_Click(object sender, EventArgs e)
         {
-            this.Close();
+            Close();
         }
         private void btnFlight_Click_1(object sender, EventArgs e)
         {
@@ -62,7 +63,7 @@ namespace AdminPanel
         }
         private void btnAirport_Click(object sender, EventArgs e)
         {
-            AirportPanel portPanel = new AirportPanel(Locations, Flights);
+            AirportPanel portPanel = new AirportPanel(Locations, Flights, AllAirports);
             AddControls(portPanel);
             btnFlight.BackColor = Color.SteelBlue;
             btnFleet.BackColor = Color.SteelBlue;

@@ -6,11 +6,12 @@ namespace AdminPanel
 {
     public partial class ClientServices : Form
     {
-        List<Flight> FlightsToBook = SaveLoad.LoadFlights();
+        List<Flight> FlightsToBook;
         
         FrontForm Form;
         public ClientServices(FrontForm form)
         {
+            FlightsToBook = SaveLoad.LoadFlights();
             Form = form;
             InitializeComponent();
             

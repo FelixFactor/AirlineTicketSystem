@@ -122,7 +122,6 @@ namespace AdminPanel
                 DGVSearch.DataSource = null;
                 DGVSearch.DataSource = SearchedFlights;
                 DGVSearch.AutoResizeColumns();
-                //DGVSearch.Sort(AData, System.ComponentModel.ListSortDirection.Ascending);
             }
         }
         private void ClearSearch()
