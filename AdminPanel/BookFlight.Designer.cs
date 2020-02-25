@@ -184,6 +184,7 @@
             this.tbEmail.Size = new System.Drawing.Size(200, 20);
             this.tbEmail.TabIndex = 19;
             this.tbEmail.TextChanged += new System.EventHandler(this.tbName_TextChanged);
+//            this.tbEmail.Validated += new System.EventHandler(this.tbEmail_Validated);
             // 
             // label11
             // 

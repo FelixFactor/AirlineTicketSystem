@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using ClassLibrary;
 using System.Linq;
+using System.Net.Mail;
 
 namespace AdminPanel
 {
@@ -27,7 +28,7 @@ namespace AdminPanel
             btnCheckIn.Enabled = false;
             gbExec.Location = new System.Drawing.Point(363, 140);
 
-            //masked textBox settings
+            //masked date of birth textBox settings
             tbBirthDate.Mask = "0000/00/00";
             tbBirthDate.ValidatingType = typeof(DateTime);
             tbBirthDate.TypeValidationCompleted += new TypeValidationEventHandler(tbBirthDate_TypeValidationCompleted);
@@ -44,29 +45,36 @@ namespace AdminPanel
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void btnCheckIn_Click(object sender, EventArgs e)
         {
-            //variables
-            string name = Utils.UpperCase(tbName.Text) + " " + Utils.UpperCase(tbLastName.Text);
-            string internId = MakeId(name);
-            string id = tbIdentification.Text;
-            string email = tbEmail.Text;
-            string gender = GetGender();
-            string seat = cbSeats.Text;
-            string seatClass = GetClass();
+            if (IsEmailValid(tbEmail.Text))
+            {
+                //variables
+                string name = Utils.UpperCase(tbName.Text) + " " + Utils.UpperCase(tbLastName.Text);
+                string internId = MakeId(name);
+                string id = tbIdentification.Text;
+                string email = tbEmail.Text;
+                string gender = GetGender();
+                string seat = cbSeats.Text;
+                string seatClass = GetClass();
+                //creates a new passenger
+                Passenger newPassenger = new Passenger(internId, name, id, email, gender, seat, seatClass);
+                //adds the seat to the taken seats in the plane
+                toBook.TakenSeats.Add(cbSeats.Text);
+                //adds the passenger to the plane
+                toBook.Tickets.Add(newPassenger);
 
-            Passenger newPassenger = new Passenger(internId, name, id, email, gender, seat, seatClass);
+                //creates the PDF using the inputed fields
+                Utils.FillPDF(newPassenger, toBook);
 
-            toBook.TakenSeats.Add(cbSeats.Text);
-            toBook.Tickets.Add(newPassenger);
+                MessageBox.Show($"The Boarding Pass for passenger {name} was created.");
+
+                ShowPDF showPDF = new ShowPDF(this, toBook.FlightNumber, newPassenger);
+                showPDF.ShowDialog();
+
+                BackToSearch();
+            }
+            else
+                MessageBox.Show("The email provided is invalid.");
             
-            //creates the PDF using the inputed fields
-            Utils.FillPDF(newPassenger, toBook);
-
-            MessageBox.Show($"The Boarding Pass for passenger {name} was created.");
-
-            ShowPDF showPDF = new ShowPDF(this, toBook.FlightNumber, newPassenger);
-            showPDF.ShowDialog();
-
-            BackToSearch();
         }
 
         
@@ -76,14 +84,19 @@ namespace AdminPanel
         /// </summary>
         private void AvailableSeats()
         {
+            //if any seats have already been taken it goes in the function
             if (toBook.TakenSeats.Count != 0)
             {
+                //goes through the list
                 foreach (string seat in toBook.TakenSeats)
                 {
+                    //if the seat has lenght 2 it's a executive seat
                     if (seat.Length == 2)
                     {
+                        //runs the executive seats list in the plane
                         foreach (string seatAvailable in toBook.Plane.ExecSeats)
                         {
+                            //if it finds a match removes the seat from the available seats list
                             if (seat == seatAvailable)
                             {
                                 ExecAvailable.Remove(seat);
@@ -92,8 +105,10 @@ namespace AdminPanel
                     }
                     else
                     {
+                        //all other lenghts are for economy class
                         foreach (string seatAvailable in toBook.Plane.EconSeats)
                         {
+                            //if any seat is matched it's removed from the available seats list
                             if (seat == seatAvailable)
                             {
                                 EconAvailable.Remove(seat);
@@ -108,19 +123,24 @@ namespace AdminPanel
         {
             if (gbEcon.Visible == true)
             {
+                //creates a result with the available seats for economy class
                 var result = EconAvailable.Where(e => e.StartsWith(row));
                 List<string> Tofill = result.ToList();
+                //fills the combo box with the results converted to a list
                 cbSeats.DataSource = Tofill;
             }
             else
             {
+                //creates a result with the available seats for executive class
                 var result = ExecAvailable.Where(e => e.StartsWith(row));
                 List<string> Tofill = result.ToList();
+                //fills the combo box with the results converted to a list
                 cbSeats.DataSource = Tofill;
             }
         }
         private void DeselectRB()
         {
+            //used when changing between economy and executive selection
             rbExecA.Checked = false;
             rbExecB.Checked = false;
             rbExecE.Checked = false;
@@ -134,6 +154,7 @@ namespace AdminPanel
         }
         private string GetGender()
         {
+            //used to fill the PDF with the apropriate title
             if (rbMan.Checked)
                 return "Mr.";
             else
@@ -141,14 +162,18 @@ namespace AdminPanel
         }
         private string MakeId(string trans)
         {
+            //splits the passenger name in the space
             string[] split = trans.Split(' ');
+            //generates a random 
             Random n = new Random();
             int number = n.Next(10000);
+            //concats the first letter of the name and last name with the random to create a file number to be stored
             string id = split[0][0] + split[1][0] + number.ToString();
             return id;
         }
         private string GetClass()
         {
+            //used to fill the PDF with the apropriate class
             if (rbEcon.Checked)
                 return "Economy";
             else
@@ -156,7 +181,20 @@ namespace AdminPanel
         }
         public void BackToSearch()
         {
+            //used by the showPDF form to return to search tab
             Form.BackToSearch();
+        }
+        public bool IsEmailValid(string emailaddress)
+        {
+            try
+            {
+                MailAddress m = new MailAddress(emailaddress);
+                return true;
+            }
+            catch (FormatException)
+            {
+                return false;
+            }
         }
 
 
@@ -248,6 +286,5 @@ namespace AdminPanel
             else  
                 tbBirthDate.SelectAll(); 
         }
-
     }
 }

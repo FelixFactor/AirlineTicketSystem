@@ -28,27 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShowPDF));
-            this.foxitPDF = new AxFOXITREADERLib.AxFoxitCtl();
             this.btnSendEmail = new System.Windows.Forms.Button();
             this.btnPrint = new System.Windows.Forms.Button();
             this.btnReturn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.foxitPDF)).BeginInit();
             this.SuspendLayout();
-            // 
-            // foxitPDF
-            // 
-            this.foxitPDF.Enabled = true;
-            this.foxitPDF.Location = new System.Drawing.Point(12, 12);
-            this.foxitPDF.Name = "foxitPDF";
-            this.foxitPDF.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("foxitPDF.OcxState")));
-            this.foxitPDF.Size = new System.Drawing.Size(586, 797);
-            this.foxitPDF.TabIndex = 0;
             // 
             // btnSendEmail
             // 
             this.btnSendEmail.Font = new System.Drawing.Font("Roboto", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSendEmail.Location = new System.Drawing.Point(604, 12);
+            this.btnSendEmail.Location = new System.Drawing.Point(12, 12);
             this.btnSendEmail.Name = "btnSendEmail";
             this.btnSendEmail.Size = new System.Drawing.Size(75, 50);
             this.btnSendEmail.TabIndex = 1;
@@ -59,17 +47,18 @@
             // btnPrint
             // 
             this.btnPrint.Font = new System.Drawing.Font("Roboto", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPrint.Location = new System.Drawing.Point(604, 124);
+            this.btnPrint.Location = new System.Drawing.Point(93, 12);
             this.btnPrint.Name = "btnPrint";
             this.btnPrint.Size = new System.Drawing.Size(75, 50);
             this.btnPrint.TabIndex = 2;
             this.btnPrint.Text = "Print";
             this.btnPrint.UseVisualStyleBackColor = true;
+            this.btnPrint.Click += new System.EventHandler(this.btnPrint_Click);
             // 
             // btnReturn
             // 
             this.btnReturn.Font = new System.Drawing.Font("Roboto", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnReturn.Location = new System.Drawing.Point(604, 236);
+            this.btnReturn.Location = new System.Drawing.Point(174, 12);
             this.btnReturn.Name = "btnReturn";
             this.btnReturn.Size = new System.Drawing.Size(75, 50);
             this.btnReturn.TabIndex = 3;
@@ -81,24 +70,20 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(685, 818);
+            this.ClientSize = new System.Drawing.Size(262, 75);
             this.Controls.Add(this.btnReturn);
             this.Controls.Add(this.btnPrint);
             this.Controls.Add(this.btnSendEmail);
-            this.Controls.Add(this.foxitPDF);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "ShowPDF";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
-            ((System.ComponentModel.ISupportInitialize)(this.foxitPDF)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
-
-        private AxFOXITREADERLib.AxFoxitCtl foxitPDF;
         private System.Windows.Forms.Button btnSendEmail;
         private System.Windows.Forms.Button btnPrint;
         private System.Windows.Forms.Button btnReturn;

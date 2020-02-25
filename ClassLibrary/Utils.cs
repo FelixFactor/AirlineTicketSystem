@@ -56,7 +56,7 @@ namespace ClassLibrary
         {
             string pathTemplate = SaveLoad.PathToTemplates;
             //readying some strings we will need later
-            string gatesClose = flight.Date.AddMinutes(-40).ToShortTimeString();
+            string gatesClose = flight.Date.AddMinutes(-20).ToShortTimeString();
             string destination = flight.Destination.City + $"({flight.Destination.Name})";
             string origin = flight.Origin.City + $"({flight.Origin.Name})";
 
