@@ -2,24 +2,37 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Windows.Forms;
 
 namespace AdminPanel
 {
     public partial class AdminForm : Form
     {
-        
-        List<Airport> Locations = SaveLoad.LoadAirports();
-        List<Aircraft> Fleet = SaveLoad.LoadFleet();
-        List<Flight> Flights = SaveLoad.LoadFlights();
-        List<Airport> AllAirports = SaveLoad.LoadAllAirports();
-
+        List<Airport> Locations;
+        List<Aircraft> Fleet;
+        List<Flight> Flights;
+        List<Airport> AllAirports;
+    
         FrontForm Front = new FrontForm();
         public AdminForm(FrontForm front)
         {
+            try
+            {
+                Locations = SaveLoad.LoadAirports();
+                Fleet = SaveLoad.LoadFleet();
+                Flights = SaveLoad.LoadFlights();
+                AllAirports = SaveLoad.LoadAllAirports();
+            }
+            catch (FileNotFoundException ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
             Front = front;
             InitializeComponent();
 
+            
             FlightPanel flightPanel = new FlightPanel(Flights, Fleet, Locations);
             
             AddControls(flightPanel);
@@ -74,15 +87,22 @@ namespace AdminPanel
         }
         private void btnSave_Click(object sender, EventArgs e)
         {
-            SaveLoad.SaveAirports(Locations);
-            SaveLoad.SaveFleet(Fleet);
-            SaveLoad.SaveFlights(Flights);
+            try
+            {
+                SaveLoad.SaveAirports(Locations);
+                SaveLoad.SaveFleet(Fleet);
+                SaveLoad.SaveFlights(Flights);
+            }
+            catch(Exception)
+            {
+
+            }
         }
         //<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>
         private void btnExit_MouseHover(object sender, EventArgs e)
         {
             ToolTip exit = new ToolTip();
-            exit.SetToolTip(btnExit,"Saves & Returns to Front Menu");
+            exit.SetToolTip(btnExit,"Returns to Front Menu");
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -92,9 +112,17 @@ namespace AdminPanel
 
         private void AdminForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-            SaveLoad.SaveAirports(Locations);
-            SaveLoad.SaveFleet(Fleet);
-            SaveLoad.SaveFlights(Flights);
+            DialogResult result = MessageBox.Show("Do you want to save your work before exiting?", "Save your work", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                try
+                {
+                    SaveLoad.SaveAirports(Locations);
+                    SaveLoad.SaveFleet(Fleet);
+                    SaveLoad.SaveFlights(Flights);
+                }
+                catch(Exception) { }
+            }
         }
     }
 }

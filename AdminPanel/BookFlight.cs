@@ -4,12 +4,14 @@ using System.Windows.Forms;
 using ClassLibrary;
 using System.Linq;
 using System.Net.Mail;
+using iText.Kernel.Pdf;
+using iText.Forms;
 
 namespace AdminPanel
 {
     public partial class BookFlight : UserControl
     {
-        Flight toBook;
+        Flight toBook = new Flight();
         List<string> EconAvailable = new List<string>();
         List<string> ExecAvailable = new List<string>();
         ClientServices Form;
@@ -48,22 +50,24 @@ namespace AdminPanel
             if (IsEmailValid(tbEmail.Text))
             {
                 //variables
-                string name = Utils.UpperCase(tbName.Text) + " " + Utils.UpperCase(tbLastName.Text);
+                string name = Usefull.UpperCase(tbName.Text) + " " + Usefull.UpperCase(tbLastName.Text);
                 string internId = MakeId(name);
                 string id = tbIdentification.Text;
                 string email = tbEmail.Text;
                 string gender = GetGender();
                 string seat = cbSeats.Text;
                 string seatClass = GetClass();
+
                 //creates a new passenger
                 Passenger newPassenger = new Passenger(internId, name, id, email, gender, seat, seatClass);
+
                 //adds the seat to the taken seats in the plane
                 toBook.TakenSeats.Add(cbSeats.Text);
                 //adds the passenger to the plane
                 toBook.Tickets.Add(newPassenger);
 
-                //creates the PDF using the inputed fields
-                Utils.FillPDF(newPassenger, toBook);
+                //creates the boarding pass
+                FillPDF(newPassenger, toBook);
 
                 MessageBox.Show($"The Boarding Pass for passenger {name} was created.");
 
@@ -77,8 +81,46 @@ namespace AdminPanel
             
         }
 
-        
+
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+        private void FillPDF(Passenger fields, Flight flight)
+        {
+            string pathTemplate = SaveLoad.PathToTemplates;
+            //readying some strings we will need later
+            string gatesClose = flight.Date.AddMinutes(-20).ToShortTimeString();
+            string destination = flight.Destination.City + $"({flight.Destination.Name})";
+            string origin = flight.Origin.City + $"({flight.Origin.Name})";
+
+            //creates a new directory for the flight
+            string pdfDir = SaveLoad.CreateDir(flight.FlightNumber);
+
+            //gets the template from the main dir
+            string template = pathTemplate + "\\boardingPass.pdf";
+
+            //creates the file with a new passenger Boarding Pass
+            string boardingPass = pdfDir + $"\\{fields.InternPersonId}.pdf";
+            SaveLoad.CreateFile(boardingPass);
+
+            //opens the template and readies it to be written creating a new PDFDocument
+            PdfDocument pdfDoc = new PdfDocument(new PdfReader(template), new PdfWriter(boardingPass));
+            //gets the document and prepares the fields to be written
+            PdfAcroForm writeFields = PdfAcroForm.GetAcroForm(pdfDoc, true);
+
+            writeFields.GetField("gender").SetValue(fields.Gender);
+            writeFields.GetField("pName").SetValue(fields.PassengerName);
+            writeFields.GetField("origin").SetValue(origin);
+            writeFields.GetField("destination").SetValue(destination);
+            writeFields.GetField("departureTime").SetValue(flight.DepartureHour);
+            writeFields.GetField("eta").SetValue(flight.EstimatedTimeArrival.ToShortTimeString());
+            writeFields.GetField("flightNumber").SetValue(flight.EntryNumber.ToString());
+            writeFields.GetField("date").SetValue(flight.Date.ToLongDateString());
+            writeFields.GetField("depTime").SetValue(flight.DepartureHour);
+            writeFields.GetField("gatesTime").SetValue(gatesClose);
+            writeFields.GetField("seatClass").SetValue(fields.SeatClass);
+            writeFields.GetField("seatNumber").SetValue(fields.Seat);
+
+            pdfDoc.Close();
+        }
         /// <summary>
         /// Checks for seats taken in the selected flight and removes them from the available
         /// </summary>
@@ -138,9 +180,10 @@ namespace AdminPanel
                 cbSeats.DataSource = Tofill;
             }
         }
+        //used when changing between economy and executive selection
         private void DeselectRB()
         {
-            //used when changing between economy and executive selection
+            
             rbExecA.Checked = false;
             rbExecB.Checked = false;
             rbExecE.Checked = false;
@@ -152,14 +195,20 @@ namespace AdminPanel
             rbEconE.Checked = false;
             rbEconF.Checked = false;
         }
+        //used to fill the PDF with the apropriate title
         private string GetGender()
         {
-            //used to fill the PDF with the apropriate title
+            
             if (rbMan.Checked)
                 return "Mr.";
             else
                 return "Mrs.";
         }
+        /// <summary>
+        /// creates the internal ID for the passenger
+        /// </summary>
+        /// <param name="trans"></param>
+        /// <returns></returns>
         private string MakeId(string trans)
         {
             //splits the passenger name in the space
@@ -171,17 +220,19 @@ namespace AdminPanel
             string id = split[0][0] + split[1][0] + number.ToString();
             return id;
         }
+        //used to fill the PDF with the apropriate class
         private string GetClass()
         {
-            //used to fill the PDF with the apropriate class
+            
             if (rbEcon.Checked)
                 return "Economy";
             else
                 return "Executive";
         }
+        //used by the showPDF form to return to search tab
         public void BackToSearch()
         {
-            //used by the showPDF form to return to search tab
+            
             Form.BackToSearch();
         }
         public bool IsEmailValid(string emailaddress)
@@ -287,4 +338,5 @@ namespace AdminPanel
                 tbBirthDate.SelectAll(); 
         }
     }
+    
 }

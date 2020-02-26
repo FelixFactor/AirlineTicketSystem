@@ -12,7 +12,7 @@ namespace AdminPanel
         [STAThread]
         static void Main()
         {
-            SaveLoad.CheckForFiles(Utils.Airports, Utils.Fleet, Utils.Flights);
+            SaveLoad.CheckForFiles();
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new FrontForm());

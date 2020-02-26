@@ -217,7 +217,7 @@
             // departureHourDataGridViewTextBoxColumn
             // 
             this.departureHourDataGridViewTextBoxColumn.DataPropertyName = "DepartureHour";
-            this.departureHourDataGridViewTextBoxColumn.HeaderText = "Time";
+            this.departureHourDataGridViewTextBoxColumn.HeaderText = "Departure";
             this.departureHourDataGridViewTextBoxColumn.Name = "departureHourDataGridViewTextBoxColumn";
             this.departureHourDataGridViewTextBoxColumn.ReadOnly = true;
             // 

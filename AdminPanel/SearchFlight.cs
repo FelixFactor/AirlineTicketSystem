@@ -43,7 +43,7 @@ namespace AdminPanel
             }
             else
             {
-                string toSearchFrom = Utils.UpperCase(tbOrigin.Text);
+                string toSearchFrom = Usefull.UpperCase(tbOrigin.Text);
 
                 //creates a result list of flights matching the textBox 
                 var results = FlightsToBook.Where(f => f.Origin.City.StartsWith(toSearchFrom));
@@ -53,7 +53,7 @@ namespace AdminPanel
 
                 if (!string.IsNullOrWhiteSpace(tbDestination.Text) && SearchedFlights.Count != 0)
                 {
-                    string toSearchWhere = Utils.UpperCase(tbDestination.Text);
+                    string toSearchWhere = Usefull.UpperCase(tbDestination.Text);
 
                     //if inputed searches the 1st result list for flights that match the destination 
                     var resultsDest = SearchedFlights.Where(f => f.Destination.City.StartsWith(toSearchWhere));

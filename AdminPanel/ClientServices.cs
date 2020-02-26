@@ -51,8 +51,7 @@ namespace AdminPanel
         }
         private void btnSearchFlight_Click(object sender, System.EventArgs e)
         {
-            DialogResult answer = new DialogResult();
-            answer = MessageBox.Show("If you leave this tab you will lose this search and all inputed data in this form!\nDo you want to continue?", "Alert - Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+            DialogResult answer = MessageBox.Show("If you leave this tab you will lose this search and all inputed data in this form!\nDo you want to continue?", "Alert - Confirm Exit", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
             if (answer == DialogResult.Yes)
             {
                 SearchFlight search = new SearchFlight(FlightsToBook, this);
@@ -69,7 +68,12 @@ namespace AdminPanel
         private void btnExit_MouseHover(object sender, System.EventArgs e)
         {
             ToolTip exit = new ToolTip();
-            exit.SetToolTip(btnExit, "Saves & Returns to Main");
+            exit.SetToolTip(btnExit, "Returns to Main");
+        }
+
+        private void btnSave_Click(object sender, System.EventArgs e)
+        {
+            SaveLoad.SaveFlights(FlightsToBook);
         }
     }
 }

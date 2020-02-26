@@ -9,14 +9,14 @@ namespace AdminPanel
 {
     public partial class FlightPanel : UserControl
     {
-        List<Airport> Locations;
+        List<Airport> Airports;
         List<Flight> Flights;
         List<Aircraft> Fleet;
 
         public FlightPanel(List<Flight> flights, List<Aircraft> fleet, List<Airport> ports)
         {
             Flights = flights;
-            Locations = ports;
+            Airports = ports;
             Fleet = fleet;
             
             InitializeComponent();
@@ -34,9 +34,10 @@ namespace AdminPanel
             Aircraft plane = (Aircraft)cbAircrafts.SelectedItem;
             DateTime setDate = calendar.SelectionRange.Start;
 
-            if (CheckAirport(origin))//CheckAirport function matches the comboBox selection with the list of Airports and returns a bool if it exists
+            //SelectedIndex = -1 refers to null
+            if (cboxOrigin.SelectedIndex != -1)
             {
-                if(CheckAirport(destination))
+                if(cboxDestination.SelectedIndex != -1)
                 {
                     if (origin.City == destination.City)
                     {
@@ -44,11 +45,11 @@ namespace AdminPanel
                     }
                     else
                     {
-                        if(plane != null) 
+                        if(cbAircrafts.SelectedIndex != -1) 
                         {
                             //splits the textBox into hours minutes
                             string[] hourMinute = tbHour.ToString().Trim().Split(':');
-                            if (!string.IsNullOrWhiteSpace(hourMinute[1]) || !string.IsNullOrWhiteSpace(hourMinute[2]))
+                            if (!string.IsNullOrWhiteSpace(hourMinute[1]) && !string.IsNullOrEmpty(hourMinute[2]))
                             {
                                 double setHours = double.Parse(hourMinute[1]);
                                 double setMinutes = double.Parse(hourMinute[2]);
@@ -93,28 +94,35 @@ namespace AdminPanel
         }
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            Flight toDelete = (Flight)DGVFlights.CurrentRow.DataBoundItem;
-
-            //CheckFlight matches the datagridview item with the item from the list
-            if (CheckFlightList(toDelete))
+            try
             {
-                if (toDelete.TakenSeats.Count == 0)
+                Flight toDelete = (Flight)DGVFlights.CurrentRow.DataBoundItem;
+
+                //CheckFlight matches the datagridview item with the item from the list
+                if (CheckFlightList(toDelete))
                 {
-                    DialogResult answer;
-                    answer = MessageBox.Show($"Are you sure you want to delete the flight n.{toDelete.FlightNumber} from {toDelete.Origin} to {toDelete.Destination}?", "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                    if (answer == DialogResult.Yes)
+                    if (toDelete.TakenSeats.Count == 0)
                     {
-                        //the idea is not to remove any flight, just make them invisible, but for now it is erased for good
-                        Flights.Remove(toDelete);
-                        RefreshFlights();
-                        RefreshLists();
+                        DialogResult answer;
+                        answer = MessageBox.Show($"Are you sure you want to delete the flight n.{toDelete.FlightNumber} from {toDelete.Origin} to {toDelete.Destination}?", "Confirm action", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+                        if (answer == DialogResult.Yes)
+                        {
+                            //the idea is not to remove any flight, just make them invisible, but for now it is erased for good
+                            Flights.Remove(toDelete);
+                            RefreshFlights();
+                            RefreshLists();
+                        }
                     }
+                    else
+                        MessageBox.Show("Cannot delete a flight that already has tickets sold.", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
-                    MessageBox.Show("Cannot delete a flight that already has tickets sold.", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("You must select a flight", "Nothing to delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else
-                MessageBox.Show("You must select a flight", "Nothing to delete", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            catch (NullReferenceException)
+            {
+
+            }
         }
 
 
@@ -168,21 +176,26 @@ namespace AdminPanel
         /// </summary>
         public void RefreshLists()
         {
-            if (Locations.Count != 0)
+            if (Airports.Count != 0)
             {
-                //Drop Down Destination
+                //combo box of Destination locations 
                 cboxDestination.BindingContext = new BindingContext();
                 cboxDestination.DataSource = null;
-                cboxDestination.DataSource = Locations;
-                //Drop down ORIGIN
+                cboxDestination.DataSource = Airports;
+                //combo box of Origin locations 
                 cboxOrigin.DataSource = null;
-                cboxOrigin.DataSource = Locations;
+                cboxOrigin.DataSource = Airports;
             }
             if (Fleet.Count != 0)
             {
+                //combo box of aircrafts
                 cbAircrafts.DataSource = null;
                 cbAircrafts.DataSource = Fleet;
             }
+            
+            cboxDestination.SelectedIndex = -1;
+            cboxOrigin.SelectedIndex = -1;
+            cbAircrafts.SelectedIndex = -1;
             cboxDestination.Text = "--- Select a Destination ---";
             cboxOrigin.Text = "--- Select an Origin ---";
             cbAircrafts.Text = "--- Select an Aircraft ---";
@@ -191,31 +204,6 @@ namespace AdminPanel
         private void CreateFlight(Airport origin, Airport destination, Aircraft plane, DateTime setDate)
         {
             Flights.Add(new Flight { EntryNumber = NextNumber(), Origin = origin, Destination = destination, Date = setDate, Plane = plane });
-            RefreshFlights();
-            RefreshLists();
-        }
-        /// <summary>
-        /// checks if the airport really exists in the list
-        /// </summary>
-        /// <param name="origin"></param>
-        /// <returns></returns>
-        private bool CheckAirport(Airport origin)
-        {
-            Airport exists = null;
-            foreach (Airport airport in Locations)
-            {
-                if (origin.City == airport.City)
-                {
-                    exists = airport;
-                    break;
-                }
-            }
-            if (exists != null)
-                return true;
-            
-            else
-                return false;
-            
         }
         private void RefreshFlights()
         {
@@ -261,7 +249,6 @@ namespace AdminPanel
                 return number;
             }
         }
-        
 
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>

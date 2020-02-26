@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Xml.Serialization;
 
@@ -10,22 +9,32 @@ namespace ClassLibrary
         public static string PathToData { get { return $@"{Directory.GetCurrentDirectory()}\Data"; } }
         public static string PathToTemplates { get { return $@"{Directory.GetCurrentDirectory()}"; } }
         public static string PathToBoardPass { get { return $@"{PathToData}\Boarding Passes"; } }
-        //private static string AirportsFile { get { return "airport.xml"; } }
-        //private static string FleetFile { get { return "aircrafts.xml"; } }
-        //private static string FlightsFile { get { return "flights.xml"; } }
+        public static List<Flight> Flights = new List<Flight>();
+        public static List<Airport> Airports = new List<Airport>();
+        public static List<Aircraft> Fleet = new List<Aircraft>();
 
-        public static void CheckForFiles(List<Airport> locations, List<Aircraft> fleet, List<Flight> flights)
+        public static void CheckForFiles()
         {
             if (!Directory.Exists(PathToData))
             {
                 Directory.CreateDirectory(PathToData);
                 Directory.CreateDirectory(PathToBoardPass);
-                SaveAirports(locations);
-                SaveFleet(fleet);
-                SaveFlights(flights);
             }
+            if (!File.Exists($@"{PathToData}\airports.xml"))
+            {
+                SaveAirports(Airports);
+            }
+            if (!File.Exists($@"{PathToData}\aircrafts.xml"))
+            {
+                SaveFleet(Fleet);
+            }
+            if (!File.Exists($@"{PathToData}\flights.xml"))
+            {
+                SaveFlights(Flights);
+            }
+
         }
-        internal static void CreateFile(string boardingPass)
+        public static void CreateFile(string boardingPass)
         {
             File.Create(boardingPass).Close();
         }
@@ -45,28 +54,36 @@ namespace ClassLibrary
         public static void SaveAirports(List<Airport> objects)
         {
             var file = Directory.CreateDirectory(PathToData);
-            XmlSerializer serial = new XmlSerializer (typeof(List<Airport>));
+            XmlSerializer serial = new XmlSerializer(typeof(List<Airport>));
             TextWriter stream = new StreamWriter($@"{file}\airports.xml");
             serial.Serialize(stream, objects);
             stream.Close();
         }
         public static List<Airport> LoadAirports()
         {
-            var file = Directory.CreateDirectory(PathToData);
-            XmlSerializer serial = new XmlSerializer(typeof(List<Airport>));
-            StreamReader stream = new StreamReader($@"{file}\airports.xml");
-            List<Airport> loaded = (List<Airport>)serial.Deserialize(stream);
-            stream.Close();
-            return loaded;
+            try
+            {
+                var file = Directory.CreateDirectory(PathToData);
+                XmlSerializer serial = new XmlSerializer(typeof(List<Airport>));
+                StreamReader stream = new StreamReader($@"{file}\airports.xml");
+                List<Airport> loaded = (List<Airport>)serial.Deserialize(stream);
+                stream.Close();
+                return loaded;
+            }
+            catch (FileNotFoundException) { throw new FileNotFoundException("Unable to load Airport file!"); }
         }
         public static List<Airport> LoadAllAirports()
         {
-            var file = PathToTemplates;
-            XmlSerializer serial = new XmlSerializer(typeof(List<Airport>));
-            StreamReader stream = new StreamReader($@"{file}\airports.xml");
-            List<Airport> loaded = (List<Airport>)serial.Deserialize(stream);
-            stream.Close();
-            return loaded;
+            try
+            {
+                var file = PathToTemplates;
+                XmlSerializer serial = new XmlSerializer(typeof(List<Airport>));
+                StreamReader stream = new StreamReader($@"{file}\airports.xml");
+                List<Airport> loaded = (List<Airport>)serial.Deserialize(stream);
+                stream.Close();
+                return loaded;
+            }
+            catch (FileNotFoundException) { throw new FileNotFoundException("Unable to load file!"); }
         }
         public static void SaveFleet(List<Aircraft> objects)
         {
@@ -78,14 +95,21 @@ namespace ClassLibrary
         }
         public static List<Aircraft> LoadFleet()
         {
-            var file = Directory.CreateDirectory(PathToData);
-            XmlSerializer serial = new XmlSerializer(typeof(List<Aircraft>));
-            StreamReader stream = new StreamReader($@"{ file}\aircrafts.xml");
-            List<Aircraft> loaded = (List<Aircraft>)(serial.Deserialize(stream));
-            stream.Close();
-            return loaded;
+            try
+            {
+                var file = Directory.CreateDirectory(PathToData);
+                XmlSerializer serial = new XmlSerializer(typeof(List<Aircraft>));
+                StreamReader stream = new StreamReader($@"{ file}\aircrafts.xml");
+                List<Aircraft> loaded = (List<Aircraft>)(serial.Deserialize(stream));
+                stream.Close();
+                return loaded;
+            }
+            catch (FileNotFoundException)
+            {
+                throw new FileNotFoundException("Unable to load Aircraft file!");
+            }
         }
-        
+
         public static void SaveFlights(List<Flight> objects)
         {
             var file = Directory.CreateDirectory(PathToData);
@@ -96,12 +120,16 @@ namespace ClassLibrary
         }
         public static List<Flight> LoadFlights()
         {
-            var file = Directory.CreateDirectory(PathToData);
-            XmlSerializer serial = new XmlSerializer(typeof(List<Flight>));
-            StreamReader stream = new StreamReader($@"{ file}\flights.xml");
-            List<Flight> loaded = (List<Flight>)(serial.Deserialize(stream));
-            stream.Close();
-            return loaded;
+            try
+            {
+                var file = Directory.CreateDirectory(PathToData);
+                XmlSerializer serial = new XmlSerializer(typeof(List<Flight>));
+                StreamReader stream = new StreamReader($@"{ file}\flights.xml");
+                List<Flight> loaded = (List<Flight>)(serial.Deserialize(stream));
+                stream.Close();
+                return loaded;
+            }
+            catch (FileNotFoundException) { throw new FileNotFoundException("Unable to load Flight file!"); }
         }
     }
 }

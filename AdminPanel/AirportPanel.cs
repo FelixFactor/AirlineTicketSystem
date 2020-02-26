@@ -29,10 +29,10 @@ namespace AdminPanel
             if (CheckCity() && CheckCountry() && CheckShort())//checks for empty TBs and returns error if true!
             {
                 Airport airportNew = new Airport(NextNumber(),
-                                                Utils.UpperCase(textBoxCity.Text),
-                                                Utils.UpperCase(textBoxCountry.Text),
+                                                Usefull.UpperCase(textBoxCity.Text),
+                                                Usefull.UpperCase(textBoxCountry.Text),
                                                 tbShortName.Text.ToUpper(),
-                                                Utils.UpperCase(tbAirportName.Text));
+                                                Usefull.UpperCase(tbAirportName.Text));
 
                 if (AirportExists(airportNew))
                 {
@@ -112,6 +112,11 @@ namespace AdminPanel
         }
 
         // <<<<<<<<<<<<<<<<< EDIT BUTTONS >>>>>>>>>>>>>>>>>>>>>>
+        /// <summary>
+        /// save changes to edited airport
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             Airport local = MatchAirportList((Airport)listBoxAirports.CurrentRow.DataBoundItem);
@@ -119,16 +124,16 @@ namespace AdminPanel
             if (CheckCity() && CheckCountry() && CheckShort())
             {
                 Airport airportNew = new Airport(local.InternId,
-                                                Utils.UpperCase(textBoxCity.Text),
-                                                Utils.UpperCase(textBoxCountry.Text),
+                                                Usefull.UpperCase(textBoxCity.Text),
+                                                Usefull.UpperCase(textBoxCountry.Text),
                                                 tbShortName.Text.ToUpper(),
-                                                Utils.UpperCase(tbAirportName.Text));
+                                                Usefull.UpperCase(tbAirportName.Text));
 
                 if (AirportExists(airportNew))
                 {
-                    local.Name = Utils.UpperCase(tbAirportName.Text);
-                    local.Country = Utils.UpperCase(textBoxCountry.Text);
-                    local.City = Utils.UpperCase(textBoxCity.Text);
+                    local.Name = Usefull.UpperCase(tbAirportName.Text);
+                    local.Country = Usefull.UpperCase(textBoxCountry.Text);
+                    local.City = Usefull.UpperCase(textBoxCity.Text);
                     local.IATA = tbShortName.Text.ToUpper();
                     listBoxAirports.Enabled = true;
                     gbEditor.Visible = false;
@@ -179,7 +184,7 @@ namespace AdminPanel
                 var checkName = Airports.Where(a => a.IATA == airportNew.IATA);//this will check for a repeated IATA code
                 if (checkName.ToList().Count != 0)
                 {
-                    MessageBox.Show($"You already have an Airport connection to {Utils.UpperCase(textBoxCity.Text)}!", "Cannot add Airport!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show($"You already have an Airport connection to {Usefull.UpperCase(textBoxCity.Text)}!", "Cannot add Airport!", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
                 return true;
@@ -216,6 +221,7 @@ namespace AdminPanel
         private void RefreshList()
         {
             listBoxAirports.DataSource = null;
+            //if the list is empty it will not refresh
             if (Airports.Count != 0)
             {
                 btnEdit.Enabled = true;
@@ -228,6 +234,10 @@ namespace AdminPanel
                 btnDelete.Enabled = false;
             }
         }
+        /// <summary>
+        /// generates the error if the city fields is empty
+        /// </summary>
+        /// <returns></returns>
         private bool CheckCity()
         {
             if (!(string.IsNullOrWhiteSpace(textBoxCity.Text)))
@@ -277,11 +287,20 @@ namespace AdminPanel
                 return number;
             }
         }
+        /// <summary>
+        /// searches for airports in a list of all world airports with a user inputed city
+        /// </summary>
+        /// <returns></returns>
         private Task<List<Airport>> GetAirport()
         {
-            var result = AllAirports.Where(a => a.City.StartsWith(Utils.UpperCase(textBoxCity.Text)));
+            var result = AllAirports.Where(a => a.City.StartsWith(Usefull.UpperCase(textBoxCity.Text)));
             return Task.FromResult(result.ToList());
         }
+        /// <summary>
+        /// checks the selected input with the actual list of airports
+        /// </summary>
+        /// <param name="selectedItem"></param>
+        /// <returns></returns>
         private Airport SearchInAll(Airport selectedItem)
         {
             Airport tested = null;
@@ -316,6 +335,7 @@ namespace AdminPanel
             try
             {
                 Airport toAdd = SearchInAll((Airport)ListResults.SelectedItem);
+                textBoxCity.Text = toAdd.City;
                 textBoxCountry.Text = toAdd.Country;
                 tbShortName.Text = toAdd.IATA;
                 tbAirportName.Text = toAdd.Name;

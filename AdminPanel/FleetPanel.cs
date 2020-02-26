@@ -40,8 +40,8 @@ namespace AdminPanel
                                 Manufacturer = manufacturer,
                                 Model = model,
                                 TotalSeats = Convert.ToInt16(tbSeats.Text),
-                                FirstClass = (int)(Convert.ToInt16(tbSeats.Text) * 0.05),
-                                SecondClass = (int)(Convert.ToInt16(tbSeats.Text) * 0.95)
+                                FirstClass = 0,
+                                SecondClass = (int)(Convert.ToInt16(tbSeats.Text))
                             });
                             RefreshList();
                             ClearFields();
@@ -251,10 +251,10 @@ namespace AdminPanel
         }
         private bool CheckEmptySeats()
         {
-            if (!string.IsNullOrWhiteSpace(tbSeats.Text))
-                return true;
-            else
+            if (string.IsNullOrWhiteSpace(tbSeats.Text) || tbSeats.Text == "0")
                 return false;
+           else
+                return true;
         }
 
 
