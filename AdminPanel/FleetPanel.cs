@@ -1,16 +1,16 @@
-﻿using System.Windows.Forms;
-using ClassLibrary;
+﻿using ClassLibrary;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace AdminPanel
 {
     public partial class FleetPanel : UserControl
     {
-        readonly List<Aircraft> Planes;
-        readonly List<Flight> Flights;
-        
+        List<Aircraft> Planes;
+        List<Flight> Flights;
+
         public FleetPanel(List<Aircraft> fleet, List<Flight> flights)
         {
             Flights = flights;
@@ -24,10 +24,12 @@ namespace AdminPanel
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<< BUTTONS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         private void btnAdd_Click(object sender, EventArgs e)
         {
+            //SelectedIndex = -1 is no object and returns error
             if (cboxManufacturer.SelectedIndex != -1)
             {
                 if (cboxModel.SelectedIndex != -1)
                 {
+                    //default number of seats is already inputed, but checks if some funny guy decides to make the Seats field empty or 0
                     if (CheckEmptySeats())
                     {
                         try
@@ -54,19 +56,21 @@ namespace AdminPanel
                     else
                         MessageBox.Show("A plane with 0 seats?!\n Please enter the number of seats!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
-                else 
+                else
                     MessageBox.Show("Please choose a model from the Model's menu!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
             }
-            else 
+            else
                 MessageBox.Show("Please choose a manufacturer from the Manufacturer's menu!", "Something is missing", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-              
+
         }
         private void btnEdit_Click(object sender, EventArgs e)
         {
             try
             {
+                //matches the selected item with the list
                 Aircraft toEdit = CheckPlaneList((Aircraft)DGVFleet.CurrentRow.DataBoundItem);
 
+                //checks if being used to avoid changes during scheduled flight plans
                 if (IsUsed(toEdit))
                 {
                     DGVFleet.Enabled = false;
@@ -80,7 +84,7 @@ namespace AdminPanel
                 else
                     MessageBox.Show($"{toEdit.ToString()} cannot be edited while it has an active flight plan!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            catch (NullReferenceException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -89,7 +93,10 @@ namespace AdminPanel
         {
             try
             {
+                //matches the selected item with the list
                 Aircraft toDelete = CheckPlaneList((Aircraft)DGVFleet.CurrentRow.DataBoundItem);
+
+                //checks usage in flight plans, unables delete if being used
                 if (IsUsed(toDelete))
                 {
                     DialogResult answer;
@@ -117,6 +124,7 @@ namespace AdminPanel
         {
             if (CheckEmptySeats())
             {
+                //doesn't allow the seats to be empty fields
                 if (!string.IsNullOrWhiteSpace(tbExec.Text))
                 {
                     if (!string.IsNullOrWhiteSpace(tbEcon.Text))
@@ -150,7 +158,9 @@ namespace AdminPanel
         private Aircraft CheckPlaneList(Aircraft toCheck)
         {
             Aircraft tested = null;
-            foreach (Aircraft item in Planes)//matches the result from the datagridview to the list
+
+            //matches the result from the datagridview to the list
+            foreach (Aircraft item in Planes)
             {
                 if (item.AircraftID == toCheck.AircraftID)
                 {
@@ -172,11 +182,16 @@ namespace AdminPanel
         {
             List<Flight> Results = CreateResults(isUsed.AircraftID);
 
-            foreach (Flight item in Results)
+            if (Results.Count != 0)
             {
-                if (item.Plane.AircraftID == isUsed.AircraftID)
-                    if(item.EstimatedTimeArrival < DateTime.UtcNow)
-                        return true;
+                foreach (Flight item in Results)
+                {
+                    DateTime test = item.EstimatedTimeArrival;
+                    if (DateTime.UtcNow < test)
+                    {
+                        return false;
+                    }
+                }
             }
             return true;
         }
@@ -185,7 +200,6 @@ namespace AdminPanel
             var result = Flights.Where(f => f.Plane.AircraftID == aircraftID);
             return result.ToList();
         }
-
         private void RefreshList()
         {
             DGVFleet.DataSource = null;
@@ -234,7 +248,7 @@ namespace AdminPanel
             if (Planes.Count != 0)
             {
                 var last = Planes[Planes.Count - 1];
-                return last.AircraftID+1;
+                return last.AircraftID + 1;
             }
             else
             {
@@ -253,13 +267,13 @@ namespace AdminPanel
         {
             if (string.IsNullOrWhiteSpace(tbSeats.Text) || tbSeats.Text == "0")
                 return false;
-           else
+            else
                 return true;
         }
 
 
         //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< EVENTS >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-        
+
         private void tbSeats_Click(object sender, EventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbSeats.Text))
@@ -304,15 +318,15 @@ namespace AdminPanel
         {
             if (string.IsNullOrWhiteSpace(tbExec.Text))
                 tbExec.SelectionStart = 0;
-            else  
-                tbExec.SelectAll(); 
+            else
+                tbExec.SelectAll();
         }
         private void tbEcon_MouseClick(object sender, MouseEventArgs e)
         {
             if (string.IsNullOrWhiteSpace(tbEcon.Text))
                 tbEcon.SelectionStart = 0;
-            else 
-                tbEcon.SelectAll(); 
+            else
+                tbEcon.SelectAll();
         }
     }
 }

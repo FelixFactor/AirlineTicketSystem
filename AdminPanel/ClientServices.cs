@@ -16,6 +16,8 @@ namespace AdminPanel
             InitializeComponent();
             
             btnBooking.Visible = false;
+
+            //first tab to be loaded
             SearchFlight searchFlight = new SearchFlight(FlightsToBook, this);
             AddControls(searchFlight);
             btnSearchFlight.BackColor = SystemColors.Control;

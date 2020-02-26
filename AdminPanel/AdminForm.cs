@@ -9,6 +9,7 @@ namespace AdminPanel
 {
     public partial class AdminForm : Form
     {
+        //the list are created here to be accessed to all methods below
         List<Airport> Locations;
         List<Aircraft> Fleet;
         List<Flight> Flights;
@@ -32,9 +33,10 @@ namespace AdminPanel
             Front = front;
             InitializeComponent();
 
-            
+            //the first panel to be displayed
             FlightPanel flightPanel = new FlightPanel(Flights, Fleet, Locations);
             
+            //displaying method with inputed panel
             AddControls(flightPanel);
             btnFlight.BackColor = SystemColors.Control;
             btnFlight.Enabled = false;
@@ -44,6 +46,7 @@ namespace AdminPanel
         private void AddControls(UserControl panels)
         {
             UserControl toAdd = panels;
+            //the main panel 
             mainpanel.Controls.Clear();
             mainpanel.Controls.Add(toAdd);
         }

@@ -7,7 +7,6 @@ namespace ClassLibrary
     {
         private DateTime _estimatedTimeArrival;
 
-
         public int EntryNumber { get; set; }
         public string FlightNumber { get { return makeId(); } }
         public Airport Origin { get; set; }
@@ -19,22 +18,14 @@ namespace ClassLibrary
             get {return Date.ToShortTimeString(); } 
         }
         public string DepartureDate { get { return Date.ToShortDateString(); } }
-        public DateTime EstimatedTimeArrival 
-        { 
-            get { return _estimatedTimeArrival; } 
-            set {_estimatedTimeArrival = Date.AddHours(FlightDuration()); } 
-        }
+        public DateTime EstimatedTimeArrival { get; set; }
         public List<string> TakenSeats { get; set; }
         public List<Passenger> Tickets { get; set; }
-
 
         private string makeId()
         {
             return $"Flight#{EntryNumber}";
         }
-        private double FlightDuration()
-        {
-            return 4;//TODO check flight duration
-        }
+        
     }
 }

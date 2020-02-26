@@ -15,6 +15,7 @@ namespace ClassLibrary
 
         public static void CheckForFiles()
         {
+            //checks one by one if the directories and files necessary exist, if not creates them
             if (!Directory.Exists(PathToData))
             {
                 Directory.CreateDirectory(PathToData);
@@ -45,6 +46,7 @@ namespace ClassLibrary
         /// <returns></returns>
         public static string CreateDir(string pdfDir)
         {
+            //creates the directory for every flight using the flight number
             if (!Directory.Exists(PathToBoardPass + pdfDir))
             {
                 Directory.CreateDirectory($"{PathToBoardPass}\\{pdfDir}");

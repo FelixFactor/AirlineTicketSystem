@@ -34,11 +34,14 @@ namespace AdminPanel
                                                 tbShortName.Text.ToUpper(),
                                                 Usefull.UpperCase(tbAirportName.Text));
 
+                //checks if there is a airport with the same IATA code
                 if (AirportExists(airportNew))
                 {
                     Airports.Add(airportNew);
                     RefreshList();
                     ClearFields();
+                    //not sure if this is correct but cleans the search list
+                    BtnClean_Click(sender, e);
                 }
             }
         }
@@ -46,6 +49,7 @@ namespace AdminPanel
         {
             try
             {
+                //matches the DGV item with the list of Airports
                 Airport toEdit = MatchAirportList((Airport)listBoxAirports.CurrentRow.DataBoundItem);
                 if (IsUsed(toEdit))
                 {
@@ -69,6 +73,7 @@ namespace AdminPanel
         {
             try
             {
+                //matches the DGV airport with the list of Airports
                 Airport toErase = MatchAirportList((Airport)listBoxAirports.CurrentRow.DataBoundItem);
                 if (IsUsed(toErase))
                 {
@@ -80,7 +85,7 @@ namespace AdminPanel
                         RefreshList();
                     }
                 }
-                else 
+                else //throws error message if the airport is being used in a flight already
                     MessageBox.Show($"{toErase.City} Airport cannot be deleted \nwhile it is an Origin/Destination of a Flight!", "Cannot complete action", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             catch (NullReferenceException)
@@ -92,6 +97,7 @@ namespace AdminPanel
         {
             if (CheckCity())
             {
+                //looks for the city name inputed, in a list of world Airports
                 List<Airport> found = await GetAirport();
 
                 if (found.Count != 0)
@@ -112,11 +118,6 @@ namespace AdminPanel
         }
 
         // <<<<<<<<<<<<<<<<< EDIT BUTTONS >>>>>>>>>>>>>>>>>>>>>>
-        /// <summary>
-        /// save changes to edited airport
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void btnSave_Click(object sender, EventArgs e)
         {
             Airport local = MatchAirportList((Airport)listBoxAirports.CurrentRow.DataBoundItem);
@@ -154,12 +155,13 @@ namespace AdminPanel
 
         //<<<<<<<<<<<<<<<< FUNCTIONS >>>>>>>>>>>>>>>>>
         /// <summary>
-        /// matches objects from the selection with the list
+        /// matches objects from the DGV selection with the list
         /// </summary>
         /// <param name="match"></param>
         /// <returns>returns the object from the list</returns>
         private Airport MatchAirportList(Airport match)
         {
+            //the tested is equaled to null so that it throws a NullReferenceException when the funtion is called and there is no matching Airport
             Airport tested = null;
 
             foreach (Airport port in Airports)
@@ -199,8 +201,10 @@ namespace AdminPanel
         {
             foreach (Flight item in Flights)
             {
+                //checks the flight list to see if the airport is used in a flight, so you don't delete an aiport being used!
                 if (item.Origin.InternId == toEdit.InternId || item.Destination.InternId == toEdit.InternId)
                 {
+                    //if the flight is over it allows to delete the Airport
                     if (item.EstimatedTimeArrival < DateTime.UtcNow)
                     {
                         return true;

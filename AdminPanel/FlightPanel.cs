@@ -203,7 +203,7 @@ namespace AdminPanel
         }
         private void CreateFlight(Airport origin, Airport destination, Aircraft plane, DateTime setDate)
         {
-            Flights.Add(new Flight { EntryNumber = NextNumber(), Origin = origin, Destination = destination, Date = setDate, Plane = plane });
+            Flights.Add(new Flight { EntryNumber = NextNumber(), Origin = origin, Destination = destination, Date = setDate, Plane = plane, EstimatedTimeArrival = setDate.AddHours(4) });
         }
         private void RefreshFlights()
         {
