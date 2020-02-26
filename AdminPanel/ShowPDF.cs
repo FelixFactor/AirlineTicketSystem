@@ -43,7 +43,6 @@ namespace AdminPanel
                 m.From = new MailAddress($"{network[0]}");
                 m.To.Add(new MailAddress(ticket.Email));
                 m.Subject = "Your Boarding Pass";
-                //m.IsBodyHtml = true;
                 m.Body = "Welcome aboard.\nInside you find your boarding pass with all information you need for your flight.\n\nThank you for flying with Fly Hi.";
                 m.Attachments.Add(new Attachment(fileToOpen));
 

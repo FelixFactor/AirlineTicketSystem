@@ -186,8 +186,8 @@ namespace AdminPanel
             {
                 foreach (Flight item in Results)
                 {
-                    DateTime test = item.EstimatedTimeArrival;
-                    if (DateTime.UtcNow < test)
+                    //if the flight is planned no changes can be done to the plane, unless the flight has finished
+                    if (DateTime.UtcNow < item.EstimatedTimeArrival)
                     {
                         return false;
                     }
